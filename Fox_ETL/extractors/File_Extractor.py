@@ -7,6 +7,11 @@ import os
 import shutil
 from pathlib import Path
 import logging
+import sys
+
+# Import config
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import PATHS
 
 logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -20,8 +25,8 @@ def setup_driver():
         return None
 
 def monitor_and_move_file(filename):
-    downloads_path = "/home/darvin/Downloads"
-    target_path = "/home/darvin/Fox_ETL/input"
+    downloads_path = PATHS['downloads_dir']
+    target_path = PATHS['input_dir']
 
     source_file = os.path.join(downloads_path, filename)
     target_file = os.path.join(target_path, filename)
@@ -37,7 +42,7 @@ def monitor_and_move_file(filename):
         return False
 
 def wait_for_download(filename, timeout=60):
-    downloads_path = "/home/darvin/Downloads"
+    downloads_path = PATHS['downloads_dir']
     file_path = os.path.join(downloads_path, filename)
     start_time = time.time()
     
