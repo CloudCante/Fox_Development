@@ -55,7 +55,7 @@ host    all             all             ::1/128                 trust
 
 ### Restart PostgreSQL to apply changes:
 ```cmd
-# Open Services (services.msc) or use Command Prompt:
+# Open Command Prompt:
 net stop postgresql-x64-17
 net start postgresql-x64-17
 ```
