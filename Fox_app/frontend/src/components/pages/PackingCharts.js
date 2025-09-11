@@ -12,7 +12,7 @@ import PackingOutputBarChart from '../charts/PackingOutputBarChart';
 import { ALL_MODELS } from '../../data/dataTables';
 // Custom Hooks
 import { useWeekNavigation } from '../hooks/packingCharts/useWeekNavigation';
-import { usePackingData } from '../hooks/packingCharts/usePackingData';
+import { usePackingChartData } from '../hooks/packingCharts/usePackingChartData';
 import { buttonStyle } from '../theme/themes';
 
 // Configuration Constants
@@ -87,7 +87,7 @@ const PackingCharts = () => {
     weeklyData,
     loadingWeekly,
     errorWeekly
-  } = usePackingData(API_BASE, selectedModels, currentISOWeekStart, WEEKS_TO_SHOW);
+  } = usePackingChartData(API_BASE, selectedModels, currentISOWeekStart, WEEKS_TO_SHOW);
 
   // Event Handlers
   const handleModelChange = (model) => {

@@ -1,3 +1,5 @@
+// Paused development on this page - waiting on clarity on requirements
+
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { Box, Typography, Button, Divider, TextField, useTheme } from '@mui/material';
 import Papa from 'papaparse';
@@ -57,6 +59,10 @@ export const MostRecentFail = () => {
           return;
         }
         try {
+          const passCheckStations = passCheck
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
           // Fetch sn results
             const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
             console.log('>> Request URL:', API_BASE + '/api/testboardRecords/sn-check' + qs);
@@ -67,57 +73,13 @@ export const MostRecentFail = () => {
             '/api/testboardRecords/sn-check',
             {  },
             'POST',
-            { sns,startDate, endDate }
+            { sns,startDate, endDate, passCheck:passCheckStations }
           );
 
           // Store backend query results
           setSnData(backendSnData);
         } catch (err) {
           console.error('Failed to fetch Sn:', err);
-        }
-        try {
-          // Fetch backend Fail results
-            const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
-            console.log('>> Request URL:', API_BASE + '/api/testboardRecords/most-recent-fail' + qs);
-            console.log('>> Request body:', { sns });
-          
-          const backendData = await importQuery(
-            API_BASE,
-            '/api/testboardRecords/most-recent-fail',
-            {  },
-            'POST',
-            { sns,startDate, endDate }
-          );
-
-          // Store backend query results
-          setCodeData(backendData);
-        } catch (err) {
-          console.error('Failed to fetch error codes:', err);
-        }
-        if(passCheck){
-          const passCheckStations = passCheck
-            .split(',')
-            .map(s => s.trim())
-            .filter(Boolean);
-          try {
-            // Fetch backend Pass results
-              const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
-              console.log('>> Request URL:', API_BASE + '/api/testboardRecords/pass-check' + qs);
-              console.log('>> Request body:', { sns });
-            
-            const backendPassData = await importQuery(
-              API_BASE,
-              '/api/testboardRecords/pass-check',
-              {  },
-              'POST',
-              { sns,startDate, endDate, passCheck:passCheckStations }
-            );
-
-            // Store backend query results
-            setPassData(backendPassData);
-          } catch (err) {
-            console.error('Failed to fetch pass check:', err);
-          }
         }
       },
       error: err => console.error('Error parsing CSV:', err)
@@ -261,23 +223,15 @@ export const MostRecentFail = () => {
 
       <Divider />
 
-      {mergedDate.length > 0 ? (
+      {snData.length > 0 ? (
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
             <Typography>Data accepted.</Typography>
-            <Typography>Total SN: {mergedDate.length}</Typography>
-            <Typography>Passed: {mergedDate.filter(i=>i.error_code==="Passed").length}</Typography>
-            <Typography>Failed: {
-              mergedDate.length - 
-              mergedDate.filter(i=>i.error_code==="Missing").length - 
-              mergedDate.filter(i=>i.error_code==="Pending").length - 
-              mergedDate.filter(i=>i.error_code==="Passed").length
-            }</Typography>
-            <Typography>Pending: {mergedDate.filter(i=>i.error_code==="Pending").length}</Typography>
-            <Typography>Missing: {mergedDate.filter(i=>i.error_code==="Missing").length}</Typography>
           </Box>
-          {mergedDate.map(row => (
-              <Typography sx={{backgroundColor:getBG(row['error_code'])}}>{row['sn']}: {row['error_code']}: {row['fail_time']}</Typography>
+          {snData.map(row => (
+              <Typography sx={{}}>
+                {row['sn']}: {row['workstation_name']}: {row['error_code']}: {row['fail_time']}
+              </Typography>
           ))}
         </>
       ) : (

@@ -44,6 +44,11 @@ const MENU_ITEMS = [
   { text: 'Station Performance Charts', icon: <TableChartIcon/>, route: '/station-performance'},
   { text: 'Packing', icon: <Inventory2Icon />, route: '/packing' },
   { text: 'Pareto', icon: <TrendingUpIcon />, route: '/pareto' },
+  { text: 'Fixture Management', icon: <Inventory2Icon />, children:[
+    { text: 'Fixture Dashboard', icon: <GridViewIcon />, route: '/fixture-dash' },
+    { text: 'Fixture Details', icon: <TableChartIcon />, route: '/fixture-details' },
+    { text: 'Fixture Inventory', icon: <TableChartIcon />, route: '/fixture-inventory' },
+  ]},
   { text: 'Station Reports', icon: <GradingIcon />, children:[
     { text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
     { text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' },
@@ -51,19 +56,20 @@ const MENU_ITEMS = [
   { text: 'Performance', icon: <SpeedIcon />, children:[
     { text: 'Quality Control Charts', icon: <SpeedIcon />, route: '/performance' },
     { text: 'Throughput', icon: <TrendingUpIcon />, route: '/throughput' }
-  ]}
+  ]},
   //{ text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' },
-];
-
-const DEV_MENU_ITEMS = [
-  { text: 'File Upload', icon: <CloudUploadIcon />, route: '/dev/upload' },
   { text: 'Auxiliary Reports', icon: <SpeedIcon />, children:[
     { text: 'Station Cycle Time', icon: <AccessTimeIcon />, route: '/cycle-time' },
     { text: 'Most Recent Fail', icon: <AccessTimeIcon />, route: '/most-recent-fail' },
     { text: 'Get by Error', icon: <TableChartIcon />, route: '/by-error' },
-    { text: 'Json to CSV', icon: <TableChartIcon />, route: '/json-to-csv' }
+    { text: 'Json to CSV', icon: <TableChartIcon />, route: '/json-to-csv' },
+    //{ text: 'Did They Fail', icon: <TableChartIcon />, route: '/did-they-fail' },
   ]
   }
+];
+
+const DEV_MENU_ITEMS = [
+  { text: 'File Upload', icon: <CloudUploadIcon />, route: '/dev/upload' }
 ];
 
 const menuIcons = {
@@ -117,9 +123,12 @@ const MenuList = React.memo(({ onClose }) => (
 ));
 
 export const SideDrawer = React.memo(({ open, onClose }) => {
-  const [stationReportsOpen, setStationReportsOpen] = useState(false);
-  const [performanceReportsOpen, setPerformanceReportsOpen] = useState(false);
-  const [auxiliaryReportsOpen, setAuxiliaryReportsOpen] = useState(false);
+  const [openState, setOpenState] = useState({
+    "Station Reports": false,
+    "Performance": false,
+    "Auxiliary Reports": false,
+    "Fixture Management": false,
+  });
   const [isLowEndDevice, setIsLowEndDevice] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -187,12 +196,13 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
         {MENU_ITEMS.map(item => {
           // If it has children, render collapse
           if (item.children) {
-            const isOpen = item.text === 'Station Reports'
-                            ? stationReportsOpen
-                            : performanceReportsOpen;
-            const toggle  = item.text === 'Station Reports'
-                            ? setStationReportsOpen
-                            : setPerformanceReportsOpen;
+            const isOpen = openState[item.text];
+            const toggle  = () => {
+              setOpenState(prev => ({
+                ...prev,
+                [item.text]: !prev[item.text]
+              }));
+            }
             return (
               <React.Fragment key={item.text}>
                 <ListItem disablePadding>
@@ -239,16 +249,13 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
             {DEV_MENU_ITEMS.map(item => {
           // If it has children, render collapse
           if (item.children) {
-            const isOpen = item.text === 'Station Reports'
-                            ? stationReportsOpen
-                            : item.text ==='Performance'
-                            ?performanceReportsOpen
-                            :auxiliaryReportsOpen;
-            const toggle  = item.text === 'Station Reports'
-                            ? setStationReportsOpen
-                            : item.text ==='Performance'
-                            ?setPerformanceReportsOpen
-                            :setAuxiliaryReportsOpen;
+            const isOpen = openState[item.text];
+            const toggle  = () => {
+              setOpenState(prev => ({
+                ...prev,
+                [item.text]: !prev[item.text]
+              }));
+            }
             return (
               <React.Fragment key={item.text}>
                 <ListItem disablePadding>

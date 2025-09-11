@@ -63,7 +63,6 @@ export function TestStationWidget({ widgetId }) {
   const [loading, setLoading] = useState(true);
 
   const latestReqId = useRef(0);
-  const [lastGoodData, setLastGoodData] = useState([]);
 
   // ----------------------------------------------------------
   // Derived values from widget settings (persisted selections)
@@ -103,9 +102,6 @@ export function TestStationWidget({ widgetId }) {
             // accept only the latest inflight request
             if (isMounted && latestReqId.current === reqId) {
               setTestStationData(data);
-              if (Array.isArray(data) && data.length > 0) {
-                setLastGoodData(data);
-              }
             }
           },
           API_BASE,

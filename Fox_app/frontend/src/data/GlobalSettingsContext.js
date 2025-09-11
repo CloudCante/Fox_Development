@@ -13,7 +13,8 @@ const initialState = {
   barLimit: 7,
   widgets: [],
   widgetSettings: {}, // Initialize as empty object, not undefined
-  currentPage: 'dashboard'
+  currentPage: 'dashboard',
+  layoutMode: 'grid' 
 };
 
 function settingsReducer(state, action) {
@@ -80,6 +81,9 @@ function settingsReducer(state, action) {
     
     case 'SET_PAGE':
       return { ...state, currentPage: action.page };
+
+    case 'SET_LAYOUT_MODE':
+      return { ...state, layoutMode: action.mode };
     
     default:
       return state;
@@ -129,7 +133,8 @@ export const GlobalSettingsProvider = ({ children }) => {
         type: w.type,
         position: w.position
       })),
-      widgetSettings: state.widgetSettings // Save widget-specific settings
+      widgetSettings: state.widgetSettings, // Save widget-specific settings
+      layoutMode: state.layoutMode // Save layout mode
     };
     
     persistenceManager.saveLocal(settingsToSave);
