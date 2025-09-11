@@ -14,9 +14,9 @@ This SOP provides step-by-step instructions for setting up the Fox development d
 1. Go to https://www.postgresql.org/download/windows/
 2. Download PostgreSQL 17.x Windows installer
 3. Run the installer as Administrator
-4. **Important**: During installation, set a password for the `postgres` user (you can use a simple password like `postgres`)
-5. **Important**: Note the port number (default is 5432)
-6. **Important**: Note the installation directory (usually `C:\Program Files\PostgreSQL\17\`)
+4. **Important**: Note the installation directory (usually `C:\Program Files\PostgreSQL\17\`)
+5. **Important**: During installation, set a password for the `postgres` user (you can use a simple password like `postgres`)
+6. **Important**: Note the port number (default is 5432)
 
 ### Verify Installation:
 ```cmd
