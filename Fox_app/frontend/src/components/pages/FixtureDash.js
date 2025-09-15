@@ -61,9 +61,22 @@ const FixtureDash = () => {
         {dataKey:'healthKPI', name:'Health KPI', stroke: theme.palette.warning.main, strokeDasharray: '3 4'},
     ];
 
-    // Placeholder current health and usage values
-    const currentHealth = 99;
-    const currentUsage = 75;
+    // Placeholder calculations for current health and usage values
+    const currentHealth = useMemo(() => {
+        if (!Array.isArray(tableData)) return 0;
+        const active = tableData.filter(item => item.status === 'Active');
+        const Partial = tableData.filter(item => item.status === 'Partial');
+        const maintenance = tableData.filter(item => item.status === 'Maintenance');
+        return (((active.length + (Partial.length * 1)) / (tableData.length - maintenance.length)) * 100).toFixed(0);
+    }, [tableData]);
+
+    const currentUsage = useMemo(() => {
+        if (!Array.isArray(tableData)) return 0;
+        const active = tableData.filter(item => item.status === 'Active');
+        const Partial = tableData.filter(item => item.status === 'Partial');
+        const maintenance = tableData.filter(item => item.status === 'Maintenance');
+        return (((active.length + (Partial.length * 0.5)) / (tableData.length - maintenance.length)) * 100).toFixed(0);
+    }, [tableData]);
 
     // Handlers for action buttons - replace with real logic
     const handleOnClick0 = () => {};
@@ -109,7 +122,7 @@ const FixtureDash = () => {
                         <Card>
                             <CardHeader title="Current Usage" />
                             <CardContent>
-                                <Typography align='center' variant="h4" component="div" color={currentUsage > 90 ? 'red' : currentUsage > 75 ? 'orange' : 'green'}>
+                                <Typography align='center' variant="h4" component="div" color={currentUsage > 90 ? 'green' : currentUsage > 75 ? 'orange' : 'red'}>
                                     {currentUsage}%
                                 </Typography>
                             </CardContent>
