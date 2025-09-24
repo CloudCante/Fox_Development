@@ -1,0 +1,748 @@
+Fetched document:
+{
+  "_id": "2025-05-07",
+  "date": "2025-05-07T00:00:00.000Z",
+  "packingOutput": {
+    "totalPacked": 314,
+    "byModel": {
+      "Tesla SXM4": 162,
+      "Tesla SXM5": 152
+    },
+    "byPartNumber": {
+      "Tesla SXM4": {
+        "692-2G506-0210-0R6": {
+          "count": 79,
+          "serialNumbers": [
+            "1653623068950",
+            "1325020019210",
+            "1652022024828",
+            "1653922033996",
+            "1324420059450",
+            "1653922033837",
+            "1561221035326",
+            "1654222015447",
+            "1561021040302",
+            "1652723023770",
+            "1565220005870",
+            "1652522030680",
+            "1561221006757",
+            "1322522055172",
+            "1654123004030",
+            "1653523062384",
+            "1651922018560",
+            "1652723038772",
+            "1563221008836",
+            "1652923007628",
+            "1652423010136",
+            "1652423009457",
+            "1652222007176",
+            "1652622012089",
+            "1322821052560",
+            "1652723031454",
+            "1652723032128",
+            "1652723030339",
+            "1652723036728",
+            "1652723023742",
+            "1652823104583",
+            "1652823108208",
+            "1652823022238",
+            "1323822064959",
+            "1322722015973",
+            "1324122017610",
+            "1652022029704",
+            "1322722016872",
+            "1653023001469",
+            "1322722016978",
+            "1653623061546",
+            "1320723003755",
+            "1322722017547",
+            "1323722070587",
+            "1322722023054",
+            "1651323024998",
+            "1322722017359",
+            "1322722023317",
+            "1324122019583",
+            "1322722016763",
+            "1322722018376",
+            "1322722022928",
+            "1653722014423",
+            "1653722018092",
+            "1651323024893",
+            "1320723006498",
+            "1651522012977",
+            "1323822065432",
+            "1652623013462",
+            "1322722016646",
+            "1322622023823",
+            "1322622084936",
+            "1652523001848",
+            "1652523001827",
+            "1652523001840",
+            "1651123015024",
+            "1652823020121",
+            "1652423010526",
+            "1653823029893",
+            "1652723020250",
+            "1653523067034",
+            "1652723024109",
+            "1653523061711",
+            "1651623007653",
+            "1652523002611",
+            "1652623013833",
+            "1652723020791",
+            "1652723020984",
+            "1652623015962"
+          ]
+        },
+        "692-2G506-0200-0R6": {
+          "count": 76,
+          "serialNumbers": [
+            "1563521017479",
+            "1562021009223",
+            "1322820060277",
+            "1321620036167",
+            "1322220009754",
+            "1321320034248",
+            "1321420076036",
+            "1322620094912",
+            "1322720020861",
+            "1653823036300",
+            "1322420098019",
+            "1324120010252",
+            "1323120021948",
+            "1321022025643",
+            "1321320063288",
+            "1562221002348",
+            "1321120017757",
+            "1323820027813",
+            "1324621077641",
+            "1325120050943",
+            "1322921084707",
+            "1323120058565",
+            "1562021010863",
+            "1564020004167",
+            "1322120078990",
+            "1322820085686",
+            "1321022032135",
+            "1321420029354",
+            "1562021002487",
+            "1322820094375",
+            "1323921065030",
+            "1321620036461",
+            "1323320011092",
+            "1324020044952",
+            "1323620023382",
+            "1322820094494",
+            "1322420089871",
+            "1321420030194",
+            "1322220077359",
+            "1322820105597",
+            "1323120059892",
+            "1321920079763",
+            "1561521040541",
+            "1322220078584",
+            "1323620016213",
+            "1323120059773",
+            "1322420061541",
+            "1322420089087",
+            "1322620037445",
+            "1322520105204",
+            "1321720104191",
+            "1321420073889",
+            "1322320013313",
+            "1322220078221",
+            "1321420029136",
+            "1650322001009",
+            "1323120020245",
+            "1322820060280",
+            "1322520106125",
+            "1323120061569",
+            "1323620024120",
+            "1322220010464",
+            "1322320013849",
+            "1323120058047",
+            "1324520071252",
+            "1321320000764",
+            "1323620015773",
+            "1655221017168",
+            "1562321008410",
+            "1322420089637",
+            "1322820094075",
+            "1324921081836",
+            "1324621074398",
+            "1324120011332",
+            "1322820094889",
+            "1323620024248"
+          ]
+        },
+        "692-2G510-0200-0R0": {
+          "count": 7,
+          "serialNumbers": [
+            "1321622063942",
+            "1321622062421",
+            "1321122031021",
+            "1322222124299",
+            "1322122037657",
+            "1322222130106",
+            "1322022001437"
+          ]
+        }
+      },
+      "Tesla SXM5": {
+        "692-2G520-0200-5R0": {
+          "count": 152,
+          "serialNumbers": [
+            "1650724006854",
+            "1651323012547",
+            "1650623011283",
+            "1651224005750",
+            "1654923016656",
+            "1654823015135",
+            "1651524053484",
+            "1652823013618",
+            "1653023021750",
+            "1654723014546",
+            "1655223004227",
+            "1651923002887",
+            "1654923036419",
+            "1655123013416",
+            "1651923005852",
+            "1654923033960",
+            "1654823040919",
+            "1653723010730",
+            "1650624010141",
+            "1653723011021",
+            "1654123060245",
+            "1654923069423",
+            "1651323001396",
+            "1654423069084",
+            "1650724024752",
+            "1654423053254",
+            "1654523025146",
+            "1655022005409",
+            "1654923018934",
+            "1653723011419",
+            "1655223009338",
+            "1654923037000",
+            "1655023055492",
+            "1654823043153",
+            "1651324041724",
+            "1654223037529",
+            "1650323003972",
+            "1654923024608",
+            "1651823007545",
+            "1651924053022",
+            "1655023012862",
+            "1651823006992",
+            "1654623024879",
+            "1655023012962",
+            "1654223049338",
+            "1652323050276",
+            "1653923051279",
+            "1653823012436",
+            "1655023052052",
+            "1651023033856",
+            "1653023018180",
+            "1650324008678",
+            "1654923068730",
+            "1654123061162",
+            "1655223010110",
+            "1650724013252",
+            "1654923031593",
+            "1650924025244",
+            "1652024020888",
+            "1655123035793",
+            "1654023015333",
+            "1651024014334",
+            "1654123084920",
+            "1654123060603",
+            "1650524069731",
+            "1654823007637",
+            "1655123016928",
+            "1655023033828",
+            "1650124023863",
+            "1655122019992",
+            "1654523033078",
+            "1650924037659",
+            "1652323026515",
+            "1650224054352",
+            "1652024020820",
+            "1652624086086",
+            "1650124005514",
+            "1654223047809",
+            "1654723029191",
+            "1654023008716",
+            "1654123011477",
+            "1654223060018",
+            "1655123010386",
+            "1654523029919",
+            "1654923026429",
+            "1655023058366",
+            "1652724027592",
+            "1650723000218",
+            "1655123022108",
+            "1654723029206",
+            "1655223015816",
+            "1655322018920",
+            "1654023075773",
+            "1654923034768",
+            "1652624083291",
+            "1654923028447",
+            "1655023069224",
+            "1653923068382",
+            "1654923030126",
+            "1654123052444",
+            "1650324072865",
+            "1650724016689",
+            "1652923010251",
+            "1652823007648",
+            "1654123036006",
+            "1654823050001",
+            "1650224071670",
+            "1654923019689",
+            "1654623020684",
+            "1652724132708",
+            "1654423052732",
+            "1651223016630",
+            "1653723008074",
+            "1650924049093",
+            "1650924033076",
+            "1654123039369",
+            "1654923034752",
+            "1651223016228",
+            "1654223060762",
+            "1652723015142",
+            "1652824197471",
+            "1650524019654",
+            "1652024010677",
+            "1654623011822",
+            "1650423006751",
+            "1654723003336",
+            "1652824198007",
+            "1650623009643",
+            "1652624817774",
+            "1655023055359",
+            "1651024056799",
+            "1652723015651",
+            "1654023068928",
+            "1654723017503",
+            "1650124010202",
+            "1652723017195",
+            "1651924032937",
+            "1655123023966",
+            "1654723011634",
+            "1652724045307",
+            "1652724065906",
+            "1652223006422",
+            "1653623059790",
+            "1654723003050",
+            "1652024050608",
+            "1650524009537",
+            "1651124009988",
+            "1653324106811",
+            "1654923033243",
+            "1655123001528",
+            "1651024061705",
+            "1651024004959"
+          ]
+        }
+      }
+    }
+  },
+  "sortCounts": {
+    "byModel": {
+      "Tesla SXM5": 40
+    },
+    "sortCodes": {
+      "520": 40
+    }
+  },
+  "targets": {
+    "dailyTarget": 287,
+    "actualOutput": 314,
+    "dailyHitRate": 109.4
+  },
+  "weeklyContext": {
+    "weekId": "2025-W19",
+    "weekStart": "2025-05-05T00:00:00.000Z",
+    "weekEnd": "2025-05-11T00:00:00.000Z",
+    "weekToDatePacked": 1044,
+    "weeklyTarget": 1150,
+    "weeklyHitRate": 90.8
+  },
+  "summary": {
+    "dailyAverage": 348,
+    "topModel": [
+      "Tesla SXM4",
+      162
+    ],
+    "modelsActive": 2
+  },
+  "generatedAt": "2025-06-12T11:38:51.227Z"
+}
+
+Field types:
+_id: string
+date: object
+packingOutput: object
+packingOutput.totalPacked: number
+packingOutput.byModel: object
+packingOutput.byModel.Tesla SXM4: number
+packingOutput.byModel.Tesla SXM5: number
+packingOutput.byPartNumber: object
+packingOutput.byPartNumber.Tesla SXM4: object
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6: object
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.count: number
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers: Array
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers: Array [length=79]
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[0]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[1]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[2]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[3]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[4]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[5]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[6]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[7]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[8]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[9]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[10]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[11]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[12]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[13]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[14]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[15]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[16]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[17]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[18]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[19]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[20]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[21]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[22]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[23]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[24]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[25]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[26]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[27]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[28]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[29]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[30]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[31]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[32]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[33]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[34]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[35]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[36]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[37]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[38]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[39]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[40]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[41]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[42]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[43]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[44]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[45]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[46]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[47]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[48]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[49]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[50]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[51]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[52]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[53]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[54]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[55]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[56]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[57]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[58]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[59]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[60]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[61]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[62]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[63]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[64]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[65]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[66]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[67]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[68]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[69]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[70]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[71]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[72]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[73]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[74]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[75]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[76]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[77]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0210-0R6.serialNumbers[78]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6: object
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.count: number
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers: Array
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers: Array [length=76]
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[0]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[1]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[2]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[3]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[4]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[5]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[6]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[7]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[8]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[9]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[10]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[11]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[12]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[13]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[14]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[15]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[16]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[17]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[18]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[19]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[20]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[21]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[22]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[23]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[24]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[25]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[26]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[27]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[28]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[29]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[30]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[31]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[32]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[33]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[34]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[35]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[36]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[37]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[38]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[39]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[40]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[41]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[42]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[43]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[44]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[45]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[46]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[47]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[48]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[49]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[50]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[51]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[52]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[53]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[54]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[55]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[56]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[57]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[58]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[59]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[60]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[61]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[62]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[63]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[64]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[65]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[66]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[67]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[68]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[69]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[70]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[71]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[72]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[73]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[74]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G506-0200-0R6.serialNumbers[75]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0: object
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.count: number
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers: Array
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers: Array [length=7]
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers[0]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers[1]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers[2]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers[3]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers[4]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers[5]: string
+packingOutput.byPartNumber.Tesla SXM4.692-2G510-0200-0R0.serialNumbers[6]: string
+packingOutput.byPartNumber.Tesla SXM5: object
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0: object
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.count: number
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers: Array
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers: Array [length=152]
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[0]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[1]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[2]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[3]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[4]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[5]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[6]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[7]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[8]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[9]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[10]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[11]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[12]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[13]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[14]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[15]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[16]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[17]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[18]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[19]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[20]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[21]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[22]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[23]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[24]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[25]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[26]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[27]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[28]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[29]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[30]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[31]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[32]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[33]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[34]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[35]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[36]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[37]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[38]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[39]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[40]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[41]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[42]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[43]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[44]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[45]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[46]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[47]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[48]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[49]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[50]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[51]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[52]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[53]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[54]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[55]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[56]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[57]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[58]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[59]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[60]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[61]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[62]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[63]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[64]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[65]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[66]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[67]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[68]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[69]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[70]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[71]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[72]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[73]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[74]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[75]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[76]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[77]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[78]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[79]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[80]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[81]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[82]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[83]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[84]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[85]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[86]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[87]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[88]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[89]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[90]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[91]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[92]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[93]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[94]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[95]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[96]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[97]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[98]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[99]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[100]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[101]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[102]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[103]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[104]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[105]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[106]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[107]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[108]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[109]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[110]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[111]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[112]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[113]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[114]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[115]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[116]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[117]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[118]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[119]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[120]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[121]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[122]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[123]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[124]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[125]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[126]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[127]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[128]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[129]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[130]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[131]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[132]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[133]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[134]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[135]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[136]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[137]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[138]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[139]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[140]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[141]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[142]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[143]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[144]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[145]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[146]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[147]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[148]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[149]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[150]: string
+packingOutput.byPartNumber.Tesla SXM5.692-2G520-0200-5R0.serialNumbers[151]: string
+sortCounts: object
+sortCounts.byModel: object
+sortCounts.byModel.Tesla SXM5: number
+sortCounts.sortCodes: object
+sortCounts.sortCodes.520: number
+targets: object
+targets.dailyTarget: number
+targets.actualOutput: number
+targets.dailyHitRate: number
+weeklyContext: object
+weeklyContext.weekId: string
+weeklyContext.weekStart: object
+weeklyContext.weekEnd: object
+weeklyContext.weekToDatePacked: number
+weeklyContext.weeklyTarget: number
+weeklyContext.weeklyHitRate: number
+summary: object
+summary.dailyAverage: number
+summary.topModel: Array
+summary.topModel: Array [length=2]
+summary.topModel[0]: string
+summary.topModel[1]: number
+summary.modelsActive: number
+generatedAt: object
