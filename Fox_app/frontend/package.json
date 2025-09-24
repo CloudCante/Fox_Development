@@ -28,7 +28,7 @@
     "@electron-forge/plugin-fuses": "^7.9.0",
     "@electron-forge/plugin-webpack": "^7.9.0",
     "@electron-forge/publisher-github": "^7.9.0",
-    "@electron/fuses": "^2.0.0",
+    "@electron/fuses": "^1.8.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "babel-loader": "^10.0.0",
     "css-loader": "^6.11.0",
@@ -61,7 +61,9 @@
     "react-router-dom": "^7.6.0",
     "react-window": "^1.8.11",
     "recharts": "^2.15.3",
-    "update-electron-app": "^3.1.1"
+    "update-electron-app": "^3.1.1",
+    "xlsx": "^0.18.5",
+    "idb-keyval": "^6.2.1"
   },
   "repository": "github:CloudCante/Fox_app"
 }
