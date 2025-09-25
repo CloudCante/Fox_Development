@@ -1,10 +1,4 @@
-#!/bin/bash
-
-# Test script for GPU Testing Dashboard API
-# This simulates what the testers would do from their bash scripts
-# Uses only curl - no jq required
-
-API_BASE="http://localhost:5000/api/dashboard"
+API_BASE="http://localhost:5000/api/dashboard"    #The testers would point to the VMs IP address
 
 echo "=== Testing GPU Testing Dashboard API ==="
 echo
