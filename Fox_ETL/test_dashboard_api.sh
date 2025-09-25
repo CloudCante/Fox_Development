@@ -2,6 +2,7 @@
 
 # Test script for GPU Testing Dashboard API
 # This simulates what the testers would do from their bash scripts
+# Uses only curl - no jq required
 
 API_BASE="http://localhost:5000/api/dashboard"
 
@@ -10,7 +11,7 @@ echo
 
 # Test 1: Get dashboard status
 echo "1. Testing GET /api/dashboard/status"
-curl -s -X GET "$API_BASE/status" | jq '.'
+curl -s -X GET "$API_BASE/status"
 echo
 echo "---"
 echo
@@ -28,7 +29,7 @@ curl -s -X POST "$API_BASE/fixtures" \
     "ip_address": "192.168.1.100",
     "mac_address": "AA:BB:CC:DD:EE:FF",
     "creator": "test_script"
-  }' | jq '.'
+  }'
 echo
 echo "---"
 echo
@@ -42,7 +43,7 @@ curl -s -X POST "$API_BASE/health" \
     "status": "active",
     "comments": "Test fixture is working properly",
     "creator": "test_script"
-  }' | jq '.'
+  }'
 echo
 echo "---"
 echo
@@ -60,14 +61,14 @@ curl -s -X POST "$API_BASE/usage/start" \
     "gpu_sn": "1234567890123",
     "log_path": "/TESLA/G520/test_log.txt",
     "creator": "test_script"
-  }' | jq '.'
+  }'
 echo
 echo "---"
 echo
 
 # Test 5: Get updated dashboard status
 echo "5. Testing GET /api/dashboard/status (after updates)"
-curl -s -X GET "$API_BASE/status" | jq '.'
+curl -s -X GET "$API_BASE/status"
 echo
 echo "---"
 echo
