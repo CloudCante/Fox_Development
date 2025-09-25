@@ -66,6 +66,9 @@ app.use('/api/workstationRoutes', workstationRouter);
 const testboardRouter = require('./routes/testboardRecords');
 app.use('/api/testboardRecords', testboardRouter);
 
+const dashboardRouter = require('./routes/dashboardRoutes');
+app.use('/api/dashboard', dashboardRouter);
+
 /*#################################################
 #    Optional Route Registration                #
 #    Upload handler is wrapped in try-catch    #
