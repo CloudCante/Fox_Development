@@ -283,4 +283,200 @@ router.post('/fixtures', async (req, res) => {
     }
 });
 
+// GET /api/dashboard/frontend/overview - Frontend-friendly dashboard data
+router.get('/frontend/overview', async (req, res) => {
+    try {
+        // Get summary statistics
+        const statsQuery = `
+            SELECT 
+                COUNT(DISTINCT f.id) as total_fixtures,
+                COUNT(DISTINCT CASE WHEN h.status = 'active' THEN f.id END) as active_fixtures,
+                COUNT(DISTINCT CASE WHEN h.status = 'no_response' THEN f.id END) as offline_fixtures,
+                COUNT(DISTINCT CASE WHEN h.status = 'under_maintenance' THEN f.id END) as maintenance_fixtures,
+                COUNT(DISTINCT u.fixture_id) as fixtures_in_use
+            FROM fixtures f
+            LEFT JOIN LATERAL (
+                SELECT status FROM health h2
+                WHERE h2.fixture_id = f.id
+                ORDER BY h2.create_date DESC
+                LIMIT 1
+            ) h ON true
+            LEFT JOIN usage u ON u.fixture_id = f.id 
+                AND u.create_date >= NOW() - INTERVAL '24 hours'
+        `;
+
+        // Get recent activity (last 10 health updates)
+        const activityQuery = `
+            SELECT 
+                h.primary_key,
+                f.fixture_id,
+                f.tester_type,
+                h.status,
+                h.comments,
+                h.creator,
+                h.create_date
+            FROM health h
+            JOIN fixtures f ON f.id = h.fixture_id
+            ORDER BY h.create_date DESC
+            LIMIT 10
+        `;
+
+        const [statsResult, activityResult] = await Promise.all([
+            pool.query(statsQuery),
+            pool.query(activityQuery)
+        ]);
+
+        res.json({
+            success: true,
+            data: {
+                stats: statsResult.rows[0],
+                recent_activity: activityResult.rows
+            }
+        });
+
+    } catch (error) {
+        console.error('Frontend overview error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch frontend overview',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/dashboard/frontend/fixtures - Get all fixtures with current status
+router.get('/frontend/fixtures', async (req, res) => {
+    try {
+        const query = `
+            SELECT 
+                f.id,
+                f.tester_type,
+                f.fixture_id,
+                f.rack,
+                f.fixture_sn,
+                f.test_type,
+                f.ip_address,
+                f.mac_address,
+                f.parent,
+                h.status as current_status,
+                h.comments as status_comments,
+                h.create_date as last_status_update,
+                CASE 
+                    WHEN u_left.fixture_id IS NOT NULL THEN 'Left'
+                    WHEN u_right.fixture_id IS NOT NULL THEN 'Right'
+                    ELSE 'Idle'
+                END as current_test_slot,
+                COALESCE(u_left.gpu_pn, u_right.gpu_pn) as current_gpu_pn,
+                COALESCE(u_left.gpu_sn, u_right.gpu_sn) as current_gpu_sn,
+                COALESCE(u_left.test_station, u_right.test_station) as current_test_station
+            FROM fixtures f
+            LEFT JOIN LATERAL (
+                SELECT status, comments, create_date
+                FROM health h2
+                WHERE h2.fixture_id = f.id
+                ORDER BY h2.create_date DESC
+                LIMIT 1
+            ) h ON true
+            LEFT JOIN usage u_left ON u_left.fixture_id = f.id 
+                AND u_left.test_slot = 'Left'
+                AND u_left.create_date >= NOW() - INTERVAL '24 hours'
+            LEFT JOIN usage u_right ON u_right.fixture_id = f.id 
+                AND u_right.test_slot = 'Right'
+                AND u_right.create_date >= NOW() - INTERVAL '24 hours'
+            ORDER BY f.rack, f.fixture_id
+        `;
+
+        const result = await pool.query(query);
+
+        res.json({
+            success: true,
+            data: result.rows
+        });
+
+    } catch (error) {
+        console.error('Frontend fixtures error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch fixtures for frontend',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/dashboard/frontend/usage - Get current usage/active tests
+router.get('/frontend/usage', async (req, res) => {
+    try {
+        const query = `
+            SELECT 
+                u.primary_key,
+                u.fixture_id,
+                f.fixture_id as fixture_name,
+                f.tester_type,
+                f.rack,
+                u.test_slot,
+                u.test_station,
+                u.test_type,
+                u.gpu_pn,
+                u.gpu_sn,
+                u.log_path,
+                u.create_date as test_start_time,
+                EXTRACT(EPOCH FROM (NOW() - u.create_date)) as test_duration_seconds
+            FROM usage u
+            JOIN fixtures f ON f.id = u.fixture_id
+            WHERE u.create_date >= NOW() - INTERVAL '24 hours'
+            ORDER BY u.create_date DESC
+        `;
+
+        const result = await pool.query(query);
+
+        res.json({
+            success: true,
+            data: result.rows
+        });
+
+    } catch (error) {
+        console.error('Frontend usage error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch usage data for frontend',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/dashboard/frontend/health-history/:fixture_id - Get health history for a specific fixture
+router.get('/frontend/health-history/:fixture_id', async (req, res) => {
+    try {
+        const { fixture_id } = req.params;
+        
+        const query = `
+            SELECT 
+                h.primary_key,
+                h.status,
+                h.comments,
+                h.creator,
+                h.create_date
+            FROM health h
+            WHERE h.fixture_id = $1
+            ORDER BY h.create_date DESC
+            LIMIT 50
+        `;
+
+        const result = await pool.query(query, [fixture_id]);
+
+        res.json({
+            success: true,
+            data: result.rows
+        });
+
+    } catch (error) {
+        console.error('Health history error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch health history',
+            error: error.message
+        });
+    }
+});
+
 module.exports = router;
