@@ -5,6 +5,7 @@ import { DashboardThemeProvider } from './components/theme/ThemeContext';
 import { SideDrawer } from './components/navigation/SideDrawer';
 import { AppHeader } from './components/navigation/AppHeader';
 import { Dashboard } from './components/dashboard/Dashboard';
+import Home from './components/pages/Home';
 import PackingPage from './components/pages/PackingPage';
 import PerformancePage from './components/pages/PerformancePage';
 import TestStationPerformancePage from './components/pages/TestStationPerformancePage';
@@ -44,9 +45,9 @@ const MainContent = React.memo(({ children }) => {
 });
 
 const AppRoutes = React.memo(() => (
-   <GlobalSettingsProvider>
     <Routes>
       <Route path="/" element={<Dashboard />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/packing" element={<PackingPage />} />
       <Route path="/performance" element={<PerformancePage />} />
       <Route path="/throughput" element={<ThroughputPage />} />
@@ -67,7 +68,6 @@ const AppRoutes = React.memo(() => (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
     </Routes>
-  </GlobalSettingsProvider>
 ));
 
 function App() {
@@ -91,6 +91,7 @@ function App() {
   }, [drawerOpen, isLowEnd]);
 
   return (
+    <GlobalSettingsProvider>
     <DashboardThemeProvider>
       <CssBaseline />
       <Box sx={{ display: 'flex' }}>
@@ -106,6 +107,7 @@ function App() {
         <SimplePerformanceMonitor />
       </Box>
     </DashboardThemeProvider>
+    </GlobalSettingsProvider>
   );
 }
 

@@ -10,7 +10,7 @@ const AppTitle = React.memo(() => {
   const version = window?.electronApp?.getVersion?.() || '0.0.0';
 
   const handleTitleClick = () =>{
-    navigate('/');
+    navigate('/home');
   }
 
   return(
