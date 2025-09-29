@@ -66,6 +66,12 @@ app.use('/api/workstationRoutes', workstationRouter);
 const testboardRouter = require('./routes/testboardRecords');
 app.use('/api/testboardRecords', testboardRouter);
 
+const fixtureMaintenanceRouter = require('./routes/fixtureMaintenanceRoutes');
+app.use('/api/fixtureMaintenance', fixtureMaintenanceRouter);
+
+const fixturesRouter = require('./routes/fixturesRoutes');
+app.use('/api/fixtures', fixturesRouter);
+
 /*#################################################
 #    Optional Route Registration                #
 #    Upload handler is wrapped in try-catch    #
