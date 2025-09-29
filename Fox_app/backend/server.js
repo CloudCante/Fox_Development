@@ -73,6 +73,12 @@ app.use('/api/v1/spc', spcRouter);
 const sqlPortalRouter = require('./routes/sqlPortal');
 app.use('/api/v1/sql-portal', sqlPortalRouter);
 
+const fixtureMaintenanceRouter = require('./routes/fixtureMaintenanceRoutes');
+app.use('/api/fixtureMaintenance', fixtureMaintenanceRouter);
+
+const fixturesRouter = require('./routes/fixturesRoutes');
+app.use('/api/fixtures', fixturesRouter);
+
 /*#################################################
 #    Optional Route Registration                #
 #    Upload handler is wrapped in try-catch    #
