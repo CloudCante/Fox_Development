@@ -47,6 +47,9 @@ app.use('/api/workstationRoutes', workstationRouter);
 const testboardRouter = require('./routes/testboardRecords');
 app.use('/api/testboardRecords', testboardRouter);
 
+const fixturesRouter = require('./routes/fixturesRoutes');
+app.use('/api/v1/fixtures', fixturesRouter);
+
 try {
     const uploadHandlerRouter = require('./routes/uploadHandler');
     app.use('/api/upload', uploadHandlerRouter);

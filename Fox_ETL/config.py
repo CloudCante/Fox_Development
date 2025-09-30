@@ -14,6 +14,6 @@ DATABASE = {
 #Change these to your personal settings
 # Path settings
 PATHS = {
-    'input_dir': '/home/darvin/Fox_ETL/input',
-    'downloads_dir': '/home/darvin/Downloads'
+    'input_dir': r'C:\Users\nickm\OneDrive\Desktop\Projects\Fox_Development\Fox_ETL\input',
+    'downloads_dir': r'c:\Users\nickm\Downloads'
 }
