@@ -38,7 +38,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const MENU_ITEMS = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/' },
+  { text: 'Dashboard', icon: <DashboardIcon />, route: '/quality-dashboard' },
   //{ text: 'Test Reports', icon: <AssessmentIcon />, route: '/test-reports' },
   //{ text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
   { text: 'Station Performance Charts', icon: <TableChartIcon/>, route: '/station-performance'},

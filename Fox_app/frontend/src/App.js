@@ -22,6 +22,7 @@ import DidTheyFail from './components/pages/DidTheyFail';
 import FixtureDash from './components/pages/FixtureDash';
 import FixtureDetails from './components/pages/FixtureDetails';
 import FixtureInventory from './components/pages/FixtureInventory';
+import LandingPage from './components/pages/LandingPage';
 import { SimplePerformanceMonitor } from './components/debug/SimplePerformanceMonitor';
 import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
@@ -46,7 +47,8 @@ const MainContent = React.memo(({ children }) => {
 const AppRoutes = React.memo(() => (
    <GlobalSettingsProvider>
     <Routes>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/quality-dashboard" element={<Dashboard />} />
       <Route path="/packing" element={<PackingPage />} />
       <Route path="/performance" element={<PerformancePage />} />
       <Route path="/throughput" element={<ThroughputPage />} />

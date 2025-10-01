@@ -24,7 +24,7 @@ ChartJS.register(
   Filler
 );
 
-const PChart = ({ 
+const SimplePChart = ({ 
   data = [], 
   title = "P-Chart", 
   subtitle = "",
@@ -208,4 +208,4 @@ const PChart = ({
   );
 };
 
-export default PChart; 
+export default SimplePChart; 
