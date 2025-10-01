@@ -37,17 +37,17 @@ export const Home = () => {
     }
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <Typography variant="h4" sx={{ mb: 2 }}>Select Dashboard Mode</Typography>
+        <Box>
+            <Header title="Foxconn Home" subtitle="Select Dashboard Mode" />
             <Typography variant="body1" sx={{ mb: 4, ml: 2 }}>
-                Choose a mode to customize your dashboard experience. Current mode: <strong>{currentMode}</strong>
+                Choose which dashboard to access. Current mode: <strong>{currentMode}</strong>
             </Typography>
             <Box sx={{ height: 20 }} />
             <Button variant="contained" onClick={() => handleButtonClick('Quality')}>
                 Quality Team Dashboard
             </Button>
             <Button variant="contained" onClick={() => handleButtonClick('TE')}>
-                TE Team Dashboard
+                TE Dashboard
             </Button>
             {process.env.NODE_ENV === 'development' && (
             <Button variant="outlined" onClick={() => handleButtonClick('Dev')}>
