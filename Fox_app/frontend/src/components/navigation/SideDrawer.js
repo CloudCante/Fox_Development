@@ -45,15 +45,7 @@ const MENU_ITEMS_QUALITY = [
     { text: 'Quality Control Charts', icon: <SpeedIcon />, route: '/performance' },
     { text: 'Throughput', icon: <TrendingUpIcon />, route: '/throughput' }
   ]},
-  //{ text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' },
-  { text: 'Auxiliary Reports', icon: <SpeedIcon />, children:[
-    { text: 'Station Cycle Time', icon: <AccessTimeIcon />, route: '/cycle-time' },
-    { text: 'Most Recent Fail', icon: <AccessTimeIcon />, route: '/most-recent-fail' },
-    { text: 'Get by Error', icon: <TableChartIcon />, route: '/by-error' },
-    { text: 'Json to CSV', icon: <TableChartIcon />, route: '/json-to-csv' },
-    { text: 'Did They Fail', icon: <TableChartIcon />, route: '/did-they-fail' },
-  ]
-  }
+  //{ text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' }
 ];
 
 const MENU_ITEMS_TE = [
@@ -66,7 +58,15 @@ const MENU_ITEMS_TE = [
 ];
 
 const DEV_MENU_ITEMS = [
-  { text: 'File Upload', icon: <CloudUploadIcon />, route: '/dev/upload' }
+  { text: 'File Upload', icon: <CloudUploadIcon />, route: '/dev/upload' },
+  { text: 'Auxiliary Reports', icon: <SpeedIcon />, children:[
+    { text: 'Station Cycle Time', icon: <AccessTimeIcon />, route: '/cycle-time' },
+    { text: 'Most Recent Fail', icon: <AccessTimeIcon />, route: '/most-recent-fail' },
+    { text: 'Get by Error', icon: <TableChartIcon />, route: '/by-error' },
+    { text: 'Json to CSV', icon: <TableChartIcon />, route: '/json-to-csv' },
+    { text: 'Did They Fail', icon: <TableChartIcon />, route: '/did-they-fail' },
+  ]
+  }
 ];
 
 const menuIcons = {
@@ -299,9 +299,50 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
                 primaryTypographyProps={{ variant: 'overline', sx: { opacity: 0.7 } }}
               />
             </ListItem>
-            {DEV_MENU_ITEMS.map((item) => (
-              <MenuItem key={item.text} item={item} onClose={onClose} />
-            ))}
+            {DEV_MENU_ITEMS.map((item) => {
+              // If it has children, render collapse
+              if (item.children) {
+                const isOpen = openState[item.text];
+                const toggle  = () => {
+                  setOpenState(prev => ({
+                    ...prev,
+                    [item.text]: !prev[item.text]
+                  }));
+                }
+                return (
+                  <React.Fragment key={item.text}>
+                    <ListItem disablePadding>
+                      <ListItemButton onClick={() => toggle(open => !open)}>
+                        <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
+                        <ListItemText primary={item.text} />
+                        {isOpen ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+                      </ListItemButton>
+                    </ListItem>
+                    <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                      <List component="div" disablePadding>
+                        {item.children.map(child => (
+                          <MenuItem
+                            key={child.text}
+                            item={child}
+                            onClose={onClose}
+                            nested
+                          />
+                        ))}
+                      </List>
+                    </Collapse>
+                  </React.Fragment>
+                );
+              }
+
+              // Otherwise a normal menu item
+              return (
+                <MenuItem
+                  key={item.text}
+                  item={item}
+                  onClose={onClose}
+                />
+              );
+            })}
           </>
         )}
       </List>

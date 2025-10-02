@@ -1,14 +1,12 @@
-// Paused development on this page - waiting on clarity on requirements
-
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { Box, Typography, Button, Divider, TextField, useTheme } from '@mui/material';
 import Papa from 'papaparse';
-import { Header } from '../pagecomp/Header.jsx';
-import { buttonStyle } from '../theme/themes.js';
-import { DateRange } from '../pagecomp/DateRange.jsx';
-import { getInitialStartDate, normalizeDate } from '../../utils/dateUtils.js';
-import { importQuery } from '../../utils/queryUtils.js';
-import { exportSecureCSV } from '../../utils/exportUtils.js';
+import { Header } from '../../pagecomp/Header.jsx';
+import { buttonStyle } from '../../theme/themes.js';
+import { DateRange } from '../../pagecomp/DateRange.jsx';
+import { getInitialStartDate, normalizeDate } from '../../../utils/dateUtils.js';
+import { importQuery } from '../../../utils/queryUtils.js';
+import { exportSecureCSV } from '../../../utils/exportUtils.js';
 
 const API_BASE = process.env.REACT_APP_API_BASE;
 if (!API_BASE) {
@@ -38,6 +36,8 @@ export const MostRecentFail = () => {
   };
 
   const handleFileChange = useCallback(async e => {
+    if(passCheck)console.log('check',passCheck);
+    else console.log("no check");
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -46,6 +46,8 @@ export const MostRecentFail = () => {
       skipEmptyLines: true,
       dynamicTyping: true,
       complete: async results => {
+        console.log('Parsed CSV:', results.data);
+
         // Store raw CSV rows
         setCsvData(results.data);
 
@@ -59,10 +61,6 @@ export const MostRecentFail = () => {
           return;
         }
         try {
-          const passCheckStations = passCheck
-            .split(',')
-            .map(s => s.trim())
-            .filter(Boolean);
           // Fetch sn results
             const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
             console.log('>> Request URL:', API_BASE + '/api/testboardRecords/sn-check' + qs);
@@ -73,13 +71,60 @@ export const MostRecentFail = () => {
             '/api/testboardRecords/sn-check',
             {  },
             'POST',
-            { sns,startDate, endDate, passCheck:passCheckStations }
+            { sns,startDate, endDate }
           );
+          console.log('Backend SN data:', backendSnData);
 
           // Store backend query results
           setSnData(backendSnData);
         } catch (err) {
           console.error('Failed to fetch Sn:', err);
+        }
+        try {
+          // Fetch backend Fail results
+            const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
+            console.log('>> Request URL:', API_BASE + '/api/testboardRecords/most-recent-fail' + qs);
+            console.log('>> Request body:', { sns });
+          
+          const backendData = await importQuery(
+            API_BASE,
+            '/api/testboardRecords/most-recent-fail',
+            {  },
+            'POST',
+            { sns,startDate, endDate }
+          );
+          console.log('Backend Error data:', backendData);
+
+          // Store backend query results
+          setCodeData(backendData);
+        } catch (err) {
+          console.error('Failed to fetch error codes:', err);
+        }
+        if(passCheck){
+          const passCheckStations = passCheck
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
+          try {
+            // Fetch backend Pass results
+              const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
+              console.log('>> Request URL:', API_BASE + '/api/testboardRecords/pass-check' + qs);
+              console.log('>> Request body:', { sns });
+            
+            const backendPassData = await importQuery(
+              API_BASE,
+              '/api/testboardRecords/pass-check',
+              {  },
+              'POST',
+              { sns,startDate, endDate, passCheck:passCheckStations }
+            );
+            console.log('Backend Pass data:', backendPassData);
+
+            // Store backend query results
+            setPassData(backendPassData);
+          } catch (err) {
+            console.error('Failed to fetch pass check:', err);
+          }
         }
       },
       error: err => console.error('Error parsing CSV:', err)
@@ -98,7 +143,7 @@ export const MostRecentFail = () => {
     }catch(err) {
         console.error(err);
         return;}
-   }
+  }
 
   const mergedDate = useMemo(()=>{
     if(!Array.isArray(csvData))return [];
@@ -223,15 +268,23 @@ export const MostRecentFail = () => {
 
       <Divider />
 
-      {snData.length > 0 ? (
+      {mergedDate.length > 0 ? (
         <>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
             <Typography>Data accepted.</Typography>
+            <Typography>Total SN: {mergedDate.length}</Typography>
+            <Typography>Passed: {mergedDate.filter(i=>i.error_code==="Passed").length}</Typography>
+            <Typography>Failed: {
+              mergedDate.length - 
+              mergedDate.filter(i=>i.error_code==="Missing").length - 
+              mergedDate.filter(i=>i.error_code==="Pending").length - 
+              mergedDate.filter(i=>i.error_code==="Passed").length
+            }</Typography>
+            <Typography>Pending: {mergedDate.filter(i=>i.error_code==="Pending").length}</Typography>
+            <Typography>Missing: {mergedDate.filter(i=>i.error_code==="Missing").length}</Typography>
           </Box>
-          {snData.map(row => (
-              <Typography sx={{}}>
-                {row['sn']}: {row['workstation_name']}: {row['error_code']}: {row['fail_time']}
-              </Typography>
+          {mergedDate.map(row => (
+              <Typography sx={{backgroundColor:getBG(row['error_code'])}}>{row['sn']}: {row['error_code']}: {row['fail_time']}</Typography>
           ))}
         </>
       ) : (

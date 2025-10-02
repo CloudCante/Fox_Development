@@ -4,25 +4,30 @@ import { CssBaseline, Box } from '@mui/material';
 import { DashboardThemeProvider } from './components/theme/ThemeContext';
 import { SideDrawer } from './components/navigation/SideDrawer';
 import { AppHeader } from './components/navigation/AppHeader';
-import { Dashboard } from './components/dashboard/Dashboard';
+// Page Components
+import { Dashboard } from './components/pages/Dashboard';
 import Home from './components/pages/Home';
-import PackingPage from './components/pages/PackingPage';
-import PerformancePage from './components/pages/PerformancePage';
-import TestStationPerformancePage from './components/pages/TestStationPerformancePage';
-import ThroughputPage from './components/pages/ThroughputPage';
-import SNFNPage from './components/pages/SNFNPage';
-import PackingCharts from './components/pages/PackingCharts';
-import UploadPage from './components/pages/uploadPage';
-import StationHourlySummaryPage from './components/pages/StationHourlySummaryPage';
-import StationCycleTime from './components/pages/CycleTime';
-import MostRecentFail from './components/pages/MostRecentFail';
-import ParetoPage from './components/pages/ParetoPage';
-import ByErrorCode from './components/pages/ByErrorCode';
-import JsonToCsv from './components/pages/JsonToCSV';
-import DidTheyFail from './components/pages/DidTheyFail';
-import FixtureDash from './components/pages/FixtureDash';
-import FixtureDetails from './components/pages/FixtureDetails';
-import FixtureInventory from './components/pages/FixtureInventory';
+// Quality Pages
+import PackingPage from './components/pages/quality/PackingPage';
+import PerformancePage from './components/pages/quality/performance/PerformancePage';
+import TestStationPerformancePage from './components/pages/quality/TestStationPerformancePage';
+import ThroughputPage from './components/pages/quality/performance/ThroughputPage';
+import SNFNPage from './components/pages/quality/stationReports/SNFNPage';
+import PackingCharts from './components/pages/quality/PackingCharts';
+import UploadPage from './components/pages/dev/uploadPage';
+import StationHourlySummaryPage from './components/pages/quality/stationReports/StationHourlySummaryPage';
+import ParetoPage from './components/pages/quality/ParetoPage';
+// Test Engineer Pages
+import FixtureDash from './components/pages/te/FixtureDash';
+import FixtureDetails from './components/pages/te/FixtureDetails';
+import FixtureInventory from './components/pages/te/FixtureInventory';
+// Dev Pages
+import StationCycleTime from './components/pages/dev/CycleTime';
+import MostRecentFail from './components/pages/dev/MostRecentFail';
+import ByErrorCode from './components/pages/dev/ByErrorCode';
+import JsonToCsv from './components/pages/dev/JsonToCSV';
+import DidTheyFail from './components/pages/dev/DidTheyFail';
+
 import { SimplePerformanceMonitor } from './components/debug/SimplePerformanceMonitor';
 import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
