@@ -1,19 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  styled,
-  ListItemButton,
-  Box,
-  Typography,
-  useTheme,
-  useMediaQuery,
-  Collapse,
-} from '@mui/material';
+import {  Drawer, List, ListItem, ListItemIcon, ListItemText, styled, ListItemButton, Box, 
+  Typography, useTheme, useMediaQuery, Collapse, } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
@@ -27,6 +15,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GradingIcon from '@mui/icons-material/Grading';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { ThemeToggle } from '../theme/ThemeToggle';
+import { GlobalSettingsContext, useGlobalSettings } from '../../data/GlobalSettingsContext';
+
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -37,18 +27,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   marginTop: '40px',
 }));
 
-const MENU_ITEMS = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/' },
+const DASHBOARD_MENU_ITEMS = [
+  { text: 'Dashboard', icon: <DashboardIcon />, route: '/dashboard' }
+];
+
+const MENU_ITEMS_QUALITY = [
   //{ text: 'Test Reports', icon: <AssessmentIcon />, route: '/test-reports' },
   //{ text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
   { text: 'Station Performance Charts', icon: <TableChartIcon/>, route: '/station-performance'},
   { text: 'Packing', icon: <Inventory2Icon />, route: '/packing' },
   { text: 'Pareto', icon: <TrendingUpIcon />, route: '/pareto' },
-  { text: 'Fixture Management', icon: <Inventory2Icon />, children:[
-    { text: 'Fixture Dashboard', icon: <GridViewIcon />, route: '/fixture-dash' },
-    { text: 'Fixture Details', icon: <TableChartIcon />, route: '/fixture-details' },
-    { text: 'Fixture Inventory', icon: <TableChartIcon />, route: '/fixture-inventory' },
-  ]},
   { text: 'Station Reports', icon: <GradingIcon />, children:[
     { text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
     { text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' },
@@ -66,6 +54,15 @@ const MENU_ITEMS = [
     { text: 'Did They Fail', icon: <TableChartIcon />, route: '/did-they-fail' },
   ]
   }
+];
+
+const MENU_ITEMS_TE = [
+  { text: 'Fixture Management', icon: <Inventory2Icon />, children:[
+    { text: 'Fixture Dashboard', icon: <GridViewIcon />, route: '/fixture-dash' },
+    { text: 'Fixture Details', icon: <TableChartIcon />, route: '/fixture-details' },
+    { text: 'Fixture Inventory', icon: <TableChartIcon />, route: '/fixture-inventory' },
+  ]},
+
 ];
 
 const DEV_MENU_ITEMS = [
@@ -100,7 +97,7 @@ const MenuItem = React.memo(function MenuItem({ item, onClose, nested = false })
 
 const MenuList = React.memo(({ onClose }) => (
   <List>
-    {MENU_ITEMS.map((item) => (
+    {MENU_ITEMS_QUALITY.map((item) => (
       <MenuItem key={item.text} item={item} onClose={onClose} />
     ))}
     {process.env.NODE_ENV === 'development' && (
@@ -123,6 +120,10 @@ const MenuList = React.memo(({ onClose }) => (
 ));
 
 export const SideDrawer = React.memo(({ open, onClose }) => {
+  
+  const { state, dispatch } = useGlobalSettings();
+  const { currentMode } = state;
+
   const [openState, setOpenState] = useState({
     "Station Reports": false,
     "Performance": false,
@@ -193,7 +194,59 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
       </DrawerHeader>
 
       <List>
-        {MENU_ITEMS.map(item => {
+        {DASHBOARD_MENU_ITEMS.map(item => (
+          <MenuItem
+            key={item.text}
+            item={item}
+            onClose={onClose}
+          />
+        ))}
+        {(currentMode === "Quality" || currentMode === "Dev") && MENU_ITEMS_QUALITY.map(item => {
+          // If it has children, render collapse
+          if (item.children) {
+            const isOpen = openState[item.text];
+            const toggle  = () => {
+              setOpenState(prev => ({
+                ...prev,
+                [item.text]: !prev[item.text]
+              }));
+            }
+            return (
+              <React.Fragment key={item.text}>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => toggle(open => !open)}>
+                    <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.text} />
+                    {isOpen ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {item.children.map(child => (
+                      <MenuItem
+                        key={child.text}
+                        item={child}
+                        onClose={onClose}
+                        nested
+                      />
+                    ))}
+                  </List>
+                </Collapse>
+              </React.Fragment>
+            );
+          }
+
+          // Otherwise a normal menu item
+          return (
+            <MenuItem
+              key={item.text}
+              item={item}
+              onClose={onClose}
+            />
+          );
+        })}
+
+        {(currentMode === "TE" || currentMode === "Dev") && MENU_ITEMS_TE.map(item => {
           // If it has children, render collapse
           if (item.children) {
             const isOpen = openState[item.text];
