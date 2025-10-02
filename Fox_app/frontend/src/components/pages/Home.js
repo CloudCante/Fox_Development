@@ -1,26 +1,18 @@
 // React Core
 import React, { useMemo, useState, useCallback } from 'react';
 // Material UI Components
-import { Box, Modal, FormControl, Select, MenuItem, InputLabel, Typography, Button, Tabs, Tab, List, ListItem, ListItemText, Checkbox, IconButton } from '@mui/material';
-import { DragIndicator, Delete } from '@mui/icons-material';
+import { Box, Card, CardActionArea, Grid, InputLabel, Typography, Button, Tabs, Tab, List, ListItem, ListItemText, Checkbox, IconButton } from '@mui/material';
 // Third Party Libraries
 import 'react-datepicker/dist/react-datepicker.css';
 
 // Page Components
 import { Header } from '../pagecomp/Header.jsx';
-import { DateRange } from '../pagecomp/DateRange.jsx'
-// Utilities and Helpers
-import { Toolbar } from '../pagecomp/Toolbar.jsx';
-import { WidgetManager } from '../pagecomp/WidgetManager.jsx'
-import { buttonStyle, modalStyle } from '../theme/themes.js';
-// Widgets
-import { widgetList } from '../../data/widgetList.js';
-import { getInitialStartDate, normalizeDate } from '../../utils/dateUtils.js'
-import { useWeekNavigation } from '../hooks/packingCharts/useWeekNavigation.js';
-import { GlobalSettingsContext, useGlobalSettings } from '../../data/GlobalSettingsContext.js';
-
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useNavigate } from 'react-router-dom';
+import { useGlobalSettings } from '../../data/GlobalSettingsContext.js';
+import{
+  Assessment as QualityIcon, 
+  MonitorHeart as TestEngineerIcon
+} from '@mui/icons-material';
 
 export const Home = () => {
     const { state, dispatch } = useGlobalSettings();
@@ -33,7 +25,7 @@ export const Home = () => {
 
     const handleButtonClick = (mode) => {
         handleCurrentModeChange(mode);
-        navigate('/');
+        navigate('/dashboard');
     }
 
     return (
@@ -42,18 +34,82 @@ export const Home = () => {
             <Typography variant="body1" sx={{ mb: 4, ml: 2 }}>
                 Choose which dashboard to access. Current mode: <strong>{currentMode}</strong>
             </Typography>
-            <Box sx={{ height: 20 }} />
-            <Button variant="contained" onClick={() => handleButtonClick('Quality')}>
-                Quality Team Dashboard
-            </Button>
-            <Button variant="contained" onClick={() => handleButtonClick('TE')}>
-                TE Dashboard
-            </Button>
-            {process.env.NODE_ENV === 'development' && (
-            <Button variant="outlined" onClick={() => handleButtonClick('Dev')}>
-                Developer Dashboard
-            </Button>
-            )}   
+            <Grid container spacing={3} justifyContent="center">
+                <Grid >
+                    <Card
+                    sx={{
+                        height: 300,
+                        width: 300,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease-in-out',
+                        '&:hover': {
+                        boxShadow: 4
+                        }
+                    }}
+                    onClick={handleButtonClick.bind(null, 'Quality')}
+                    >
+                    <CardActionArea
+                        sx={{
+                        height: '100%',
+                        p: 3,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                        }}
+                    >
+                        <QualityIcon sx={{ fontSize: 80, color: '#1976d2', mb: 2 }} />
+                        <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom>
+                        Quality Portal
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                        KPI Reports & Analytics
+                        </Typography>
+                    </CardActionArea>
+                    </Card>
+                </Grid>
+
+                <Grid >
+                    <Card
+                    sx={{
+                        height: 300,
+                        width: 300,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease-in-out',
+                        '&:hover': {
+                        boxShadow: 4
+                        }
+                    }}
+                    onClick={handleButtonClick.bind(null, 'TE')}
+                    >
+                    <CardActionArea
+                        sx={{
+                        height: '100%',
+                        p: 3,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                        }}
+                    >
+                        <TestEngineerIcon sx={{ fontSize: 80, color: '#388e3c', mb: 2 }} />
+                        <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom>
+                        Test Engineer Portal
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary">
+                        Real-time Equipment Monitoring
+                        </Typography>
+                    </CardActionArea>
+                    </Card>
+                </Grid>
+                {process.env.NODE_ENV === 'development' && (
+                    <Button variant="outlined" onClick={() => handleButtonClick('Dev')}>
+                        Developer Dashboard
+                    </Button>
+                )}  
+            </Grid> 
         </Box>
     );
 };

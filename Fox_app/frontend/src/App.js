@@ -46,8 +46,8 @@ const MainContent = React.memo(({ children }) => {
 
 const AppRoutes = React.memo(() => (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/" element={<Home />} />
       <Route path="/packing" element={<PackingPage />} />
       <Route path="/performance" element={<PerformancePage />} />
       <Route path="/throughput" element={<ThroughputPage />} />

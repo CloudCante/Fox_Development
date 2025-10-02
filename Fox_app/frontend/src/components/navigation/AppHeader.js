@@ -10,14 +10,14 @@ const AppTitle = React.memo(() => {
   const version = window?.electronApp?.getVersion?.() || '0.0.0';
 
   const handleTitleClick = () =>{
-    navigate('/home');
+    navigate('/');
   }
 
   return(
   <Typography variant="h6" noWrap component="div" onClick={handleTitleClick}
     sx={{cursor:'pointer', WebkitAppRegion:'no-drag', '&:hover':{opacity:0.8}}}
   >
-    Quality Dashboard
+    Fox App
     <Typography component="sub" variant="caption" sx={{ marginLeft: 0.5 }}>
       v{version}
     </Typography>
