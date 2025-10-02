@@ -31,7 +31,7 @@ export const Home = () => {
         <Box>
             <Header title="Foxconn Home" subTitle={`Select Dashboard Mode. Current Mode: ${currentMode}`} />
             <Grid container spacing={3} justifyContent="center">
-                <Grid xs={12} sm={6} md={4} lg={3}>
+                <Grid>
                     <Card sx={cardStyle} onClick={() => handleButtonClick('Quality')}>
                     <CardActionArea sx={cardActionStyle}>
                         <QualityIcon sx={{ fontSize: 80, color: theme.palette.primary.main, mb: 2 }} />
