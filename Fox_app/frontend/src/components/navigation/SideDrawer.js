@@ -27,8 +27,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   marginTop: '40px',
 }));
 
+const DASHBOARD_MENU_ITEMS = [
+  { text: 'Dashboard', icon: <DashboardIcon />, route: '/dashboard' }
+];
+
 const MENU_ITEMS_QUALITY = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/dashboard' },
   //{ text: 'Test Reports', icon: <AssessmentIcon />, route: '/test-reports' },
   //{ text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
   { text: 'Station Performance Charts', icon: <TableChartIcon/>, route: '/station-performance'},
@@ -54,7 +57,6 @@ const MENU_ITEMS_QUALITY = [
 ];
 
 const MENU_ITEMS_TE = [
-  { text: 'Dashboard', icon: <DashboardIcon />, route: '/dashboard' },
   { text: 'Fixture Management', icon: <Inventory2Icon />, children:[
     { text: 'Fixture Dashboard', icon: <GridViewIcon />, route: '/fixture-dash' },
     { text: 'Fixture Details', icon: <TableChartIcon />, route: '/fixture-details' },
@@ -192,6 +194,13 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
       </DrawerHeader>
 
       <List>
+        {DASHBOARD_MENU_ITEMS.map(item => (
+          <MenuItem
+            key={item.text}
+            item={item}
+            onClose={onClose}
+          />
+        ))}
         {(currentMode === "Quality" || currentMode === "Dev") && MENU_ITEMS_QUALITY.map(item => {
           // If it has children, render collapse
           if (item.children) {

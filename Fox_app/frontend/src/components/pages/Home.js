@@ -1,7 +1,7 @@
 // React Core
-import React, { useMemo, useState, useCallback } from 'react';
+import React from 'react';
 // Material UI Components
-import { Box, Card, CardActionArea, Grid, InputLabel, Typography, Button, Tabs, Tab, List, ListItem, ListItemText, Checkbox, IconButton } from '@mui/material';
+import { Box, Card, CardActionArea, Grid, Typography, Button } from '@mui/material';
 // Third Party Libraries
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -13,93 +13,47 @@ import{
   Assessment as QualityIcon, 
   MonitorHeart as TestEngineerIcon
 } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
+import { cardStyle, cardActionStyle } from '../theme/themes.js';
 
 export const Home = () => {
+    const theme = useTheme();
     const { state, dispatch } = useGlobalSettings();
     const { currentMode } = state;
     const navigate = useNavigate();
 
-    const handleCurrentModeChange = (mode) => {
-        dispatch({ type: 'SET_MODE', mode });
-    }
-
     const handleButtonClick = (mode) => {
-        handleCurrentModeChange(mode);
+        dispatch({ type: 'SET_MODE', mode });
         navigate('/dashboard');
     }
 
     return (
         <Box>
-            <Header title="Foxconn Home" subtitle="Select Dashboard Mode" />
-            <Typography variant="body1" sx={{ mb: 4, ml: 2 }}>
-                Choose which dashboard to access. Current mode: <strong>{currentMode}</strong>
-            </Typography>
+            <Header title="Foxconn Home" subTitle={`Select Dashboard Mode. Current Mode: ${currentMode}`} />
             <Grid container spacing={3} justifyContent="center">
-                <Grid >
-                    <Card
-                    sx={{
-                        height: 300,
-                        width: 300,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease-in-out',
-                        '&:hover': {
-                        boxShadow: 4
-                        }
-                    }}
-                    onClick={handleButtonClick.bind(null, 'Quality')}
-                    >
-                    <CardActionArea
-                        sx={{
-                        height: '100%',
-                        p: 3,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        textAlign: 'center'
-                        }}
-                    >
-                        <QualityIcon sx={{ fontSize: 80, color: '#1976d2', mb: 2 }} />
+                <Grid xs={12} sm={6} md={4} lg={3}>
+                    <Card sx={cardStyle} onClick={() => handleButtonClick('Quality')}>
+                    <CardActionArea sx={cardActionStyle}>
+                        <QualityIcon sx={{ fontSize: 80, color: theme.palette.primary.main, mb: 2 }} />
                         <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom>
-                        Quality Portal
+                            Quality Portal
                         </Typography>
                         <Typography variant="body1" color="text.secondary">
-                        KPI Reports & Analytics
+                            KPI Reports & Analytics
                         </Typography>
                     </CardActionArea>
                     </Card>
                 </Grid>
 
                 <Grid >
-                    <Card
-                    sx={{
-                        height: 300,
-                        width: 300,
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease-in-out',
-                        '&:hover': {
-                        boxShadow: 4
-                        }
-                    }}
-                    onClick={handleButtonClick.bind(null, 'TE')}
-                    >
-                    <CardActionArea
-                        sx={{
-                        height: '100%',
-                        p: 3,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        textAlign: 'center'
-                        }}
-                    >
-                        <TestEngineerIcon sx={{ fontSize: 80, color: '#388e3c', mb: 2 }} />
+                    <Card sx={cardStyle} onClick={()=>handleButtonClick('TE')}>
+                    <CardActionArea sx={cardActionStyle}>
+                        <TestEngineerIcon sx={{ fontSize: 80, color: theme.palette.success.main, mb: 2 }} />
                         <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom>
-                        Test Engineer Portal
+                            Test Engineer Portal
                         </Typography>
                         <Typography variant="body1" color="text.secondary">
-                        Real-time Equipment Monitoring
+                            Real-time Equipment Monitoring
                         </Typography>
                     </CardActionArea>
                     </Card>
