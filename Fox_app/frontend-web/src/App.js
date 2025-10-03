@@ -22,10 +22,14 @@ import DidTheyFail from './components/pages/DidTheyFail';
 import FixtureDash from './components/pages/FixtureDash';
 import FixtureDetails from './components/pages/FixtureDetails';
 import FixtureInventory from './components/pages/FixtureInventory';
+import FixtureMaintenance from './components/pages/FixtureMaintenance';
 import { SimplePerformanceMonitor } from './components/debug/SimplePerformanceMonitor';
 import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
 import { GlobalSettingsProvider } from './data/GlobalSettingsContext';
+
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const MainContent = React.memo(({ children }) => {
   const mainContentStyle = useMemo(() => ({ 
@@ -63,6 +67,7 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-dash" element={<FixtureDash/>}/>
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
+      <Route path="/fixture-maintenance" element={<FixtureMaintenance/>}/>
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
@@ -93,18 +98,20 @@ function App() {
   return (
     <DashboardThemeProvider>
       <CssBaseline />
-      <Box sx={{ display: 'flex' }}>
-        <AppHeader onMenuClick={handlersRef.current.toggleDrawer} />
-        {backdrop}
-        <SideDrawer 
-          open={drawerOpen} 
-          onClose={handlersRef.current.closeDrawer} 
-        />
-        <MainContent>
-          <AppRoutes />
-        </MainContent>
-        <SimplePerformanceMonitor />
-      </Box>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Box sx={{ display: 'flex' }}>
+          <AppHeader onMenuClick={handlersRef.current.toggleDrawer} />
+          {backdrop}
+          <SideDrawer 
+            open={drawerOpen} 
+            onClose={handlersRef.current.closeDrawer} 
+          />
+          <MainContent>
+            <AppRoutes />
+          </MainContent>
+          <SimplePerformanceMonitor />
+        </Box>
+      </LocalizationProvider>
     </DashboardThemeProvider>
   );
 }
