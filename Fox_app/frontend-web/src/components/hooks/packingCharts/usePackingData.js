@@ -129,7 +129,7 @@ export function usePackingData(
       : currentISOWeekStart;
     const weekEnd = endOfISOWeek(weekStart);
 
-    fetchPackingRecords(apiBase, '/api/packing/packing-records', weekStart, weekEnd)
+    fetchPackingRecords(apiBase, '/api/v1/packing/packing-records', weekStart, weekEnd)
       .then(apiData => {
         
         const dateMap = processPackingData(apiData, selectedModelsOrModel);
@@ -165,7 +165,7 @@ export function usePackingData(
     const thisWeekStart = startOfISOWeek(today);
     const earliest = subWeeks(thisWeekStart, weeksToShow - 1);
 
-    fetchPackingRecords(apiBase, '/api/packing/packing-records', earliest, thisWeekStart)
+    fetchPackingRecords(apiBase, '/api/v1/packing/packing-records', earliest, thisWeekStart)
       .then(apiData => {
         const dateMap = processPackingData(apiData, selectedModelsOrModel);
         

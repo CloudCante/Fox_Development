@@ -54,7 +54,7 @@ export const ParetoPage = () => {
         key,
         setDataCache: setter,
         API_BASE,
-        API_Route: '/api/snfn/model-errors?'
+        API_Route: '/api/v1/snfn/model-errors?'
       });
 
     const codesSXM4 = () => fetchErrorData({value:'Tesla SXM4',key:'sxm4',setter: setErrorcodeDataSXM4});

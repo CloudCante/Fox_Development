@@ -21,7 +21,7 @@ export const useDashboardData = (API_BASE, startDate, endDate) => {
       key,
       setDataCache: (data) => setState(prev => ({ ...prev, [setter]: data })),
       API_BASE,
-      API_Route: '/api/functional-testing/station-performance?'
+      API_Route: '/api/v1/functional-testing/station-performance?'
     }),
     [startDate, endDate, API_BASE]
   );
@@ -46,7 +46,7 @@ export const useDashboardData = (API_BASE, startDate, endDate) => {
           key: 'fixtures',
           setDataCache: (data) => setState(prev => ({ ...prev, topFixturesData: data })),
           API_BASE,
-          API_Route: '/api/functional-testing/fixture-performance?'
+          API_Route: '/api/v1/functional-testing/fixture-performance?'
         })
       ]);
     } catch (error) {

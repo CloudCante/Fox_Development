@@ -40,7 +40,7 @@ export const ByErrorCode = () => {
                 .filter(Boolean);
             const backendData = importQuery(
                 API_BASE,
-                '/api/testboardRecords/by-error',
+                '/api/v1/testboard-records/by-error',
                 {  },
                 'POST',
                 { checkArray,startDate, endDate, }

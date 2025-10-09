@@ -35,7 +35,7 @@ export const StationCycleTime = () => {
         const sns = results.data.map(r => r.sn).filter(Boolean);
         if (!sns.length) return console.warn('No SNs found in CSV');
         try {
-          const backendData = await importQuery(API_BASE, '/api/workstationRoutes/station-times', {}, 'POST', { sns });
+          const backendData = await importQuery(API_BASE, '/api/v1/workstation-routes/station-times', {}, 'POST', { sns });
           setRawData(backendData);
         } catch (err) {
           console.error('Fetch error:', err);

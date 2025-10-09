@@ -14,7 +14,7 @@ const StationHourlySummaryPage = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`${API_BASE}/api/station-hourly-summary?startDate=${selectedDate}&endDate=${selectedDate}`)
+    fetch(`${API_BASE}/api/v1/station-hourly-summary?startDate=${selectedDate}&endDate=${selectedDate}`)
       .then(res => {
         if (!res.ok) throw new Error(`API error: ${res.status}`);
         return res.json();

@@ -63,12 +63,12 @@ export const MostRecentFail = () => {
         try {
           // Fetch sn results
             const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
-            console.log('>> Request URL:', API_BASE + '/api/testboardRecords/sn-check' + qs);
+            console.log('>> Request URL:', API_BASE + '/api/v1/testboard-records/sn-check' + qs);
             console.log('>> Request body:', { sns });
           
           const backendSnData = await importQuery(
             API_BASE,
-            '/api/testboardRecords/sn-check',
+            '/api/v1/testboard-records/sn-check',
             {  },
             'POST',
             { sns,startDate, endDate }
@@ -83,12 +83,12 @@ export const MostRecentFail = () => {
         try {
           // Fetch backend Fail results
             const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
-            console.log('>> Request URL:', API_BASE + '/api/testboardRecords/most-recent-fail' + qs);
+            console.log('>> Request URL:', API_BASE + '/api/v1/testboard-records/most-recent-fail' + qs);
             console.log('>> Request body:', { sns });
           
           const backendData = await importQuery(
             API_BASE,
-            '/api/testboardRecords/most-recent-fail',
+            '/api/v1/testboard-records/most-recent-fail',
             {  },
             'POST',
             { sns,startDate, endDate }
@@ -108,12 +108,12 @@ export const MostRecentFail = () => {
           try {
             // Fetch backend Pass results
               const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
-              console.log('>> Request URL:', API_BASE + '/api/testboardRecords/pass-check' + qs);
+              console.log('>> Request URL:', API_BASE + '/api/v1/testboard-records/pass-check' + qs);
               console.log('>> Request body:', { sns });
             
             const backendPassData = await importQuery(
               API_BASE,
-              '/api/testboardRecords/pass-check',
+              '/api/v1/testboard-records/pass-check',
               {  },
               'POST',
               { sns,startDate, endDate, passCheck:passCheckStations }
