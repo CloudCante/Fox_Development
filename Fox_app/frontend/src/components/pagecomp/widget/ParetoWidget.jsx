@@ -102,7 +102,7 @@ export function ParetoWidget({ widgetId }) {
             if (isActive) setData(data);
           },
           API_BASE,
-          API_Route: '/api/snfn/model-errors?'
+          API_Route: '/api/v1/snfn/model-errors?'
         });
       } catch (err) {
         console.error('Error fetching data', err);

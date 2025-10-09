@@ -65,12 +65,12 @@ export const MostRecentFail = () => {
             .filter(Boolean);
           // Fetch sn results
             const qs = `?startDate=${encodeURIComponent(startDate.toISOString())}&endDate=${encodeURIComponent(endDate.toISOString())}`;
-            console.log('>> Request URL:', API_BASE + '/api/testboardRecords/sn-check' + qs);
+            console.log('>> Request URL:', API_BASE + '/api/v1/testboard-records/sn-check' + qs);
             console.log('>> Request body:', { sns });
           
           const backendSnData = await importQuery(
             API_BASE,
-            '/api/testboardRecords/sn-check',
+            '/api/v1/testboard-records/sn-check',
             {  },
             'POST',
             { sns,startDate, endDate, passCheck:passCheckStations }

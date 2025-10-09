@@ -55,7 +55,7 @@ export const TestStationPerformancePage = () => {
         key,
         setDataCache: setter,
         API_BASE,
-        API_Route: '/api/functional-testing/station-performance?'
+        API_Route: '/api/v1/functional-testing/station-performance?'
       });
 
     const fetchSXM5 = () => fetchModelData({value:'Tesla SXM5',key:'sxm5',setter: setTestStationDataSXM5});
@@ -69,7 +69,7 @@ export const TestStationPerformancePage = () => {
         key: 'fixtures',
         setDataCache: setTopFixturesData,
         API_BASE,
-        API_Route: '/api/functional-testing/fixture-performance?'
+        API_Route: '/api/v1/functional-testing/fixture-performance?'
       });
 
     // const fetchFailStations = () => {
