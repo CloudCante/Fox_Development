@@ -66,6 +66,9 @@ app.use('/api/workstationRoutes', workstationRouter);
 const testboardRouter = require('./routes/testboardRecords');
 app.use('/api/testboardRecords', testboardRouter);
 
+const spcRouter = require('./routes/spcRoutes');
+app.use('/api/spc', spcRouter);
+
 /*#################################################
 #    Optional Route Registration                #
 #    Upload handler is wrapped in try-catch    #
