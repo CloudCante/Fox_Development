@@ -1,0 +1,31 @@
+INSERT INTO fixtures (id,tester_type, fixture_id, rack, fixture_sn, test_type, ip_address, mac_address, parent, creator, create_date)
+VALUES
+('f81d4fae-7dec-11d0-a765-00a0c91e6bf6','B Tester','NV-NCT01-1','1','AAAAAAAAAA','Refurbish','192.168.102.100','AA:BB:CC:DD',Null,'Nicholas','2025-09-23 16:30:40-07'),
+('1f8a9e2b-3c4f-4e16-9a23-f1d4e6d7b8c9','LA Slot','','1','BBBBBBBBBB','NA','NA','NA','f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Nicholas','2025-09-23 16:30:40-07'),
+('e7d3a210-58bf-49f6-b33b-3b51d1c9a0a4','RA Slot','','1','CCCCCCCCCC','NA','NA','NA','f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Nicholas','2025-09-23 16:30:40-07'),
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','B Tester','NV-NCT02-2','2','DDDDDDDDDD','Refurbish','192.168.102.101','AA:BB:CC:EE',Null,'Nicholas','2025-09-23 16:30:40-07'),
+('92c748e4-d84e-4638-ae21-c43d9b7dc273','LA Slot','','2','EEEEEEEEEE','NA','NA','NA','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Nicholas','2025-09-23 16:30:40-07'),
+('a1b2c3d4-5678-4e2f-91ab-ccddee009988','RA Slot','','2','FFFFFFFFFF','NA','NA','NA','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Nicholas','2025-09-23 16:30:40-07')
+;
+
+
+INSERT INTO health (fixture_name, status, comments, creator, create_date)
+VALUES
+('f81d4fae-7dec-11d0-a765-00a0c91e6bf6', 'active', 'none', 'Nicholas', '2025-09-24 08:26:40-07'),
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a', 'no_response', 'ping timed out', 'Nicholas', '2025-09-24 08:26:40-07'),
+('f81d4fae-7dec-11d0-a765-00a0c91e6bf6', 'no_response', 'ping timed out',  'Nicholas', '2025-09-24 08:26:40-07'),
+('f81d4fae-7dec-11d0-a765-00a0c91e6bf6', 'RMA', 'sent to PW', 'Nicholas', '2025-09-24 08:26:40-07'),
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a', 'under_maintenance', 'something', 'Nick', '2025-09-24 08:26:40-07'),
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a', 'active', 'none', 'Nicholas', '2025-09-24 08:26:40-07')
+;
+
+INSERT INTO usage (fixture_name,test_slot,test_station,test_type,gpu_pn,gpu_sn,log_path,creator,create_date)
+VALUES
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Left','BAT','Refurbish','692-2G520-0200-500','1234567890123','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_1234567890123_P_BAT_','Nicholas','2002-10-03 16:30:40-07'),
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Right','BAT','Refurbish','692-2G520-0200-500','9876543210987','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_9876543210987_P_BAT_','Nicholas','2024-09-23 14:30:40-03'),
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Left','BIT','Refurbish','692-2G520-0200-500','1234567890123','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_1234567890123_P_BIT_','Nicholas','2025-09-24 16:30:40-07'),
+('e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Right','BIT','Refurbish','692-2G520-0200-500','9876543210987','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_9876543210987_P_BIT_','Nicholas','2020-01-13 06:30:40-07'),
+('f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Left','FLB','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLB_','Nicholas','2025-09-23 16:30:40-07'),
+('f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Left','FLA','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLA_','Nicholas','2025-09-23 16:30:40-07'),
+('f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Left','FLC','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLC_','Nicholas','2025-09-23 16:30:40-07')
+;
