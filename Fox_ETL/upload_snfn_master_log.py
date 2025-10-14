@@ -4,6 +4,7 @@ import glob
 import os
 from psycopg2.extras import execute_values
 from datetime import timezone
+<<<<<<< HEAD
 
 def connect_to_db():
     print("Attempting to connect to database...")
@@ -14,6 +15,13 @@ def connect_to_db():
         password="",
         port="5432"
     )
+=======
+from config import DATABASE
+
+def connect_to_db():
+    print("Attempting to connect to database...")
+    return psycopg2.connect(**DATABASE)
+>>>>>>> origin/main
 
 def create_snfn_table(conn):
     print("Creating/verifying snfn table...")

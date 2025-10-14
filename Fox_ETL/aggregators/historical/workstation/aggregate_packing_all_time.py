@@ -1,6 +1,7 @@
 import psycopg2
 from psycopg2.extras import execute_values
 from datetime import datetime, timedelta
+<<<<<<< HEAD
 
 DB_CONFIG = {
     'host': 'localhost',
@@ -9,6 +10,12 @@ DB_CONFIG = {
     'password': '',
     'port': '5432'
 }
+=======
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+from config import DATABASE
+>>>>>>> origin/main
 
 CREATE_TABLE_SQL = '''
 CREATE TABLE IF NOT EXISTS packing_daily_summary (
@@ -51,7 +58,11 @@ ON CONFLICT (pack_date, model, part_number) DO UPDATE SET
 '''
 
 def main():
+<<<<<<< HEAD
     conn = psycopg2.connect(**DB_CONFIG)
+=======
+    conn = psycopg2.connect(**DATABASE)
+>>>>>>> origin/main
     try:
         with conn.cursor() as cur:
             print("Creating packing_daily_summary table with primary key if not exists...")

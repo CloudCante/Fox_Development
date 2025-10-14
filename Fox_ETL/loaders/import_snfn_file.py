@@ -9,6 +9,7 @@ import pandas as pd
 import psycopg2
 import math
 
+<<<<<<< HEAD
 def connect_to_db():
     return psycopg2.connect(
         host="localhost",
@@ -17,6 +18,14 @@ def connect_to_db():
         password="",
         port="5432"
     )
+=======
+# Add the parent directory to the path to import config
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATABASE
+
+def connect_to_db():
+    return psycopg2.connect(**DATABASE)
+>>>>>>> origin/main
 
 def clean_column_name(col_name):
     return col_name.lower().replace(' ', '_').replace('-', '_')
