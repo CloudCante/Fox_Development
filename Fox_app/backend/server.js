@@ -70,6 +70,9 @@ app.use('/api/v1/testboard-records', testboardRouter);  // Renamed from testboar
 const spcRouter = require('./routes/spcRoutes');
 app.use('/api/v1/spc', spcRouter);
 
+const sqlPortalRouter = require('./routes/sqlPortal');
+app.use('/api/v1/sql-portal', sqlPortalRouter);
+
 /*#################################################
 #    Optional Route Registration                #
 #    Upload handler is wrapped in try-catch    #
