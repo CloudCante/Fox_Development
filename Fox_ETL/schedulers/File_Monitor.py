@@ -90,14 +90,17 @@ def process_file(file_path, script_path, file_type):
         
         logger.info(f"Importing {file_type} data using {os.path.basename(script_path)}...")
         
-        cmd = ['python3', script_path, xlsx_file_path]
+        # Use relative path so the script runs correctly from the Fox_ETL directory
+        script_name = os.path.basename(script_path)
+        cmd = ['python3', f'loaders/{script_name}', xlsx_file_path]
         logger.info(f"Running command: {' '.join(cmd)}")
         
         result = subprocess.run(
             cmd,
             capture_output=True,
             text=True,
-            timeout=300
+            timeout=300,
+            cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         )
         
         if result.returncode == 0:

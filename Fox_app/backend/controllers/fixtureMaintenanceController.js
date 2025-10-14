@@ -2,16 +2,11 @@
 const { pool } = require('../db.js');
 
 // Class for handling fixtures
-class fixturesController {
+class fixtureMaintenanceController {
     // Function to GET all the fixtures 
-    static getAllFixtures = async (req, res) => {
+    static getAllMaintenances = async (req, res) => {
         try {
-            const result = await pool.query(`
-                SELECT * 
-                FROM fixtures 
-                WHERE tester_type = 'B Tester'
-                ORDER BY fixture_id ASC
-                `);
+            const result = await pool.query('SELECT * FROM fixture_maintenance');
             res.json(result.rows);
         } catch (error) {
             console.error('Database error:', error);
@@ -19,14 +14,14 @@ class fixturesController {
         }
     }
     // Function to GET a fixture by it's id
-    static getFixtureById = async (req, res) => {
+    static getMaintenanceById = async (req, res) => {
         try{
             if (!req.params.id) return res.status(400).json({ error: 'Missing required query parameters: id' });
             
             let params = [req.params.id];
             let query = `
                 SELECT *
-                FROM fixtures
+                FROM fixture_maintenance
                 WHERE fixture_id = $1
                 `;
             
@@ -38,7 +33,7 @@ class fixturesController {
         }
     }
     // POST function to create maintenance event
-    static postFixtureById = async (req, res) => {
+    static postMaintenanceById = async (req, res) => {
         try{
             if (!req.params.id) return res.status(400).json({ error: 'Missing required query parameters: id' });
             const fixtureId = parseInt(req.params.id);
@@ -68,7 +63,7 @@ class fixturesController {
 
             let params = [fixtureId];
             let query = `
-                INSERT INTO fixtures(fixture_id,${formattedKeys})
+                INSERT INTO fixture_maintenance(fixture_id,${formattedKeys})
 	            VALUES ($1,${formattedValues})
                 RETURNING *
                 `;
@@ -82,7 +77,7 @@ class fixturesController {
         }
     }
     // PUT function to update maintenance event by id
-    static putFixtureById = async (req, res) => {
+    static putMaintenanceById = async (req, res) => {
         try{
             if (!req.params.id) return res.status(400).json({ error: 'Missing required query parameters: id' });
             
@@ -109,7 +104,7 @@ class fixturesController {
 
             let params = [fixtureId];
             let query = `
-                UPDATE fixtures
+                UPDATE fixture_maintenance 
                 SET 
                     ${formattedString}
                 WHERE fixture_id = $1
@@ -125,13 +120,13 @@ class fixturesController {
         }
     }    
     // DELETE function to remove maintenance by id
-    static deleteFixtureById = async (req, res) => {
+    static deleteMaintenanceById = async (req, res) => {
         try{
             if (!req.params.id) return res.status(400).json({ error: 'Missing required query parameters: id' });
             
             let params = [req.params.id];
             let query = `
-                DELETE FROM fixtures
+                DELETE FROM fixture_maintenance 
                 WHERE fixture_id = $1
                 RETURNING *
                 `;
@@ -147,4 +142,4 @@ class fixturesController {
 
 }
 
-module.exports = fixturesController;
+module.exports = fixtureMaintenanceController;

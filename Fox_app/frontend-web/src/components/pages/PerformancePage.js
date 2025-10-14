@@ -176,7 +176,7 @@ const PerformancePage = () => {
       if (model) params.append('model', model);
       if (workstation) params.append('workstation', workstation);
 
-      const response = await fetch(`${API_BASE}/api/pchart/filters?${params.toString()}`);
+      const response = await fetch(`${API_BASE}/api/v1/pchart/filters?${params.toString()}`);
       
       if (!response.ok) {
         throw new Error(`Filter API error: ${response.status}`);
@@ -231,7 +231,7 @@ const PerformancePage = () => {
       if (serviceFlow) params.append('serviceFlow', serviceFlow);
       if (partNumber) params.append('pn', partNumber);
 
-      const response = await fetch(`${API_BASE}/api/pchart/data?${params.toString()}`);
+      const response = await fetch(`${API_BASE}/api/v1/pchart/data?${params.toString()}`);
       
       if (!response.ok) {
         const errorData = await response.json();

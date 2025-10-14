@@ -9,7 +9,14 @@ from datetime import datetime
 import pandas as pd
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+# Add Fox_ETL directory to path to find config.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+while current_dir != '/':
+    config_path = os.path.join(current_dir, 'config.py')
+    if os.path.exists(config_path):
+        sys.path.insert(0, current_dir)
+        break
+    current_dir = os.path.dirname(current_dir)
 from config import DATABASE
 
 # Setup simple console logging

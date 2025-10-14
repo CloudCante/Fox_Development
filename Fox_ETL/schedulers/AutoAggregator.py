@@ -73,11 +73,11 @@ class ScriptOrchestrator:
             logging.info(f"Starting {category} script: {script_path.name}")
             start_time = datetime.now()
             
-            # Run the script in its own directory
+            # Run the script from the Fox_ETL directory so it can find config.py
             subprocess.run(
                 ['python', str(script_path)],
                 check=True,
-                cwd=script_path.parent  # Set working directory to script's directory
+                cwd=self.scheduler_dir.parent  # Set working directory to Fox_ETL
             )
             
             end_time = datetime.now()

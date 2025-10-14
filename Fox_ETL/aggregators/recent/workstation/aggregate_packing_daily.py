@@ -3,18 +3,16 @@ import psycopg2
 from psycopg2.extras import execute_values
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
-from config import DATABASE
+# Add Fox_ETL directory to path to find config.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+while current_dir != '/':
+    config_path = os.path.join(current_dir, 'config.py')
+    if os.path.exists(config_path):
+        sys.path.insert(0, current_dir)
+        break
+    current_dir = os.path.dirname(current_dir)
 
-CREATE_TABLE_SQL = '''
-CREATE TABLE IF NOT EXISTS packing_daily_summary (
-    pack_date DATE NOT NULL,
-    model TEXT NOT NULL,
-    part_number TEXT NOT NULL,
-    packed_count INTEGER NOT NULL,
-    PRIMARY KEY (pack_date, model, part_number)
-);
-'''
+from config import DATABASE
 
 TRUNCATE_TABLE_SQL = 'TRUNCATE TABLE packing_daily_summary;'
 

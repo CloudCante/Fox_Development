@@ -56,7 +56,7 @@ export function FixtureStationWidget({ widgetId }) {
             if (isActive) setFixtureData(data);
           },
           API_BASE,
-          API_Route: '/api/functional-testing/fixture-performance?'
+          API_Route: '/api/v1/functional-testing/fixture-performance?'
         });
       } catch (err) {
         console.error('Error fetching data', err);

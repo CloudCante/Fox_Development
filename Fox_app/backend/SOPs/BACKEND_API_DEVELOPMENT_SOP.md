@@ -33,8 +33,10 @@ Fox_app/backend/
 
 ### How Routes Work
 - Each route file contains multiple API endpoints
-- Routes are registered in `server.js` with a base path
-- Full URL = Base Path + Endpoint (e.g., `/api/functional-testing` + `/station-performance`)
+- Routes are registered in `server.js` with a versioned base path
+- **API Version**: All routes use `/api/v1/` prefix for versioning
+- Full URL = Version + Base Path + Endpoint (e.g., `/api/v1/functional-testing` + `/station-performance`)
+- This allows future API changes without breaking existing integrations
 
 ## Creating a New Route File
 
@@ -55,6 +57,7 @@ const { pool } = require('../db.js');
 #    This is where you put your API endpoints   #  
 #    Each endpoint handles a specific request   #
 #    and returns data to the frontend           #
+#    All endpoints are accessed via /api/v1/   #
 #################################################
 
 module.exports = router;
@@ -68,7 +71,7 @@ const router = express.Router();
 const { pool } = require('../db.js');
 
 #################################################
-#    GET /api/my-route/endpoint-name           #
+#    GET /api/v1/my-route/endpoint-name        #
 #    Description: What this endpoint does      #
 #    Parameters: startDate, endDate, model     #
 #    Returns: JSON array of data               #
@@ -124,15 +127,19 @@ Add these lines to `server.js` in the route registration section:
 #    Register your new route file here         #
 #    This connects your route to the server    #
 #    and makes it accessible via HTTP          #
+#    IMPORTANT: Always use /api/v1/ prefix     #
+#    Use kebab-case for route names            #
 #################################################
 const myNewRouter = require('./routes/myNewRoute');
-app.use('/api/my-route', myNewRouter);
+app.use('/api/v1/my-route', myNewRouter);  // Note: /api/v1/ prefix required
 ```
 
 ### Step 5: Test Your New Route
 
 Your new endpoint will be available at:
-`http://localhost:5000/api/my-route/endpoint-name?startDate=2025-01-01&endDate=2025-01-31&model=TestModel`
+`http://localhost:5000/api/v1/my-route/endpoint-name?startDate=2025-01-01&endDate=2025-01-31&model=TestModel`
+
+**Note**: All API endpoints **must** include the `/api/v1/` prefix.
 
 ## Adding Endpoints to Existing Routes
 
@@ -146,12 +153,12 @@ Add your new endpoint before the `module.exports = router;` line:
 
 ```javascript
 #################################################
-#    GET /api/existing-route/new-endpoint      #
+#    GET /api/v1/existing-route/new-endpoint   #
 #    Description: What this new endpoint does  #
 #    Parameters: param1, param2, param3        #
 #    Returns: JSON object with processed data  #
 #################################################
-router.get('/new-endpoint', async (req, res) => {
+router.get('/api/v1/new-endpoint', async (req, res) => {
     try {
         // Extract and validate parameters
         const { param1, param2, param3 } = req.query;
@@ -197,7 +204,7 @@ module.exports = router;
 ### Step 3: Test Your New Endpoint
 
 Your new endpoint will be available at:
-`http://localhost:5000/api/existing-route/new-endpoint?param1=value1&param2=value2`
+`http://localhost:5000/api/v1/existing-route/new-endpoint?param1=value1&param2=value2`
 
 ## Database Connection Patterns
 
@@ -400,26 +407,26 @@ npm start
 
 ```bash
 # Test GET endpoint
-curl "http://localhost:5000/api/your-route/endpoint?startDate=2025-01-01&endDate=2025-01-31&model=TestModel"
+curl "http://localhost:5000/api/v1/your-route/endpoint?startDate=2025-01-01&endDate=2025-01-31&model=TestModel"
 
 # Test with different parameters
-curl "http://localhost:5000/api/your-route/endpoint?startDate=2025-02-01&endDate=2025-02-28&model=AnotherModel"
+curl "http://localhost:5000/api/v1/your-route/endpoint?startDate=2025-02-01&endDate=2025-02-28&model=AnotherModel"
 ```
 
 ### Step 3: Test Error Handling
 
 ```bash
 # Test missing parameters
-curl "http://localhost:5000/api/your-route/endpoint"
+curl "http://localhost:5000/api/v1/your-route/endpoint"
 
 # Test invalid parameters
-curl "http://localhost:5000/api/your-route/endpoint?startDate=invalid&endDate=2025-01-31&model=TestModel"
+curl "http://localhost:5000/api/v1/your-route/endpoint?startDate=invalid&endDate=2025-01-31&model=TestModel"
 ```
 
 ### Step 4: Test in Browser
 
 Open your browser and navigate to:
-`http://localhost:5000/api/your-route/endpoint?startDate=2025-01-01&endDate=2025-01-31&model=TestModel`
+`http://localhost:5000/api/v1/your-route/endpoint?startDate=2025-01-01&endDate=2025-01-31&model=TestModel`
 
 ## Troubleshooting
 

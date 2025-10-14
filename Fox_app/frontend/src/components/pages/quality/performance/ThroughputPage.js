@@ -114,7 +114,7 @@ const ThroughputPage = () => {
     try {
       // Always fetch the most recent week by default
       // First, get all available weeks
-      const allWeeksResponse = await fetch(`${API_BASE}/api/tpy/weekly?startWeek=1900-W01&endWeek=2100-W99`);
+      const allWeeksResponse = await fetch(`${API_BASE}/api/v1/tpy/weekly?startWeek=1900-W01&endWeek=2100-W99`);
       if (!allWeeksResponse.ok) {
         throw new Error(`Weekly metrics API error: ${allWeeksResponse.status}`);
       }
@@ -145,7 +145,7 @@ const ThroughputPage = () => {
         return;
       }
       // Fetch only the selected week
-      const weeklyResponse = await fetch(`${API_BASE}/api/tpy/weekly?startWeek=${currentSelectedWeek}&endWeek=${currentSelectedWeek}`);
+      const weeklyResponse = await fetch(`${API_BASE}/api/v1/tpy/weekly?startWeek=${currentSelectedWeek}&endWeek=${currentSelectedWeek}`);
       if (!weeklyResponse.ok) {
         throw new Error(`Weekly metrics API error: ${weeklyResponse.status}`);
       }
@@ -163,7 +163,7 @@ const ThroughputPage = () => {
         const startDate = new Date(weekData.weekStart).toISOString().split('T')[0];
         const endDate = new Date(weekData.weekEnd).toISOString().split('T')[0];
         
-        const dailyResponse = await fetch(`${API_BASE}/api/tpy/daily?startDate=${startDate}&endDate=${endDate}`);
+        const dailyResponse = await fetch(`${API_BASE}/api/v1/tpy/daily?startDate=${startDate}&endDate=${endDate}`);
         if (!dailyResponse.ok) {
           throw new Error(`Daily metrics API error: ${dailyResponse.status}`);
         }
