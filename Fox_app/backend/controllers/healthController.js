@@ -10,7 +10,7 @@ class healthController {
     //READ all health
     static async getAllHealth(req, res) {
         try {
-            const query = 'SELECT * FROM health ORDER BY fixture_id ASC;';
+            const query = 'SELECT * FROM health ORDER BY id ASC;';
             const result = await pool.query(query);
             res.json(result.rows);
         }
@@ -26,30 +26,33 @@ class healthController {
 
     static async getHealthById(req, res) {
         try {
-            const id = parseInt(req.params.fixture_id, 10);
-            if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            const id = req.params.id;
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            }
+            
+            const query = 'SELECT * FROM health WHERE id = $1';
 
-                const query = 'SELECT * FROM health WHERE fixture_id = $1';
-
-                const result = await pool.query(query, [id]);
-                if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
-                res.json(result.rows[0]);
+            const result = await pool.query(query, [id]);
+            if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
+            res.json(result.rows[0]);
         } 
         catch (error) {
             console.error('Database error (getHealthById):', error);
             res.status(500).json({ error: 'Database query failed' });
         }
-        }
+    }
 
     //CREATE Health
 
     static async postHealth(req, res) {
          try {
             //allowed fields
-            const allowed = ['fixture_id', 'status', 'comments', 'creator'];
+            const allowed = ['fixture_name', 'status', 'comments', 'creator'];
 
             //required fields
-            const required = ['fixture_id'];
+            const required = ['fixture_name'];
             //check for missing required fields
             const missing = required.filter(field => !Object.prototype.hasOwnProperty.call(req.body, field));
                 if (missing.length > 0) {
@@ -93,17 +96,21 @@ class healthController {
             console.error('Database error:', error);
             res.status(500).json({ error: 'Database create failed' });
         }
-        }
+    }
     
      
-    // UPDATE Fixtures allowing partial updates should be PATCH
+    // UPDATE Fixture Health allowing partial updates should be PATCH
     static async updateHealth(req, res) {
         try {
-            const id = parseInt(req.params.primary_key, 10);
-            if (Number.isNaN(id)) {
-                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
-            }
-            const allowed = ['fixture_id', 'status', 'comments', 'creator',];
+           const id = req.params.id;
+
+           const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+                }
+        
+            const allowed = ['fixture_name', 'status', 'comments', 'creator',];
 
             const setClauses = [];
             const values = [];
@@ -127,7 +134,7 @@ class healthController {
             const query = `
                 UPDATE health
                 SET ${setClauses.join(', ')}
-                WHERE primary_key = $${paramIndex}
+                WHERE id = $${paramIndex}
                 RETURNING *;
             `;
 
@@ -135,32 +142,39 @@ class healthController {
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: `No fixture health found with id: ${id}` });
             }
-            res.json('Sussessfully updated fixture health with id: ' + id + '. Updated row: ' + result.rows[0]);
+            res.json(`Successfully updated fixture health with id: ${id}. Updated row: ` + result.rows[0]);
           
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Database error:', error);
             res.status(500).json({ error: 'Database update failed' });
         }
     }
+
     // DELETE Health
     static async deleteHealth(req, res) {
         try {
-            const id = parseInt(req.params.primary_key, 10);
-            if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
-            const query = 'DELETE FROM health WHERE primary_key = $1 RETURNING *;';
+            const id = req.params.id;
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+            if (!uuidRegex.test(id))  return res.status(400).json({ error: 'Invalid or missing id parameter' });
+        
+            const query = 'DELETE FROM health WHERE id = $1 RETURNING *;';
             const values = [id];
             const result = await pool.query(query, values);
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: `No fixture health found with id: ${id}` });
             }
             else {
-                res.json({ message: `Fixture Health with primary_key: ${id} deleted successfully.`, deletedRow: result.rows[0] });
+                res.json({ message: `Fixture Health with id: ${id} deleted successfully.`, deletedRow: result.rows[0] });
             }
         }
          catch (error) {
                 console.error('Database error (deleteHealth):', error);
                 res.status(500).json({ error: 'Database delete failed' });
-            }
+        }
+
     }
 }
+    
     module.exports = healthController;

@@ -10,7 +10,7 @@ class usageController {
     //READ all usage
     static async getAllUsage(req, res) {
         try {
-            const query = 'SELECT * FROM usage ORDER BY fixture_id ASC;';
+            const query = 'SELECT * FROM usage ORDER BY id ASC;';
             const result = await pool.query(query);
             res.json(result.rows);
         }
@@ -26,10 +26,14 @@ class usageController {
 
     static async getUsageById(req, res) {
         try {
-            const id = parseInt(req.params.fixture_id, 10);
-            if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
+                const id = req.params.id;
+                const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+                if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+             }
+        
 
-                const query = 'SELECT * FROM usage WHERE fixture_id = $1';
+                const query = 'SELECT * FROM usage WHERE id = $1';
 
                 const result = await pool.query(query, [id]);
                 if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
@@ -46,10 +50,10 @@ class usageController {
     static async postUsage(req, res) {
          try {
             //allowed fields
-            const allowed = ['fixture_id', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator'];
+            const allowed = ['fixture_name', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator'];
 
             //required fields
-            const required = ['fixture_id'];
+            const required = ['fixture_name'];
             //check for missing required fields
             const missing = required.filter(field => !Object.prototype.hasOwnProperty.call(req.body, field));
                 if (missing.length > 0) {
@@ -98,11 +102,12 @@ class usageController {
     // UPDATE Usage allowing partial updates
     static async updateUsage(req, res) {
         try {
-            const id = parseInt(req.params.fixture_id, 10);
-            if (Number.isNaN(id)) {
-                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            const id = req.params.id;
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
-            const allowed = ['fixture_id', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator', 'create_date'];
+            const allowed = ['fixture_name', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator'];
 
             const setClauses = [];
             const values = [];
@@ -134,7 +139,7 @@ class usageController {
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: `No fixture usage found with id: ${id}` });
             }
-            res.json('Sussessfully updated fixture usage with id: ' + id + '. Updated row: ' + result.rows[0]);
+            res.json(`Successfully updated fixture usage with id: ${id}. Updated row: ` + result.rows[0]);
           
         } catch (error) {
             console.error('Database error:', error);
@@ -144,8 +149,11 @@ class usageController {
     // DELETE Usage
     static async deleteUsage(req, res) {
         try {
-            const id = parseInt(req.params.fixture_id, 10);
-            if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            const id = req.params.id;
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            }
             const query = 'DELETE FROM usage WHERE id = $1 RETURNING *;';
             const values = [id];
             const result = await pool.query(query, values);

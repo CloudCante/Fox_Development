@@ -21,27 +21,35 @@ class fixturesController {
     // Function to GET a fixture by it's id
     static getFixtureById = async (req, res) => {
         try{
-            if (!req.params.id) return res.status(400).json({ error: 'Missing required query parameters: id' });
+            const id = req.params.id;
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            }
             
-            let params = [req.params.id];
             let query = `
                 SELECT *
                 FROM fixtures
                 WHERE fixture_id = $1
                 `;
             
-            const result = await pool.query(query, params);
-            if (result.rows.length == 0) return res.status(404).json({ error: `No results found for id: ${req.params.id}`});
+            const result = await pool.query(query, id);
+            if (result.rows.length == 0) return res.status(404).json({ error: `No results found for id: ${id}`});
             res.json(result.rows);
-        } catch (error){
+        } 
+        catch (error){
             res.status(500).json({ error: 'Database query failed' });
         }
     }
     // POST function to create maintenance event
     static postFixtureById = async (req, res) => {
         try{
-            if (!req.params.id) return res.status(400).json({ error: 'Missing required query parameters: id' });
-            const fixtureId = parseInt(req.params.id);
+            const id = req.params.id;
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            }
+            
             const recivedData = req.body;
             let formattedKeys = '';
             let formattedValues = '';
