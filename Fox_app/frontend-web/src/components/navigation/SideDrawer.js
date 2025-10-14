@@ -48,6 +48,7 @@ const MENU_ITEMS = [
     { text: 'Fixture Dashboard', icon: <GridViewIcon />, route: '/fixture-dash' },
     { text: 'Fixture Details', icon: <TableChartIcon />, route: '/fixture-details' },
     { text: 'Fixture Inventory', icon: <TableChartIcon />, route: '/fixture-inventory' },
+    { text: 'Fixture Maintenance', icon: <TableChartIcon />, route: '/fixture-maintenance' },
   ]},
   { text: 'Station Reports', icon: <GradingIcon />, children:[
     { text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
