@@ -1,14 +1,14 @@
 // React Core
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 // Material UI Components
-import { Box, Stack, Paper, Typography, CircularProgress, Button, TextField } from '@mui/material';
+import { Box, Stack, Paper, Typography, Button, TextField } from '@mui/material';
 // Third Party Libraries
 import 'react-datepicker/dist/react-datepicker.css';
+import Papa from 'papaparse';
 // Page Components
 import { Header } from '../../pagecomp/Header.jsx';
 import { DateRange } from '../../pagecomp/DateRange.jsx';
-import { paperStyle } from '../../theme/themes.js';
-import { toUTCDateString } from '../../../utils/dateUtils.js';
+import { paperStyle, buttonStyle } from '../../theme/themes.js';
 
 const ReadOnlyInput = React.forwardRef((props, ref) => (
   <input {...props} ref={ref} readOnly />
@@ -23,15 +23,16 @@ const refreshInterval = 300000; // 5 minutes
 
 export const QueryPage = () => {
     
-  const normalizeStart = (date) => new Date(new Date(date).setHours(0, 0, 0, 0));
-  const normalizeEnd = (date) => new Date(new Date(date).setHours(23, 59, 59, 999));
-  
-  const [startDate, setStartDate] = useState(() => {
-    const date = new Date();
-    date.setDate(date.getDate() - 14);
-    return normalizeStart(date);
-  });
-  const [endDate, setEndDate] = useState(normalizeEnd(new Date()));
+    const fileInputRef = useRef(null);
+
+    const normalizeStart = (date) => new Date(new Date(date).setHours(0, 0, 0, 0));
+    const normalizeEnd = (date) => new Date(new Date(date).setHours(23, 59, 59, 999));
+    const [startDate, setStartDate] = useState(() => {
+        const date = new Date();
+        date.setDate(date.getDate() - 14);
+        return normalizeStart(date);
+    });
+    const [endDate, setEndDate] = useState(normalizeEnd(new Date()));
   
     const [output,setOutput] = useState("Query Output will go here.");
 
@@ -108,6 +109,44 @@ export const QueryPage = () => {
         return;
     };
 
+    
+    const handleImportClick = () => fileInputRef.current?.click();
+
+    const handleImport = useCallback(async e => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        Papa.parse(file, {
+            header: true,
+            skipEmptyLines: true,
+            dynamicTyping: true,
+            complete: results => {
+                const data = results.data;
+
+                if (!data.length) {
+                    console.warn('No data found in CSV');
+                    return;
+                }
+
+                // Extract first four columns from each row
+                const col1 = data.map(row => Object.values(row)[0]).filter(Boolean).join(',');
+                const col2 = data.map(row => Object.values(row)[1]).filter(Boolean).join(',');
+                const col3 = data.map(row => Object.values(row)[2]).filter(Boolean).join(',');
+                const col4 = data.map(row => Object.values(row)[3]).filter(Boolean).join(',');
+
+                setOptionals((prev) => ({...prev, ['one']:col1}));
+                setOptionals((prev) => ({...prev, ['two']:col2}));
+                setOptionals((prev) => ({...prev, ['three']:col3}));
+                setOptionals((prev) => ({...prev, ['four']:col4}));
+
+                // You can now use col1–col4 however you need
+            },
+            error: err => console.error(err)
+        });
+
+        e.target.value = null;
+    }, []);
+
     return (
         <Box p={1}>
             <Header title="Query Page" subTitle="Query the database to your heart's desire" />
@@ -145,6 +184,8 @@ export const QueryPage = () => {
                         onChange={handleOptChange}
                         size='small'
                     />
+                    <Button sx={buttonStyle} size = 'small' onClick={handleImportClick}>Import</Button>
+                        <input type="file" accept=".csv" ref={fileInputRef} onChange={handleImport} style={{ display: 'none' }} />
                     <DateRange
                         startDate={startDate}
                         setStartDate={setStartDate}
@@ -174,7 +215,13 @@ export const QueryPage = () => {
             </Box>
             <Box>
                 <Paper sx={paperStyle}>
-                    <Typography>
+                    <Typography
+                        sx ={{
+                            whiteSpace:'pre-wrap',
+                            wordBreak:'break-word',
+                            overflowWrap:'break-word',
+                        }}
+                    >
                         {output}
                     </Typography>
                 </Paper>
