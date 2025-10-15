@@ -9,23 +9,23 @@ VALUES
 ;
 
 
-INSERT INTO health (fixture_name, status, comments, creator, create_date)
+INSERT INTO health (fixture_name, fixture_id, status, comments, creator, create_date)
 VALUES
-('NCT001-01', 'active', 'none', 'Nicholas', '2025-09-24 08:26:40-07'),
-('NV-NCT02-2', 'no_response', 'ping timed out', 'Nicholas', '2025-09-24 08:26:40-07'),
-('NCT001-01', 'no_response', 'ping timed out',  'Nicholas', '2025-09-24 08:26:40-07'),
-('NCT001-01', 'RMA', 'sent to PW', 'Nicholas', '2025-09-24 08:26:40-07'),
-('NV-NCT02-2', 'under_maintenance', 'something', 'Nick', '2025-09-24 08:26:40-07'),
-('NV-NCT02-2', 'active', 'none', 'Nicholas', '2025-09-24 08:26:40-07')
+('NCT001-01','f81d4fae-7dec-11d0-a765-00a0c91e6bf6', 'active', 'none', 'Nicholas', '2025-09-24 08:26:40-07'),
+('NV-NCT02-2','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a', 'no_response', 'ping timed out', 'Nicholas', '2025-09-24 08:26:40-07'),
+('NCT001-01','f81d4fae-7dec-11d0-a765-00a0c91e6bf6', 'no_response', 'ping timed out',  'Nicholas', '2025-09-24 08:26:40-07'),
+('NCT001-01','f81d4fae-7dec-11d0-a765-00a0c91e6bf6', 'RMA', 'sent to PW', 'Nicholas', '2025-09-24 08:26:40-07'),
+('NV-NCT02-2','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a', 'under_maintenance', 'something', 'Nick', '2025-09-24 08:26:40-07'),
+('NV-NCT02-2','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a', 'active', 'none', 'Nicholas', '2025-09-24 08:26:40-07')
 ;
 
-INSERT INTO usage (fixture_name,test_slot,test_station,test_type,gpu_pn,gpu_sn,log_path,creator,create_date)
+INSERT INTO usage (fixture_name, fixture_id, test_slot,test_station,test_type,gpu_pn,gpu_sn,log_path,creator,create_date)
 VALUES
-('NV-NCT02-2','Left','BAT','Refurbish','692-2G520-0200-500','1234567890123','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_1234567890123_P_BAT_','Nicholas','2002-10-03 16:30:40-07'),
-('NV-NCT02-2','Right','BAT','Refurbish','692-2G520-0200-500','9876543210987','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_9876543210987_P_BAT_','Nicholas','2024-09-23 14:30:40-03'),
-('NV-NCT02-2','Left','BIT','Refurbish','692-2G520-0200-500','1234567890123','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_1234567890123_P_BIT_','Nicholas','2025-09-24 16:30:40-07'),
-('NV-NCT02-2','Right','BIT','Refurbish','692-2G520-0200-500','9876543210987','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_9876543210987_P_BIT_','Nicholas','2020-01-13 06:30:40-07'),
-('NCT001-01','Left','FLB','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLB_','Nicholas','2025-09-23 16:30:40-07'),
-('NCT001-01','Left','FLA','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLA_','Nicholas','2025-09-23 16:30:40-07'),
-('NCT001-01','Left','FLC','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLC_','Nicholas','2025-09-23 16:30:40-07')
+('NV-NCT02-2','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Left','BAT','Refurbish','692-2G520-0200-500','1234567890123','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_1234567890123_P_BAT_','Nicholas','2002-10-03 16:30:40-07'),
+('NV-NCT02-2','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Right','BAT','Refurbish','692-2G520-0200-500','9876543210987','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_9876543210987_P_BAT_','Nicholas','2024-09-23 14:30:40-03'),
+('NV-NCT02-2','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Left','BIT','Refurbish','692-2G520-0200-500','1234567890123','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_1234567890123_P_BIT_','Nicholas','2025-09-24 16:30:40-07'),
+('NV-NCT02-2','e3d9f4a4-7f5d-4d62-a944-bb5e034b287a','Right','BIT','Refurbish','692-2G520-0200-500','9876543210987','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_9876543210987_P_BIT_','Nicholas','2020-01-13 06:30:40-07'),
+('NCT001-01','f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Left','FLB','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLB_','Nicholas','2025-09-23 16:30:40-07'),
+('NCT001-01','f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Left','FLA','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLA_','Nicholas','2025-09-23 16:30:40-07'),
+('NCT001-01','f81d4fae-7dec-11d0-a765-00a0c91e6bf6','Left','FLC','Refurbish','692-2G520-0200-500','0000000000000','/TESLA/G520/692-2G520-0200-500/FXNC_PB_DEBUG_692-2G520-0200-500_0000000000000_P_FLC_','Nicholas','2025-09-23 16:30:40-07')
 ;
