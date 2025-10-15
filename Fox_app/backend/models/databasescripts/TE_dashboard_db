@@ -20,7 +20,7 @@ CHECK (test_type = 'Refurbish' OR test_type = 'Sort' OR test_type = 'NA'),
 ip_address VARCHAR(16),
 mac_address VARCHAR(17),
 parent UUID,
-CHECK (parent = null OR parent <> id),
+CHECK (parent IS null OR parent <> id),
 FOREIGN KEY (parent) REFERENCES fixtures(id),
 creator VARCHAR(32),
 create_date TIMESTAMPTZ
