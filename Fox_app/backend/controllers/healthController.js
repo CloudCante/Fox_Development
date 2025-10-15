@@ -49,10 +49,10 @@ class healthController {
     static async postHealth(req, res) {
          try {
             //allowed fields
-            const allowed = ['fixture_name', 'status', 'comments', 'creator'];
+            const allowed = ['fixture_name', 'fixture_id', 'status', 'comments', 'creator'];
 
             //required fields
-            const required = ['fixture_name'];
+            const required = ['fixture_name', 'fixture_id'];
             //check for missing required fields
             const missing = required.filter(field => !Object.prototype.hasOwnProperty.call(req.body, field));
                 if (missing.length > 0) {
@@ -110,7 +110,7 @@ class healthController {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
                 }
         
-            const allowed = ['fixture_name', 'status', 'comments', 'creator',];
+            const allowed = ['fixture_name', 'fixture_id', 'status', 'comments', 'creator',];
 
             const setClauses = [];
             const values = [];

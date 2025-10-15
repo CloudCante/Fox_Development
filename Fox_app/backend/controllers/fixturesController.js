@@ -120,7 +120,7 @@ class fixturesController {
                 UPDATE fixtures
                 SET 
                     ${formattedString}
-                WHERE fixture_id = $1
+                WHERE id = $1
                 RETURNING *
                 `;
             
@@ -140,7 +140,7 @@ class fixturesController {
             let params = [req.params.id];
             let query = `
                 DELETE FROM fixtures
-                WHERE fixture_id = $1
+                WHERE id = $1
                 RETURNING *
                 `;
             
