@@ -37,6 +37,7 @@ const MENU_ITEMS_QUALITY = [
   { text: 'Station Performance Charts', icon: <TableChartIcon/>, route: '/station-performance'},
   { text: 'Packing', icon: <Inventory2Icon />, route: '/packing' },
   { text: 'Pareto', icon: <TrendingUpIcon />, route: '/pareto' },
+  { text: 'Query Page', icon: <Inventory2Icon />, route: 'query-page'},
   { text: 'Station Reports', icon: <GradingIcon />, children:[
     { text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
     { text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' },
