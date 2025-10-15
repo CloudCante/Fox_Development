@@ -1,11 +1,11 @@
 INSERT INTO fixtures (tester_type, fixture_name, rack, fixture_sn, test_type, ip_address, mac_address, parent, creator, create_date)
 VALUES
 ('B Tester','NCT025-01','1','AAAAAAAAAA','Refurbish','192.168.102.100','AA:BB:CC:DD',Null,'Nicholas','2025-09-23 16:30:40-07'),
-('LA Slot','','1','BBBBBBBBBB','NA','NA','NA','NCT025-01','Nicholas','2025-09-23 16:30:40-07'),
-('RA Slot','','1','CCCCCCCCCC','NA','NA','NA','NCT025-01','Nicholas','2025-09-23 16:30:40-07'),
+('LA Slot',null,'1','BBBBBBBBBB','NA','NA','NA','NCT025-01','Nicholas','2025-09-23 16:30:40-07'),
+('RA Slot',null,'1','CCCCCCCCCC','NA','NA','NA','NCT025-01','Nicholas','2025-09-23 16:30:40-07'),
 ('B Tester','NCT002-03','2','DDDDDDDDDD','Refurbish','192.168.102.101','AA:BB:CC:EE',Null,'Nicholas','2025-09-23 16:30:40-07'),
-('LA Slot','','2','EEEEEEEEEE','NA','NA','NA','NCT002-03','Nicholas','2025-09-23 16:30:40-07'),
-('RA Slot','','2','FFFFFFFFFF','NA','NA','NA','NCT002-03','Nicholas','2025-09-23 16:30:40-07')
+('LA Slot',null,'2','EEEEEEEEEE','NA','NA','NA','NCT002-03','Nicholas','2025-09-23 16:30:40-07'),
+('RA Slot',null,'2','FFFFFFFFFF','NA','NA','NA','NCT002-03','Nicholas','2025-09-23 16:30:40-07')
 ;
 
 
