@@ -46,7 +46,7 @@ class fixturesController {
 
     //CREATE Health
 
-    static async postHealth(req, res) {
+    static async postFixture(req, res) {
          try {
             //allowed fields
             const allowed = ['fixture_name', 'fixture_id', 'status', 'comments', 'creator'];
