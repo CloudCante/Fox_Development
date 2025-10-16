@@ -28,10 +28,8 @@ create_date TIMESTAMPTZ
 
 CREATE TABLE health(
 id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-fixture_name VARCHAR(32),
-FOREIGN KEY (fixture_name) REFERENCES fixtures(fixture_name),
-fixture_id UUID
-FOREIGN KEY (fixture_id) REFERENCES fixtures(parent)),
+fixture_id UUID,
+FOREIGN KEY (fixture_id) REFERENCES fixtures(id),
 status VARCHAR(32),
 CHECK (status = 'active' OR status = 'no_response' OR status = 'under_maintenance' OR status = 'RMA'),
 comments VARCHAR(256),
@@ -41,10 +39,8 @@ create_date TIMESTAMPTZ
 
 CREATE TABLE usage(
 id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-fixture_name VARCHAR(32),
-FOREIGN KEY (fixture_name) REFERENCES fixtures(fixture_name),
 fixture_id UUID,
-FOREIGN KEY (fixture_id) REFERENCES fixtures(parent),
+FOREIGN KEY (fixture_id) REFERENCES fixtures(id),
 test_slot VARCHAR(32),
 CHECK (test_slot = 'Left' OR test_slot = 'Right'),
 test_station VARCHAR(32),
