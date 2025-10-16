@@ -21,7 +21,7 @@ ip_address VARCHAR(16),
 mac_address VARCHAR(17),
 parent UUID,
 CHECK (parent = null OR parent = id),
-FOREIGN KEY (parent) REFERENCES fixtures(fixture_name),
+FOREIGN KEY (parent) REFERENCES fixtures(id),
 creator VARCHAR(32),
 create_date TIMESTAMPTZ
 );
