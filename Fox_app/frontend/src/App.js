@@ -17,6 +17,7 @@ import PackingCharts from './components/pages/quality/PackingCharts';
 import UploadPage from './components/pages/dev/uploadPage';
 import StationHourlySummaryPage from './components/pages/quality/stationReports/StationHourlySummaryPage';
 import ParetoPage from './components/pages/quality/ParetoPage';
+import QueryPage from './components/pages/quality/QueryPage';
 // Test Engineer Pages
 import FixtureDash from './components/pages/te/FixtureDash';
 import FixtureDetails from './components/pages/te/FixtureDetails';
@@ -69,6 +70,7 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-dash" element={<FixtureDash/>}/>
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
+      <Route path="/query-page" element={<QueryPage/>}/>
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
