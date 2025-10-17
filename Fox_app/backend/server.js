@@ -73,6 +73,9 @@ app.use('/api/v1/spc', spcRouter);
 const sqlPortalRouter = require('./routes/sqlPortal');
 app.use('/api/v1/sql-portal', sqlPortalRouter);
 
+const fixturesRouter = require('./routes/fixturesRoutes');
+app.use('/api/fixtures', fixturesRouter); //don't know if you want versioning here or not
+
 /*#################################################
 #    Optional Route Registration                #
 #    Upload handler is wrapped in try-catch    #
