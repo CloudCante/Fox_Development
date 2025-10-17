@@ -49,7 +49,7 @@ class fixturesController {
     static async postFixture(req, res) {
          try {
             //allowed fields
-            const allowed = ['fixture_name', 'status', 'comments', 'creator'];
+            const allowed = ['tester_type', 'fixture_name', 'rack', 'fixture_sn', 'test_type', 'ip_address', 'mac_address', 'creator'];
 
             //required fields
             const required = ['fixture_name'];
@@ -80,7 +80,7 @@ class fixturesController {
             }
             
             const query = `
-                INSERT INTO health (${columns.join(', ')}, create_date)
+                INSERT INTO fixtures (${columns.join(', ')}, create_date)
             VALUES(
                 ${placeholders.join(', ')},
                 NOW()
