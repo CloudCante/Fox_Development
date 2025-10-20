@@ -95,7 +95,7 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-dash" element={<FixtureDash/>}/>
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
->>>>>>> origin/main
+      <Route path="/query-page" element={<QueryPage/>}/>
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
