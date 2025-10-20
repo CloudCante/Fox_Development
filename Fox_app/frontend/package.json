@@ -19,17 +19,6 @@
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
-<<<<<<< HEAD
-    "@electron-forge/cli": "^7.8.1",
-    "@electron-forge/maker-deb": "^7.8.1",
-    "@electron-forge/maker-rpm": "^7.8.1",
-    "@electron-forge/maker-squirrel": "^7.8.1",
-    "@electron-forge/maker-zip": "^7.8.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
-    "@electron-forge/plugin-fuses": "^7.8.1",
-    "@electron-forge/plugin-webpack": "^7.8.1",
-    "@electron-forge/publisher-github": "^7.8.1",
-=======
     "@electron-forge/cli": "^7.9.0",
     "@electron-forge/maker-deb": "^7.9.0",
     "@electron-forge/maker-rpm": "^7.9.0",
@@ -39,17 +28,12 @@
     "@electron-forge/plugin-fuses": "^7.9.0",
     "@electron-forge/plugin-webpack": "^7.9.0",
     "@electron-forge/publisher-github": "^7.9.0",
->>>>>>> origin/main
     "@electron/fuses": "^1.8.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "babel-loader": "^10.0.0",
     "css-loader": "^6.11.0",
     "dotenv-webpack": "^8.1.0",
-<<<<<<< HEAD
-    "electron": "36.2.1",
-=======
     "electron": "^38.1.2",
->>>>>>> origin/main
     "electron-icon-builder": "^2.0.1",
     "node-loader": "^2.1.0",
     "style-loader": "^3.3.4"
@@ -77,13 +61,9 @@
     "react-router-dom": "^7.6.0",
     "react-window": "^1.8.11",
     "recharts": "^2.15.3",
-<<<<<<< HEAD
-    "update-electron-app": "^3.1.1"
-=======
     "update-electron-app": "^3.1.1",
     "xlsx": "^0.18.5",
     "idb-keyval": "^6.2.1"
->>>>>>> origin/main
   },
   "repository": "github:CloudCante/Fox_app"
 }
