@@ -1,0 +1,42 @@
+-- Drop old tables if needed (optional)
+DROP TABLE IF EXISTS usage;
+DROP TABLE IF EXISTS health;
+DROP TABLE IF EXISTS fixtures;
+
+CREATE TABLE fixtures (
+    id SERIAL PRIMARY KEY,
+    tester_type CHAR(32) CHECK (tester_type IN ('B Tester', 'LA Slot', 'RA Slot')),
+    fixture_id CHAR(32),
+    rack CHAR(32),
+    fixture_sn CHAR(32),
+    test_type CHAR(32) CHECK (test_type IN ('Refurbish', 'Sort', 'NA')),
+    ip_address CHAR(16),
+    mac_address CHAR(32),
+    parent CHAR(32),
+    creator CHAR(32),
+    create_date TIMESTAMPTZ
+);
+
+CREATE TABLE health (
+    id SERIAL PRIMARY KEY,
+    fixture INTEGER,
+    status CHAR(32) CHECK (status IN ('active', 'no_response', 'maintenance', 'repair', 'partial')),
+    comments CHAR(256),
+    creator CHAR(32),
+    create_date TIMESTAMPTZ,
+    FOREIGN KEY (fixture) REFERENCES fixtures(id)
+);
+
+CREATE TABLE usage (
+    id SERIAL PRIMARY KEY,
+    fixture INTEGER,
+    test_slot CHAR(32) CHECK (test_slot IN ('Left', 'Right')),
+    test_station CHAR(32),
+    test_type CHAR(32) DEFAULT 'NA' CHECK (test_type IN ('Refurbish', 'Sort', 'NA')),
+    gpu_pn CHAR(32),
+    gpu_sn CHAR(32),
+    log_path CHAR(256),
+    creator CHAR(32),
+    create_date TIMESTAMPTZ,
+    FOREIGN KEY (fixture) REFERENCES fixtures(id)
+);
