@@ -1,7 +1,24 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  styled,
+  ListItemButton,
+  Box,
+  Typography,
+  useTheme,
+  useMediaQuery,
+  Collapse,
+} from '@mui/material';
+=======
 import {  Drawer, List, ListItem, ListItemIcon, ListItemText, styled, ListItemButton, Box, 
   Typography, useTheme, useMediaQuery, Collapse, } from '@mui/material';
+>>>>>>> origin/main
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
@@ -15,8 +32,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GradingIcon from '@mui/icons-material/Grading';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { ThemeToggle } from '../theme/ThemeToggle';
+<<<<<<< HEAD
+=======
 import { GlobalSettingsContext, useGlobalSettings } from '../../data/GlobalSettingsContext';
 
+>>>>>>> origin/main
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -27,11 +47,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   marginTop: '40px',
 }));
 
+<<<<<<< HEAD
+const MENU_ITEMS = [
+  { text: 'Dashboard', icon: <DashboardIcon />, route: '/' },
+=======
 const DASHBOARD_MENU_ITEMS = [
   { text: 'Dashboard', icon: <DashboardIcon />, route: '/dashboard' }
 ];
 
 const MENU_ITEMS_QUALITY = [
+>>>>>>> origin/main
   //{ text: 'Test Reports', icon: <AssessmentIcon />, route: '/test-reports' },
   //{ text: 'SnFn Reports', icon: <GridViewIcon />, route: '/snfn' },
   { text: 'Station Performance Charts', icon: <TableChartIcon/>, route: '/station-performance'},
@@ -45,6 +70,10 @@ const MENU_ITEMS_QUALITY = [
   { text: 'Performance', icon: <SpeedIcon />, children:[
     { text: 'Quality Control Charts', icon: <SpeedIcon />, route: '/performance' },
     { text: 'Throughput', icon: <TrendingUpIcon />, route: '/throughput' }
+<<<<<<< HEAD
+  ]}
+  //{ text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' },
+=======
   ]},
   //{ text: 'Station Hourly Summary', icon: <TableChartIcon />, route: '/station-hourly-summary' }
 ];
@@ -56,6 +85,7 @@ const MENU_ITEMS_TE = [
     { text: 'Fixture Inventory', icon: <TableChartIcon />, route: '/fixture-inventory' },
   ]},
 
+>>>>>>> origin/main
 ];
 
 const DEV_MENU_ITEMS = [
@@ -64,8 +94,12 @@ const DEV_MENU_ITEMS = [
     { text: 'Station Cycle Time', icon: <AccessTimeIcon />, route: '/cycle-time' },
     { text: 'Most Recent Fail', icon: <AccessTimeIcon />, route: '/most-recent-fail' },
     { text: 'Get by Error', icon: <TableChartIcon />, route: '/by-error' },
+<<<<<<< HEAD
+    { text: 'Json to CSV', icon: <TableChartIcon />, route: '/json-to-csv' }
+=======
     { text: 'Json to CSV', icon: <TableChartIcon />, route: '/json-to-csv' },
     { text: 'Did They Fail', icon: <TableChartIcon />, route: '/did-they-fail' },
+>>>>>>> origin/main
   ]
   }
 ];
@@ -98,7 +132,11 @@ const MenuItem = React.memo(function MenuItem({ item, onClose, nested = false })
 
 const MenuList = React.memo(({ onClose }) => (
   <List>
+<<<<<<< HEAD
+    {MENU_ITEMS.map((item) => (
+=======
     {MENU_ITEMS_QUALITY.map((item) => (
+>>>>>>> origin/main
       <MenuItem key={item.text} item={item} onClose={onClose} />
     ))}
     {process.env.NODE_ENV === 'development' && (
@@ -121,6 +159,11 @@ const MenuList = React.memo(({ onClose }) => (
 ));
 
 export const SideDrawer = React.memo(({ open, onClose }) => {
+<<<<<<< HEAD
+  const [stationReportsOpen, setStationReportsOpen] = useState(false);
+  const [performanceReportsOpen, setPerformanceReportsOpen] = useState(false);
+  const [auxiliaryReportsOpen, setAuxiliaryReportsOpen] = useState(false);
+=======
   
   const { state, dispatch } = useGlobalSettings();
   const { currentMode } = state;
@@ -131,6 +174,7 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
     "Auxiliary Reports": false,
     "Fixture Management": false,
   });
+>>>>>>> origin/main
   const [isLowEndDevice, setIsLowEndDevice] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -195,6 +239,17 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
       </DrawerHeader>
 
       <List>
+<<<<<<< HEAD
+        {MENU_ITEMS.map(item => {
+          // If it has children, render collapse
+          if (item.children) {
+            const isOpen = item.text === 'Station Reports'
+                            ? stationReportsOpen
+                            : performanceReportsOpen;
+            const toggle  = item.text === 'Station Reports'
+                            ? setStationReportsOpen
+                            : setPerformanceReportsOpen;
+=======
         {DASHBOARD_MENU_ITEMS.map(item => (
           <MenuItem
             key={item.text}
@@ -257,6 +312,7 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
                 [item.text]: !prev[item.text]
               }));
             }
+>>>>>>> origin/main
             return (
               <React.Fragment key={item.text}>
                 <ListItem disablePadding>
@@ -300,6 +356,55 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
                 primaryTypographyProps={{ variant: 'overline', sx: { opacity: 0.7 } }}
               />
             </ListItem>
+<<<<<<< HEAD
+            {DEV_MENU_ITEMS.map(item => {
+          // If it has children, render collapse
+          if (item.children) {
+            const isOpen = item.text === 'Station Reports'
+                            ? stationReportsOpen
+                            : item.text ==='Performance'
+                            ?performanceReportsOpen
+                            :auxiliaryReportsOpen;
+            const toggle  = item.text === 'Station Reports'
+                            ? setStationReportsOpen
+                            : item.text ==='Performance'
+                            ?setPerformanceReportsOpen
+                            :setAuxiliaryReportsOpen;
+            return (
+              <React.Fragment key={item.text}>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => toggle(open => !open)}>
+                    <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.text} />
+                    {isOpen ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {item.children.map(child => (
+                      <MenuItem
+                        key={child.text}
+                        item={child}
+                        onClose={onClose}
+                        nested
+                      />
+                    ))}
+                  </List>
+                </Collapse>
+              </React.Fragment>
+            );
+          }
+
+          // Otherwise a normal menu item
+          return (
+            <MenuItem
+              key={item.text}
+              item={item}
+              onClose={onClose}
+            />
+          );
+        })}
+=======
             {DEV_MENU_ITEMS.map((item) => {
               // If it has children, render collapse
               if (item.children) {
@@ -344,6 +449,7 @@ export const SideDrawer = React.memo(({ open, onClose }) => {
                 />
               );
             })}
+>>>>>>> origin/main
           </>
         )}
       </List>

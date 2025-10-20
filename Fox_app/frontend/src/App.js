@@ -4,6 +4,22 @@ import { CssBaseline, Box } from '@mui/material';
 import { DashboardThemeProvider } from './components/theme/ThemeContext';
 import { SideDrawer } from './components/navigation/SideDrawer';
 import { AppHeader } from './components/navigation/AppHeader';
+<<<<<<< HEAD
+import { Dashboard } from './components/dashboard/Dashboard';
+import PackingPage from './components/pages/PackingPage';
+import PerformancePage from './components/pages/PerformancePage';
+import TestStationPerformancePage from './components/pages/TestStationPerformancePage'
+import ThroughputPage from './components/pages/ThroughputPage';
+import SNFNPage from './components/pages/SNFNPage';
+import PackingCharts from './components/pages/PackingCharts';
+import UploadPage from './components/pages/uploadPage';
+import StationHourlySummaryPage from './components/pages/StationHourlySummaryPage';
+import StationCycleTime from './components/pages/CycleTime';
+import MostRecentFail from './components/pages/MostRecentFail';
+import ParetoPage from './components/pages/ParetoPage';
+import ByErrorCode from './components/pages/ByErrorCode';
+import JsonToCsv from './components/pages/JsonToCSV';
+=======
 // Page Components
 import { Dashboard } from './components/pages/Dashboard';
 import Home from './components/pages/Home';
@@ -29,6 +45,7 @@ import ByErrorCode from './components/pages/dev/ByErrorCode';
 import JsonToCsv from './components/pages/dev/JsonToCSV';
 import DidTheyFail from './components/pages/dev/DidTheyFail';
 
+>>>>>>> origin/main
 import { SimplePerformanceMonitor } from './components/debug/SimplePerformanceMonitor';
 import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
@@ -51,9 +68,15 @@ const MainContent = React.memo(({ children }) => {
 });
 
 const AppRoutes = React.memo(() => (
+<<<<<<< HEAD
+   <GlobalSettingsProvider>
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+=======
     <Routes>
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/" element={<Home />} />
+>>>>>>> origin/main
       <Route path="/packing" element={<PackingPage />} />
       <Route path="/performance" element={<PerformancePage />} />
       <Route path="/throughput" element={<ThroughputPage />} />
@@ -66,6 +89,8 @@ const AppRoutes = React.memo(() => (
       <Route path="/station-performance" element={<TestStationPerformancePage/>}/>
       <Route path="/by-error" element={<ByErrorCode/>}/>
       <Route path="/json-to-csv" element={<JsonToCsv/>}/>
+<<<<<<< HEAD
+=======
       <Route path="/did-they-fail" element={<DidTheyFail/>}/>
       <Route path="/fixture-dash" element={<FixtureDash/>}/>
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
@@ -75,6 +100,10 @@ const AppRoutes = React.memo(() => (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
     </Routes>
+<<<<<<< HEAD
+  </GlobalSettingsProvider>
+=======
+>>>>>>> origin/main
 ));
 
 function App() {
@@ -98,7 +127,10 @@ function App() {
   }, [drawerOpen, isLowEnd]);
 
   return (
+<<<<<<< HEAD
+=======
     <GlobalSettingsProvider>
+>>>>>>> origin/main
     <DashboardThemeProvider>
       <CssBaseline />
       <Box sx={{ display: 'flex' }}>
@@ -114,7 +146,10 @@ function App() {
         <SimplePerformanceMonitor />
       </Box>
     </DashboardThemeProvider>
+<<<<<<< HEAD
+=======
     </GlobalSettingsProvider>
+>>>>>>> origin/main
   );
 }
 
