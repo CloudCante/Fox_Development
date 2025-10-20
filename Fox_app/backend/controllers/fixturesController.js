@@ -10,7 +10,7 @@ class fixturesController {
     //READ all fixtures
     static async getAllFixtures(req, res) {
         try {
-            const query = 'SELECT * FROM fixtures ORDER BY id ASC;';
+            const query = 'SELECT * FROM fixtures ORDER BY id ASC FETCH NEXT 10 ROWS ONLY;';
             const result = await pool.query(query);
             res.json(result.rows);
         }
@@ -20,10 +20,7 @@ class fixturesController {
         }
     }
 
-
-
     //READ Fixtures by ID
-
     static async getFixtureById(req, res) {
         try {
             const id = req.params.id;
@@ -45,7 +42,6 @@ class fixturesController {
     }
 
     //CREATE Fixture
-
     static async postFixture(req, res) {
          try {
             //allowed fields
@@ -97,7 +93,6 @@ class fixturesController {
             res.status(500).json({ error: 'Database create failed' });
         }
     }
-    
      
     // UPDATE Fixtures allowing partial updates should be PATCH
     static async updateFixtures(req, res) {
