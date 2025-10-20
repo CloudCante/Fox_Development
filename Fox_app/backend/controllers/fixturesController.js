@@ -6,6 +6,9 @@ const { pool } = require('../db.js');
 
 // Class for handling fixtures
 class fixturesController {
+
+    //UUID regex for validating UUID format
+    static uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
    
     //READ all fixtures
     static async getAllFixtures(req, res) {
@@ -24,7 +27,6 @@ class fixturesController {
     static async getFixtureById(req, res) {
         try {
             const id = req.params.id;
-            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
@@ -55,19 +57,18 @@ class fixturesController {
                 return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
                 }
 
-
-
-            const columns = [];
-            const placeholders = [];
-            const values = [];
+            const columns = []; //columns to insert into
+            const placeholders = []; //placeholders for parameterized query
+            const values = []; //values for parameterized query
             let paramIndex = 1;
 
+            //build query dynamically based on provided fields
             for (const col of allowed) {
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) {
-                    placeholders.push(`$${paramIndex}`);
-                    values.push(req.body[col]);
-                    columns.push(col);
-                    paramIndex++;
+                if (Object.prototype.hasOwnProperty.call(req.body, col)) { //check if field is provided
+                    placeholders.push(`$${paramIndex}`); //add placeholder
+                    values.push(req.body[col]); //add value
+                    columns.push(col); //add column name
+                    paramIndex++; //increment parameter index
                 }
             }
 
@@ -98,9 +99,6 @@ class fixturesController {
     static async updateFixtures(req, res) {
         try {
            const id = req.params.id;
-
-           const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
                 }
@@ -150,9 +148,8 @@ class fixturesController {
     static async deleteFixture(req, res) {
         try {
             const id = req.params.id;
-            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
-            if (!uuidRegex.test(id))  return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            if (!uuidRegex.test(id))  
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
         
             const query = 'DELETE FROM fixtures WHERE id = $1 RETURNING *;';
             const values = [id];

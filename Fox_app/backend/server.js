@@ -74,7 +74,7 @@ const sqlPortalRouter = require('./routes/sqlPortal');
 app.use('/api/v1/sql-portal', sqlPortalRouter);
 
 const fixturesRouter = require('./routes/fixturesRoutes');
-app.use('/api/fixtures', fixturesRouter); //don't know if you want versioning here or not
+app.use('/api/fixtures', fixturesRouter); // no versioning for now
 
 /*#################################################
 #    Optional Route Registration                #
