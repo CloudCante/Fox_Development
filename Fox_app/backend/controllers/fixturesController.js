@@ -3,13 +3,10 @@
 // Import required libraries and modules
 //const fixturesModel = require('../models/fixturesModel');
 const { pool } = require('../db.js');
+import { uuidRegex } from './Controller_scripts.js';
 
 // Class for handling fixtures
 class fixturesController {
-
-    //UUID regex for validating UUID format
-    static uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-   
     //READ all fixtures
     static async getAllFixtures(req, res) {
         try {
@@ -72,7 +69,7 @@ class fixturesController {
                 }
             }
 
-            if (placeholders.length === 0) {
+            if (placeholders.length === 0) { //no valid fields provided
                 return res.status(400).json({ error: 'No valid fields provided for create' });
             }
             
@@ -99,7 +96,7 @@ class fixturesController {
     static async updateFixtures(req, res) {
         try {
            const id = req.params.id;
-            if (!uuidRegex.test(id)) {
+            if (!uuidRegex.test(id)) { //validate UUID format
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
                 }
         
@@ -109,11 +106,11 @@ class fixturesController {
             const values = [];
             let paramIndex = 1;
 
-            for (const col of allowed) {
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) {
-                    setClauses.push(`${col} = $${paramIndex}`);
-                    values.push(req.body[col]);
-                    paramIndex++;
+            for (const col of allowed) {//iterate over allowed fields
+                if (Object.prototype.hasOwnProperty.call(req.body, col)) {//check if field is provided
+                    setClauses.push(`${col} = $${paramIndex}`);//add to SET clause
+                    values.push(req.body[col]);//add value
+                    paramIndex++;//increment parameter index
                 }
             }
 

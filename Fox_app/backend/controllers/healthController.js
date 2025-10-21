@@ -3,6 +3,7 @@
 // Import required libraries and modules
 //const fixturesModel = require('../models/fixturesModel');
 const { pool } = require('../db.js');
+import { uuidRegex } from './Controller_scripts.js';
 
 // Class for handling health
 class healthController {
@@ -20,14 +21,10 @@ class healthController {
         }
     }
 
-
-
     //READ Health by ID
-
     static async getHealthById(req, res) {
         try {
             const id = req.params.id;
-            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
@@ -45,12 +42,10 @@ class healthController {
     }
 
     //CREATE Health
-
     static async postHealth(req, res) {
          try {
             //allowed fields
             const allowed = ['fixture_id', 'status', 'comments', 'creator'];
-
             //required fields
             const required = ['fixture_id'];
             //check for missing required fields
@@ -58,14 +53,12 @@ class healthController {
                 if (missing.length > 0) {
                 return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
                 }
-
-
-
+            //prepare columns and values for insert
             const columns = [];
             const placeholders = [];
             const values = [];
             let paramIndex = 1;
-
+            //build query parts with provided fields in itterations
             for (const col of allowed) {
                 if (Object.prototype.hasOwnProperty.call(req.body, col)) {
                     placeholders.push(`$${paramIndex}`);
@@ -98,20 +91,15 @@ class healthController {
         }
     }
     
-     
     // UPDATE Fixture Health allowing partial updates should be PATCH
     static async updateHealth(req, res) {
         try {
            const id = req.params.id;
-
-           const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
                 }
         
             const allowed = ['fixture_id', 'status', 'comments', 'creator',];
-
             const setClauses = [];
             const values = [];
             let paramIndex = 1;
@@ -155,8 +143,6 @@ class healthController {
     static async deleteHealth(req, res) {
         try {
             const id = req.params.id;
-            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
             if (!uuidRegex.test(id))  return res.status(400).json({ error: 'Invalid or missing id parameter' });
         
             const query = 'DELETE FROM health WHERE id = $1 RETURNING *;';
@@ -175,6 +161,5 @@ class healthController {
         }
 
     }
-}
-    
+}  
     module.exports = healthController;

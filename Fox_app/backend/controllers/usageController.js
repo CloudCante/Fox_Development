@@ -3,6 +3,7 @@
 // Import required libraries and modules
 //const fixturesModel = require('../models/fixturesModel');
 const { pool } = require('../db.js');
+import { uuidRegex } from './Controller_scripts.js';
 
 // Class for handling usage
 class usageController {
@@ -20,21 +21,14 @@ class usageController {
         }
     }
 
-
-
     //READ Usage by ID
-
     static async getUsageById(req, res) {
         try {
                 const id = req.params.id;
-                const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
                 if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
              }
-        
-
                 const query = 'SELECT * FROM usage WHERE id = $1';
-
                 const result = await pool.query(query, [id]);
                 if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
                 res.json(result.rows[0]);
@@ -46,7 +40,6 @@ class usageController {
         }
 
     //CREATE Usage
-
     static async postUsage(req, res) {
          try {
             //allowed fields
@@ -59,9 +52,6 @@ class usageController {
                 if (missing.length > 0) {
                 return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
                 }
-
-
-
             const columns = [];
             const placeholders = [];
             const values = [];
@@ -75,7 +65,6 @@ class usageController {
                     paramIndex++;
                 }
             }
-
             if (placeholders.length === 0) {
                 return res.status(400).json({ error: 'No valid fields provided for create' });
             }
@@ -103,12 +92,10 @@ class usageController {
     static async updateUsage(req, res) {
         try {
             const id = req.params.id;
-            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
             const allowed = ['fixture_id', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator'];
-
             const setClauses = [];
             const values = [];
             let paramIndex = 1;
@@ -120,13 +107,10 @@ class usageController {
                     paramIndex++;
                 }
             }
-
             if (setClauses.length === 0) {
                 return res.status(400).json({ error: 'No valid fields provided for update' });
             }
-            
             //add id 
-
             values.push(id);
             const query = `
                 UPDATE usage
@@ -150,7 +134,6 @@ class usageController {
     static async deleteUsage(req, res) {
         try {
             const id = req.params.id;
-            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
