@@ -3,14 +3,14 @@
 // Import required libraries and modules
 //const fixturesModel = require('../models/fixturesModel');
 const { pool } = require('../db.js');
-import { uuidRegex } from './Controller_scripts.js';
+const { uuidRegex, dynamicQuery, dynamicPostQuery } = require('./controllerUtilities.js');
 
 // Class for handling fixtures
 class fixturesController {
     //READ all fixtures
     static async getAllFixtures(req, res) {
         try {
-            const query = 'SELECT * FROM fixtures ORDER BY id ASC FETCH NEXT 10 ROWS ONLY;';
+            const query = 'SELECT * FROM fixtures ORDER BY id ASC;';
             const result = await pool.query(query);
             res.json(result.rows);
         }
@@ -27,9 +27,7 @@ class fixturesController {
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
-            
             const query = 'SELECT * FROM fixtures WHERE id = $1';
-
             const result = await pool.query(query, [id]);
             if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
             res.json(result.rows[0]);
@@ -53,26 +51,10 @@ class fixturesController {
                 if (missing.length > 0) {
                 return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
                 }
-
-            const columns = []; //columns to insert into
-            const placeholders = []; //placeholders for parameterized query
-            const values = []; //values for parameterized query
-            let paramIndex = 1;
-
-            //build query dynamically based on provided fields
-            for (const col of allowed) {
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) { //check if field is provided
-                    placeholders.push(`$${paramIndex}`); //add placeholder
-                    values.push(req.body[col]); //add value
-                    columns.push(col); //add column name
-                    paramIndex++; //increment parameter index
-                }
-            }
-
+            const {columns, placeholders, values } = dynamicPostQuery(allowed, req);
             if (placeholders.length === 0) { //no valid fields provided
                 return res.status(400).json({ error: 'No valid fields provided for create' });
             }
-            
             const query = `
                 INSERT INTO fixtures (${columns.join(', ')}, create_date)
             VALUES(
@@ -101,19 +83,7 @@ class fixturesController {
                 }
         
             const allowed = ['tester_type', 'fixture_name', 'rack', 'fixture_sn', 'test_type', 'ip_address', 'mac_address', 'creator'];
-
-            const setClauses = [];
-            const values = [];
-            let paramIndex = 1;
-
-            for (const col of allowed) {//iterate over allowed fields
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) {//check if field is provided
-                    setClauses.push(`${col} = $${paramIndex}`);//add to SET clause
-                    values.push(req.body[col]);//add value
-                    paramIndex++;//increment parameter index
-                }
-            }
-
+            const { setClauses, values, paramIndex } = dynamicQuery(allowed, req);
             if (setClauses.length === 0) {
                 return res.status(400).json({ error: 'No valid fields provided for update' });
             }

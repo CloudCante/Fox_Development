@@ -3,8 +3,7 @@
 // Import required libraries and modules
 //const fixturesModel = require('../models/fixturesModel');
 const { pool } = require('../db.js');
-import { uuidRegex } from './Controller_scripts.js';
-
+const { uuidRegex, dynamicQuery, dynamicPostQuery } = require('./controllerUtilities.js');
 // Class for handling health
 class healthController {
    
@@ -53,21 +52,7 @@ class healthController {
                 if (missing.length > 0) {
                 return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
                 }
-            //prepare columns and values for insert
-            const columns = [];
-            const placeholders = [];
-            const values = [];
-            let paramIndex = 1;
-            //build query parts with provided fields in itterations
-            for (const col of allowed) {
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) {
-                    placeholders.push(`$${paramIndex}`);
-                    values.push(req.body[col]);
-                    columns.push(col);
-                    paramIndex++;
-                }
-            }
-
+            const {columns,placeholders, values } = dynamicPostQuery(allowed, req);
             if (placeholders.length === 0) {
                 return res.status(400).json({ error: 'No valid fields provided for create' });
             }
@@ -100,18 +85,7 @@ class healthController {
                 }
         
             const allowed = ['fixture_id', 'status', 'comments', 'creator',];
-            const setClauses = [];
-            const values = [];
-            let paramIndex = 1;
-
-            for (const col of allowed) {
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) {
-                    setClauses.push(`${col} = $${paramIndex}`);
-                    values.push(req.body[col]);
-                    paramIndex++;
-                }
-            }
-
+            const { setClauses, values, paramIndex } = dynamicQuery(allowed, req);
             if (setClauses.length === 0) {
                 return res.status(400).json({ error: 'No valid fields provided for update' });
             }
