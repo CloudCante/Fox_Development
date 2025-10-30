@@ -6,6 +6,7 @@ const fixtureMaintenanceController = require('../controllers/fixtureMaintenanceC
 
 // Route endpoints to controller functions 
 router.get('/', fixtureMaintenanceController.getAllMaintenances);
+router.get('/getWithFixtureId', fixtureMaintenanceController.getWithFixtureId);
 router.get('/:id', fixtureMaintenanceController.getMaintenanceById);
 router.put('/putMaintenance/:id', fixtureMaintenanceController.putMaintenanceById);
 router.post('/postMaintenance/:id', fixtureMaintenanceController.postMaintenanceById);

@@ -23,6 +23,7 @@ import FixtureDash from './components/pages/FixtureDash';
 import FixtureDetails from './components/pages/FixtureDetails';
 import FixtureInventory from './components/pages/FixtureInventory';
 import FixtureMaintenance from './components/pages/FixtureMaintenance';
+import FixtureMaintenanceUpdate from './components/pages/FixtureMaintenanceUpdate';
 import { SimplePerformanceMonitor } from './components/debug/SimplePerformanceMonitor';
 import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
@@ -68,6 +69,7 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
       <Route path="/fixture-maintenance" element={<FixtureMaintenance/>}/>
+      <Route path="/fixture-maintenance-update" element={<FixtureMaintenanceUpdate/>}/>
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}

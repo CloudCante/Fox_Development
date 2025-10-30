@@ -9,12 +9,14 @@ import axios from 'axios';
 
 const API_BASE = process.env.REACT_APP_API_BASE;
 
-const FixtureMaintenance = () => {
+const FixtureMaintenanceUpdate = () => {
     // State variables for page data
     const [data, setData] = useState([]);
     const [pageError, setPageError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [rowSelection, setRowSelection] = useState({});
+    // Set fixture_id to be the default sort column
+    const [sorting, setSorting] = useState([{ id: 'fixture_id', desc: false }]);
 
     // State variables for form data
     const [eventType, setEventType] = useState("");
@@ -30,20 +32,27 @@ const FixtureMaintenance = () => {
     const [creator, setCreator] = useState("Admin");
     const [createTime, setCreateTime] = useState(dayjs()); 
 
+    // Hook to get and initial data from the backend
     useEffect(() => {
-        // Get all fixtures from fixtures table 
-        axios.get(`${API_BASE}/api/fixtures`)
+        // Get all events from event_maintenance table 
+        axios.get(`${API_BASE}/api/fixtureMaintenance/getWithFixtureId`)
              .then(response => setData(response.data))
              .catch(error => console.error('Error fetching items:', error));
-    }, []);
+    }, [data]);
 
-    // Function to Post/Create an event for fixture_id
-    const handleCreate = async () => {
+    // Hook to update the list of rows selected
+    useMemo(() => {
+        const selectedIds = Object.keys(rowSelection).filter(primary_key => rowSelection[primary_key]);
+    }, [rowSelection]);    
+
+    // Function to Put/update an event by id
+    const handleUpdate = async () => {
         let errorFound = false;
         setPageError(null);
 
-        if (selectedFixtureIds.length == 0) {
-            setPageError({error: "No fixtures were was selected, event(s) not created."});
+        // Validate input fields for any errors
+        if (Object.keys(rowSelection).length == 0) {
+            setPageError({error: "No events were was selected, event(s) not updated."});
             errorFound = true;
         }
         if (eventType.length == 0) {
@@ -56,9 +65,10 @@ const FixtureMaintenance = () => {
             setOccuranceHelperText("Please select an occurance");
             errorFound = true;
         }
+        // Return if any errors are found
         if (errorFound) return;
 
-        for (const key in selectedFixtureIds){
+        for (const event_id in rowSelection){
             setLoading(true);
             try {
                 const data = {
@@ -72,46 +82,78 @@ const FixtureMaintenance = () => {
                     creator: `${creator}`,
                     create_date: `${createTime}`
                 };
-
-                const response = await axios.post(`${API_BASE}/api/fixtureMaintenance/postMaintenance/${selectedFixtureIds[key]}`, data);
-                
+                // Send put request to putMaintenance with event id
+                const response = await axios.put(`${API_BASE}/api/fixtureMaintenance/putMaintenance/${event_id}`, data);
+                setData(response.data);
             } catch (err) {
-                const msg = `An error occurred, the event with fixture_id ${selectedFixtureIds[key]} was not created.`
+                const msg = `An error occurred, the event with fixture_id ${event_id} was not updated.`
                 setPageError({error: msg});
-            } finally {
-                setLoading(false);
-                table.resetRowSelection();
+            } finally {                
+                setLoading(false);                          
             }
         }
+    };
+
+    const handleDelete = async () => {
+        let errorFound = false;
+        setPageError(null);
+
+        // Validate input fields for any errors
+        if (Object.keys(rowSelection).length == 0) {
+            setPageError({error: "No events were was selected, nothing to delete."});
+            errorFound = true;
+            return;
+        }
+
+        setLoading(true);
+        for (const event_id in rowSelection){
+            
+            try {
+                const response = await axios.delete(`${API_BASE}/api/fixtureMaintenance/deleteMaintenance/${event_id}`);
+                setData(response.data)                
+            } catch (err) {
+                const msg = `Event with id: ${event_id} was not found, nothing to delete.`
+                setPageError({error: msg});
+            } 
+        }
+        table.resetRowSelection();
+        setLoading(false);
+
     };
 
     const columns = useMemo(
     () => [
         {
+            accessorKey: 'primary_key',
+            header: 'Event Id',
+        },        
+        {
             accessorKey: 'fixture_id',
-            header: 'Name',
+            header: 'Fixture Id',
         },
         {
-            accessorKey: 'rack',
-            header: 'Rack',
-            filterVariant: 'range',
-            filterFn: 'inNumberRange',
+            accessorKey: 'event_type',
+            header: 'Event Type',
         },    
         {
-            accessorKey: 'fixture_sn',
-            header: 'SN',
+            accessorKey: 'start_date_time',
+            header: 'start_date_time',
         },      
         {
-            accessorKey: 'tester_type',
-            header: 'Tester Type',
+            accessorKey: 'end_date_time',
+            header: 'end_date_time',
         },     
         {
-            accessorKey: 'test_type',
-            header: 'RMA Type',
+            accessorKey: 'occurance',
+            header: 'occurance',
             filterFn: 'equals',
-            filterSelectOptions: ['Refurbish', 'Sort'],
+            filterSelectOptions: ['Daily', 'Monthly', 'Quarterly', 'Once'],
             filterVariant: 'select',
-        },     
+        },
+        {
+            accessorKey: 'comments',
+            header: 'Comments',
+        },  
     ],
     [],
     );    
@@ -120,45 +162,19 @@ const FixtureMaintenance = () => {
         columns,
         data,
         columnFilterDisplayMode: 'popover',
-        autoResetPageIndex: false,
         enableRowSelection: true,
-        positionToolbarAlertBanner: 'bottom',
+        autoResetPageIndex: false,
+        getRowId: (row) => row.primary_key,
         onRowSelectionChange: setRowSelection,
-        state: { rowSelection },
+        onSortingChange: setSorting,
+        state: { rowSelection, sorting },
         muiTableHeadCellProps: {
             sx: theme => ({
-                    background: 'rgba(9, 87, 189, 0.47)',
+                    background: 'rgba(125, 131, 139, 0.47)',
                     color: theme.palette.text.primary,
             })
         },
-        mrtTheme: (theme) => ({
-            baseBackgroundColor: 'rgba(229, 246, 253, 0.61)',
-            }),
-        renderTopToolbarCustomActions: ({ table }) => (
-            <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
-                <Button variant="contained" 
-                        sx={{m: 1}}
-                        onClick={() => handleCreate()} 
-                        disabled={loading}
-                    >
-                        {loading ? 'Creating...' : 'Create'}
-                </Button>
-                <Link to="/fixture-maintenance-update">
-                    <Button variant="contained" 
-                            sx={{m: 1}}                    
-                    >
-                        Update existing event
-                    </Button>
-                </Link>
-            </Box>
-        ),
     });
-
-    // Get a list of all the selected fixture_ids
-    const selectedFixtureIds = useMemo(() => {
-        const selectedIds = Object.keys(rowSelection).filter(id => rowSelection[id]);
-        return data.filter((row, index) => selectedIds.includes(index.toString())).map(row => row.id);
-    }, [rowSelection, data]);
 
     const fixtureEventTypes = [
         {
@@ -201,8 +217,8 @@ const FixtureMaintenance = () => {
         <Container maxWidth="xl">
             <Box>
                 <Header
-                title="Fixture Maintenance"
-                subTitle={`Create fixture maintenance events`}
+                title="Update Fixture Maintenance"
+                subTitle={`Edit fixture maintenance events`}
                 />
             </Box>
             <Box
@@ -291,7 +307,30 @@ const FixtureMaintenance = () => {
                         onChange={(newValue) => setComments(newValue.target.value)}                   
                     >
                     </TextField>
-                </div>             
+                </div>    
+                <Grid>
+                    <Link to="/fixture-maintenance">
+                        <Button variant="contained" 
+                                sx={{m: 1}}                    
+                        >
+                            Create new event
+                        </Button>
+                    </Link>                    
+                    <Button variant="contained" 
+                            sx={{m: 1}}
+                            onClick={() => handleUpdate()} 
+                            disabled={loading}
+                    >
+                        {loading ? 'Updating...' : 'Update'}
+                    </Button>                                 
+                    <Button variant="contained" 
+                            sx={{m: 1}}
+                            onClick={() => handleDelete()}
+                            disabled={loading}
+                    >
+                        {loading ? 'Deleting...' : 'Delete'}
+                    </Button>
+                </Grid>          
             </Box>
 
             <MaterialReactTable  table={table} />
@@ -300,4 +339,4 @@ const FixtureMaintenance = () => {
     );
 };
 
-export default FixtureMaintenance;
+export default FixtureMaintenanceUpdate;
