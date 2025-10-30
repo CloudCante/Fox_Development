@@ -4,7 +4,6 @@
 
 # Database files
 *.dump
-*.sql
 fox_backup.*
 *.db
 *.sqlite
