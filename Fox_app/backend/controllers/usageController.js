@@ -26,10 +26,10 @@ class usageController {
 
     static async getUsageById(req, res) {
         try {
-            const id = parseInt(req.params.fixture_id, 10);
+            const id = parseInt(req.params.id, 10);
             if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
 
-                const query = 'SELECT * FROM usage WHERE fixture_id = $1';
+                const query = 'SELECT * FROM usage WHERE id = $1';
 
                 const result = await pool.query(query, [id]);
                 if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
@@ -98,7 +98,7 @@ class usageController {
     // UPDATE Usage allowing partial updates
     static async updateUsage(req, res) {
         try {
-            const id = parseInt(req.params.fixture_id, 10);
+            const id = parseInt(req.params.id, 10);
             if (Number.isNaN(id)) {
                  return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
@@ -144,7 +144,7 @@ class usageController {
     // DELETE Usage
     static async deleteUsage(req, res) {
         try {
-            const id = parseInt(req.params.fixture_id, 10);
+            const id = parseInt(req.params.id, 10);
             if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
             const query = 'DELETE FROM usage WHERE id = $1 RETURNING *;';
             const values = [id];

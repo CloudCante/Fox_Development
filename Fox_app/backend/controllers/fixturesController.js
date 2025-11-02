@@ -1,5 +1,5 @@
 // Import required libraries and modules
-const fixturesModel = require('../models/fixturesModel');
+//const fixturesModel = require('../models/fixturesModel');
 const { pool } = require('../db.js');
 
 // Class for handling fixtures

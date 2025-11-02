@@ -20,10 +20,10 @@ router.delete('/health/:primary_key', healthController.deleteHealth);
 
 // Route endpoints to USAGE controllers
 router.get('/usage', usageController.getAllUsage);
-router.get('/usage/:fixture_id', usageController.getUsageById);
+router.get('/usage/:id', usageController.getUsageById);
 router.post('/usage', usageController.postUsage);
-router.patch('/usage/:primary_key', usageController.updateUsage);
-router.delete('/usage/:primary_key', usageController.deleteUsage);
+router.patch('/usage/:id', usageController.updateUsage);
+router.delete('/usage/:id', usageController.deleteUsage);
 
 // FIXTURE ID routes (numeric validation happens inside controllers)
 router.get('/:id', fixturesController.getFixtureById);
