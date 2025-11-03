@@ -2,14 +2,17 @@ import psycopg2
 import json
 from datetime import datetime, timedelta
 import argparse
-
-DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'fox_db',
-    'user': 'gpu_user',
-    'password': '',
-    'port': '5432'
-}
+import sys
+import os
+# Add Fox_ETL directory to path to find config.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+while current_dir != '/':
+    config_path = os.path.join(current_dir, 'config.py')
+    if os.path.exists(config_path):
+        sys.path.insert(0, current_dir)
+        break
+    current_dir = os.path.dirname(current_dir)
+from config import DATABASE
 
 def get_week_bounds(target_date):
     """Get the Monday (start) and Sunday (end) of the week containing target_date"""
@@ -30,7 +33,7 @@ def calculate_weekly_starters_for_date(target_date):
     
     print(f"Week {week_id}: {week_start.strftime('%Y-%m-%d')} to {week_end.strftime('%Y-%m-%d')}")
     
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             start_date = week_start
@@ -90,7 +93,7 @@ def calculate_daily_completions_from_week_starters(target_date, week_starters_li
     
     print(f"Daily completions on {target_date.strftime('%Y-%m-%d')} from week starters...")
     
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             if not week_starters_list:
@@ -160,7 +163,7 @@ def aggregate_daily_tpy_for_date(target_date):
     print(f"\nAGGREGATING DAILY TPY FOR: {target_date.strftime('%Y-%m-%d')}")
     print("=" * 60)
     
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             week_data = calculate_weekly_starters_for_date(target_date)
@@ -241,7 +244,7 @@ def get_all_available_dates():
     """Get all unique dates when actual testing occurred"""
     print("Finding all dates with actual test activity...")
     
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             cur.execute("""
@@ -293,7 +296,7 @@ def aggregate_daily_tpy_metrics_all_time():
     print(f"Errors: {error_count} dates")
     
     # Show sample results
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             cur.execute("SELECT COUNT(*) FROM daily_tpy_metrics")

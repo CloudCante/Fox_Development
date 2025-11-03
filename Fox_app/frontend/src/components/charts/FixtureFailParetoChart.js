@@ -53,7 +53,11 @@ export const FixtureFailParetoChart = memo(({ label, data, lineLabel = "Failure 
                   left: 8,
                   bottom: 1,
                 }}
+<<<<<<< HEAD
                 onDoubleClick={handleBarClick}
+=======
+                onClick={handleBarClick}
+>>>>>>> origin/main
               >
                 <CartesianGrid 
                   strokeDasharray="3 3" 

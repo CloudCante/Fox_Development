@@ -1,0 +1,17 @@
+# Fox ETL Configuration Template
+# Copy this file to config.py and update with your personal settings
+
+# Database settings
+DATABASE = {
+    'host': 'localhost',
+    'port': 5432,
+    'database': 'fox_db',
+    'user': 'your_username',
+    'password': 'your_password'
+}
+
+# Path settings - Update these to your personal settings
+PATHS = {
+    'input_dir': r'C:\your\path\to\Fox_ETL\input',
+    'downloads_dir': r'C:\Users\yourusername\Downloads'
+}

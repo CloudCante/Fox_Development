@@ -82,7 +82,11 @@ export const ParetoChart = ({ data,label,loading, lineLabel = "Failure Rate (%)"
                     left: 8,
                     bottom: 1,
                   }}
+<<<<<<< HEAD
                   onDoubleClick={handleBarClick}
+=======
+                  onClick={handleBarClick}
+>>>>>>> origin/main
                 >
                   <CartesianGrid 
                     strokeDasharray="3 3" 

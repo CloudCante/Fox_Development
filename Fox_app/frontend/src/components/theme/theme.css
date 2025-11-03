@@ -72,6 +72,7 @@ body,
         /* Disable transitions on mobile for better performance */
         transition-duration: 0.1s !important;
     }
+<<<<<<< HEAD
 } 
 
 
@@ -79,3 +80,6 @@ body,
   border: 2px solid red !important;
   background: rgba(255,0,0,0.1) !important;
 }
+=======
+} 
+>>>>>>> origin/main

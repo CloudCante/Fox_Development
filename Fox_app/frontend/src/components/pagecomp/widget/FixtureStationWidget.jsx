@@ -1,7 +1,11 @@
 // Widget for Fixture Reports
 // ------------------------------------------------------------
 // Imports
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> origin/main
 import { Paper, Box } from '@mui/material';
 // Style Guides
 import { paperStyle } from '../../theme/themes.js';
@@ -33,6 +37,7 @@ export function FixtureStationWidget({ widgetId }) {
   if (!widgetId) {
     return <Paper sx={paperStyle}><Box sx={{ p: 2 }}>Widget ID missing</Box></Paper>;
   }
+<<<<<<< HEAD
   // ----- Widget settings pulled from global state
   const widgetSettings = (state.widgetSettings && state.widgetSettings[widgetId]) || {};
 
@@ -48,10 +53,15 @@ export function FixtureStationWidget({ widgetId }) {
     }
   }, [widgetId, state.widgetSettings, dispatch]);
   // ----------------------------------------------------------
+=======
+
+  // ----------------------------------------------------------
+>>>>>>> origin/main
   // Local state (data + loading flag)
   const [fixtureData, setFixtureData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+<<<<<<< HEAD
   const latestReqId = useRef(0);
 
   // ----------------------------------------------------------
@@ -68,12 +78,18 @@ export function FixtureStationWidget({ widgetId }) {
       settings: { ...widgetSettings, ...updates }
     });
   };
+=======
+>>>>>>> origin/main
   // ----------------------------------------------------------
   // Data fetching: query fixtures for the current date range
   useEffect(() => {
     // Polling loop with safety guard to avoid state updates after unmount
+<<<<<<< HEAD
     let isMounted = true;
     const reqId = ++latestReqId.current;
+=======
+    let isActive = true;
+>>>>>>> origin/main
 
     const fetchData = async () => {
       setLoading(true);
@@ -83,6 +99,7 @@ export function FixtureStationWidget({ widgetId }) {
           endDate,
           key: 'fixtures',
           setDataCache: data => {
+<<<<<<< HEAD
             if (isMounted && latestReqId.current === reqId) setFixtureData(data);
           },
           API_BASE,
@@ -93,6 +110,18 @@ export function FixtureStationWidget({ widgetId }) {
         if (isMounted&& latestReqId.current === reqId) setFixtureData([]);
       } finally {
         if (isMounted&& latestReqId.current === reqId) setLoading(false);
+=======
+            if (isActive) setFixtureData(data);
+          },
+          API_BASE,
+          API_Route: '/api/v1/functional-testing/fixture-performance?'
+        });
+      } catch (err) {
+        console.error('Error fetching data', err);
+        if (isActive) setFixtureData([]);
+      } finally {
+        if (isActive) setLoading(false);
+>>>>>>> origin/main
       }
     };
 
@@ -100,7 +129,11 @@ export function FixtureStationWidget({ widgetId }) {
     const intervalId = setInterval(fetchData, 300000); // refresh every 5 min
 
     return () => {
+<<<<<<< HEAD
       isMounted = false;
+=======
+      isActive = false;
+>>>>>>> origin/main
       clearInterval(intervalId);
     };
   }, [startDate, endDate]);

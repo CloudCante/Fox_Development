@@ -35,4 +35,8 @@ export const useStyles = (isProcessing = false) => {
       gap: 2 
     }
   }), [isProcessing]);
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/main

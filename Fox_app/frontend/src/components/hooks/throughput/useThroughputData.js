@@ -26,7 +26,11 @@ export const useThroughputData = (selectedWeek, formatWeekDateRange) => {
     setError(null);
     
     try {
+<<<<<<< HEAD
       const weeksUrl = `${API_BASE}/api/tpy/weekly?startWeek=1900-W01&endWeek=2100-W99`;
+=======
+      const weeksUrl = `${API_BASE}/api/v1/tpy/weekly?startWeek=1900-W01&endWeek=2100-W99`;
+>>>>>>> origin/main
       const allWeeksData = await secureApiCall(weeksUrl);
       
       if (!allWeeksData?.length) {
@@ -50,7 +54,11 @@ export const useThroughputData = (selectedWeek, formatWeekDateRange) => {
       
       if (!currentSelectedWeek) { setThroughputData(null); return; }
 
+<<<<<<< HEAD
       const weeklyUrl = `${API_BASE}/api/tpy/weekly?startWeek=${encodeURIComponent(currentSelectedWeek)}&endWeek=${encodeURIComponent(currentSelectedWeek)}`;
+=======
+      const weeklyUrl = `${API_BASE}/api/v1/tpy/weekly?startWeek=${encodeURIComponent(currentSelectedWeek)}&endWeek=${encodeURIComponent(currentSelectedWeek)}`;
+>>>>>>> origin/main
       const weeklyData = await secureApiCall(weeklyUrl);
       
       if (!weeklyData?.length) { setThroughputData(null); return; }
@@ -61,7 +69,11 @@ export const useThroughputData = (selectedWeek, formatWeekDateRange) => {
       const startDate = new Date(weekData.weekStart).toISOString().split('T')[0];
       const endDate = new Date(weekData.weekEnd).toISOString().split('T')[0];
       
+<<<<<<< HEAD
       const dailyUrl = `${API_BASE}/api/tpy/daily?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+=======
+      const dailyUrl = `${API_BASE}/api/v1/tpy/daily?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+>>>>>>> origin/main
       const dailyData = await secureApiCall(dailyUrl);
 
       const aggregatedStations = {
@@ -144,4 +156,8 @@ export const useThroughputData = (selectedWeek, formatWeekDateRange) => {
     throughputData,
     fetchThroughputData
   };
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/main

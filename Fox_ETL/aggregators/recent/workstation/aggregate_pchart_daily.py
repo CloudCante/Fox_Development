@@ -7,46 +7,46 @@ import psycopg2
 import logging
 from datetime import datetime
 import pandas as pd
+import sys
+import os
+# Add Fox_ETL directory to path to find config.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+while current_dir != '/':
+    config_path = os.path.join(current_dir, 'config.py')
+    if os.path.exists(config_path):
+        sys.path.insert(0, current_dir)
+        break
+    current_dir = os.path.dirname(current_dir)
+from config import DATABASE
 
 # Setup simple console logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(levelname)s - %(message)s'
 )
 
 def connect_to_db():
     """Establish database connection"""
-    logging.info('🔌 Connecting to database...')
-    return psycopg2.connect(
-        host="localhost",
-        database="fox_db",
-        user="gpu_user",
-        password="",
-        port="5432"
-    )
+    return psycopg2.connect(**DATABASE)
 
 def create_pchart_table(conn):
-    """Create the P-Chart aggregation table if it doesn't exist"""
+    """Create pchart_daily table if it doesn't exist"""
     cursor = conn.cursor()
-    logging.info('Creating workstation_pchart_daily table if not exists...')
-    
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS workstation_pchart_daily (
-        date DATE NOT NULL,
-        pn VARCHAR(255) NOT NULL,
-        model VARCHAR(255),
-        workstation_name VARCHAR(255) NOT NULL,
-        service_flow VARCHAR(255),
-        total_count INTEGER NOT NULL,
-        pass_count INTEGER NOT NULL,
-        fail_count INTEGER NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (date, pn, workstation_name, service_flow)
-    );
+        CREATE TABLE IF NOT EXISTS pchart_daily (
+            date DATE NOT NULL,
+            pn TEXT NOT NULL,
+            model TEXT NOT NULL,
+            workstation_name TEXT NOT NULL,
+            service_flow TEXT NOT NULL,
+            total_count INTEGER NOT NULL DEFAULT 0,
+            pass_count INTEGER NOT NULL DEFAULT 0,
+            fail_count INTEGER NOT NULL DEFAULT 0,
+            PRIMARY KEY (date, pn, model, workstation_name, service_flow)
+        );
     """)
     conn.commit()
     cursor.close()
-    logging.info('Table check/creation complete.')
 
 def aggregate_daily_data(conn):
     """Aggregate workstation data for the last 7 days"""

@@ -1,0 +1,75 @@
+/* Base CSS variables for theming */
+:root {
+    /* Default light theme variables */
+    --primary-main: #1976d2;
+    --primary-dark: #1e3a5f;
+    --background-default: #f5f7fa;
+    --background-paper: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #757575;
+    --divider: rgba(0, 0, 0, 0.12);
+}
+
+/* Apply theme variables to elements that can benefit from CSS-only theming */
+[data-theme="light"] {
+    --primary-main: #1976d2;
+    --primary-dark: #1e3a5f;
+    --background-default: #f5f7fa;
+    --background-paper: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #757575;
+    --divider: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+    --primary-main: #90caf9;
+    --primary-dark: #1e3a5f;
+    --background-default: #2c3e50;
+    --background-paper: #34495e;
+    --text-primary: #ffffff;
+    --text-secondary: #b0bec5;
+    --divider: rgba(255, 255, 255, 0.12);
+}
+
+/* CSS-only themed elements - these will switch immediately */
+.theme-sensitive-bg {
+    background-color: var(--background-paper);
+}
+
+.theme-sensitive-text {
+    color: var(--text-primary);
+}
+
+.theme-sensitive-border {
+    border-color: var(--divider);
+}
+
+/* Optimize theme transitions */
+body, 
+.MuiPaper-root, 
+.MuiAppBar-root, 
+.MuiDrawer-paper, 
+.MuiCard-root,
+.MuiListItem-root {
+    transition: background-color 0.2s ease-out, color 0.2s ease-out !important;
+}
+
+/* High-performance animations using CSS transforms & opacity */
+.theme-toggle-animation {
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.3s;
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 600px) {
+    body, 
+    .MuiPaper-root, 
+    .MuiAppBar-root, 
+    .MuiDrawer-paper, 
+    .MuiCard-root,
+    .MuiListItem-root {
+        /* Disable transitions on mobile for better performance */
+        transition-duration: 0.1s !important;
+    }
+} 

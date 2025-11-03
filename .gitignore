@@ -209,3 +209,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Configuration files (user-specific)
+config.py

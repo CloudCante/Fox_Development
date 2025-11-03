@@ -4,14 +4,12 @@ import pandas as pd
 import psycopg2
 import math
 
+# Add the parent directory to the path to import config
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DATABASE
+
 def connect_to_db():
-    return psycopg2.connect(
-        host="localhost",
-        database="fox_db",
-        user="gpu_user",
-        password="",
-        port="5432"
-    )
+    return psycopg2.connect(**DATABASE)
 
 def clean_column_name(col_name):
     return col_name.lower().replace(' ', '_').replace('-', '_')
@@ -30,8 +28,17 @@ def main():
         df = pd.read_excel(file_path)
         df.columns = [clean_column_name(col) for col in df.columns]
         df['data_source'] = 'workstation'
-        dedup_cols = [c for c in df.columns if c != 'day']
+        
+        # Clean duplicates while ignoring 'day' and 'tat' columns
+        # These are metadata columns that shouldn't be used for duplicate detection
+        dedup_cols = [c for c in df.columns if c not in ['day', 'tat']]
+        original_count = len(df)
         df = df.drop_duplicates(subset=dedup_cols)
+        cleaned_count = len(df)
+        
+        if original_count != cleaned_count:
+            print(f"Cleaned {original_count - cleaned_count:,} duplicate rows (ignoring 'day' and 'tat' columns)")
+            print(f"Original rows: {original_count:,}, Cleaned rows: {cleaned_count:,}")
         mapped_data = []
         for _, row in df.iterrows():
             mapped_row = {

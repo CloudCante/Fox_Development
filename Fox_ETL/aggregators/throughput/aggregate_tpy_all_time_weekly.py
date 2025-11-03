@@ -3,14 +3,17 @@ import psycopg2
 import json
 from datetime import datetime, timedelta
 import argparse
-
-DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'fox_db',
-    'user': 'gpu_user',
-    'password': '',
-    'port': '5432'
-}
+import sys
+import os
+# Add Fox_ETL directory to path to find config.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+while current_dir != '/':
+    config_path = os.path.join(current_dir, 'config.py')
+    if os.path.exists(config_path):
+        sys.path.insert(0, current_dir)
+        break
+    current_dir = os.path.dirname(current_dir)
+from config import DATABASE
 
 def get_week_bounds(target_date):
     """Get the Monday (start) and Sunday (end) of the week containing target_date"""
@@ -39,7 +42,7 @@ def get_week_date_range(week_id):
 
 def calculate_weekly_first_pass_yield_from_raw(week_start, week_end):
     """Calculate WEEKLY first pass yield using raw data"""
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             cur.execute("""
@@ -101,7 +104,7 @@ def calculate_weekly_first_pass_yield_from_raw(week_start, week_end):
 
 def calculate_model_specific_throughput_yields(week_start, week_end):
     """Calculate MODEL-SPECIFIC throughput yields from raw data"""
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             cur.execute("""
@@ -243,7 +246,7 @@ def aggregate_weekly_tpy_for_week(week_id):
     
     dynamic_tpy = calculate_dynamic_tpy(model_specific_yields)
     
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             cur.execute("""
@@ -381,7 +384,7 @@ def get_all_available_weeks():
     """Get all unique weeks when actual testing occurred"""
     print("Finding all weeks with test activity...")
     
-    conn = psycopg2.connect(**DB_CONFIG)
+    conn = psycopg2.connect(**DATABASE)
     try:
         with conn.cursor() as cur:
             cur.execute("""
