@@ -20,6 +20,22 @@ process.on('unhandledRejection', (reason, promise) => {
 app.use(cors()); 
 app.use(express.json()); 
 
+// Temporary role mock for testing
+app.use((req, res, next) => {
+    req.user = { id: '16bb37e7-0ff4-4d3f-be4f-5902a6174ad1', username: 'admin', role: 'superuser' };
+    next();
+});
+
+// Root route — shows API is running
+app.get('/', (req, res) => {
+    res.send('API server is running!');
+});
+
+// Optional health-check route
+app.get('/api/health-check', (req, res) => {
+    res.json({ status: 'OK', timestamp: new Date() });
+});
+
 const functionalTestingRouter = require('./routes/functionalTestingRecords');
 app.use('/api/functional-testing', functionalTestingRouter);
 
@@ -47,20 +63,36 @@ app.use('/api/workstationRoutes', workstationRouter);
 const testboardRouter = require('./routes/testboardRecords');
 app.use('/api/testboardRecords', testboardRouter);
 
+
+// Fixture related route files
+const fixturesRoutes = require('./routes/fixturesRoutes');
+const healthRoutes = require('./routes/healthRoutes');
+const usageRoutes = require('./routes/usageRoutes');
+const usersRoutes = require('./routes/usersRoutes');
+const fixtureMaintenanceRoutes = require('./routes/fixtureMaintenanceRoutes');
+
+// Mount the routes
+app.use('/api/fixtures', fixturesRoutes);
+app.use('/api/health', healthRoutes);
+app.use('/api/usage', usageRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/fixture-maintenance', fixtureMaintenanceRoutes);
+
+
 try {
     const uploadHandlerRouter = require('./routes/uploadHandler');
     app.use('/api/upload', uploadHandlerRouter);
 } catch (error) {
 }
 
-
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-
+// Test DB connection after server starts
 pool.query('SELECT NOW()', (err, res) => {
+  if (err) console.error('Database connection error:', err);
+  else console.log('Database connected at:', res.rows[0].now);
 });
-
-module.exports = {pool};

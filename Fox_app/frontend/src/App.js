@@ -26,6 +26,7 @@ import { SimplePerformanceMonitor } from './components/debug/SimplePerformanceMo
 import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
 import { GlobalSettingsProvider } from './data/GlobalSettingsContext';
+import FixturesPage from './components/pages/FixturesPage';
 
 const MainContent = React.memo(({ children }) => {
   const mainContentStyle = useMemo(() => ({ 
@@ -63,6 +64,8 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-dash" element={<FixtureDash/>}/>
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
+      <Route path="/fixtures" element={<FixturesPage />} /> 
+
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
