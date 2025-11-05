@@ -76,6 +76,9 @@ app.use('/api/v1/sql-portal', sqlPortalRouter);
 const fixturesRouter = require('./routes/fixturesRoutes');
 app.use('/api/fixtures', fixturesRouter); // no versioning for now
 
+const usersRoutes = require('./routes/usersRoutes');
+app.use('/api/users', usersRoutes);
+
 /*#################################################
 #    Optional Route Registration                #
 #    Upload handler is wrapped in try-catch    #
