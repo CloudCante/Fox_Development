@@ -32,6 +32,10 @@ export const ThroughputBarChart = React.memo(({ data }) => {
     animationDuration: 0, 
     isAnimationActive: false
   }), []);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
   return (
     <ResponsiveContainer 
       width="100%" 

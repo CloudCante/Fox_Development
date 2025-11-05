@@ -1,7 +1,11 @@
 // Widget for TestStation Pareto Charts
 // ------------------------------------------------------------
 // Imports
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+>>>>>>> origin/main
 import { Box, Button, FormControl, InputLabel, Select, MenuItem, Paper } from '@mui/material';
 // Page Comps
 import { Header } from '../Header.jsx';
@@ -67,7 +71,10 @@ export function ParetoWidget({ widgetId }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+<<<<<<< HEAD
   const latestReqId = useRef(0);
+=======
+>>>>>>> origin/main
   // ----------------------------------------------------------
   // Derived values from widget settings (persisted selections)
   const model  = widgetSettings.model  || '';
@@ -89,8 +96,12 @@ export function ParetoWidget({ widgetId }) {
   useEffect(() => {
     if (!loaded) return;
 
+<<<<<<< HEAD
     let isMounted = true;
     const reqId = ++latestReqId.current;
+=======
+    let isActive = true;
+>>>>>>> origin/main
 
     const fetchData = async () => {
       setLoading(true);
@@ -101,6 +112,7 @@ export function ParetoWidget({ widgetId }) {
           endDate,
           key,
           setDataCache: data => {
+<<<<<<< HEAD
             if (isMounted && latestReqId.current === reqId) setData(data);
           },
           API_BASE,
@@ -111,6 +123,18 @@ export function ParetoWidget({ widgetId }) {
         if (isMounted&& latestReqId.current === reqId) setData([]);
       } finally {
         if (isMounted&& latestReqId.current === reqId) setLoading(false);
+=======
+            if (isActive) setData(data);
+          },
+          API_BASE,
+          API_Route: '/api/v1/snfn/model-errors?'
+        });
+      } catch (err) {
+        console.error('Error fetching data', err);
+        if (isActive) setData([]);
+      } finally {
+        if (isActive) setLoading(false);
+>>>>>>> origin/main
       }
     };
 
@@ -118,7 +142,11 @@ export function ParetoWidget({ widgetId }) {
     const intervalId = setInterval(fetchData, 300000);
 
     return () => {
+<<<<<<< HEAD
       isMounted = false;
+=======
+      isActive = false;
+>>>>>>> origin/main
       clearInterval(intervalId);
     };
   }, [model, key, startDate, endDate, loaded, widgetId]);

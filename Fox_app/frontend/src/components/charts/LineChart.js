@@ -202,4 +202,7 @@ LineChart.defaultProps = {
   setRange: true,
   loading: false,
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main

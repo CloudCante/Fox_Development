@@ -3,7 +3,10 @@
   "version": "1.1.55",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "node server.js",
+=======
+>>>>>>> origin/main
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,7 +14,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+<<<<<<< HEAD
     "bcrypt": "^6.0.0",
+=======
+>>>>>>> origin/main
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",

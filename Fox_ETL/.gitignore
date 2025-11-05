@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -7,6 +8,25 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+=======
+# ===========================================
+# Fox Development Project .gitignore
+# ===========================================
+
+# Database files
+*.dump
+*.sql
+fox_backup.*
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+>>>>>>> origin/main
 .Python
 build/
 develop-eggs/
@@ -20,14 +40,18 @@ parts/
 sdist/
 var/
 wheels/
+<<<<<<< HEAD
 pip-wheel-metadata/
 share/python-wheels/
+=======
+>>>>>>> origin/main
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
 
 # PyInstaller
+<<<<<<< HEAD
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
@@ -37,6 +61,11 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+=======
+*.manifest
+*.spec
+
+>>>>>>> origin/main
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -51,6 +80,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+<<<<<<< HEAD
 # Translations
 *.mo
 *.pot
@@ -101,6 +131,8 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+=======
+>>>>>>> origin/main
 # Environments
 .env
 .venv
@@ -110,6 +142,99 @@ ENV/
 env.bak/
 venv.bak/
 
+<<<<<<< HEAD
+=======
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+build/
+*.tgz
+*.tar.gz
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output
+
+# TypeScript
+*.tsbuildinfo
+typings/
+
+# Optional npm cache directory
+.npm
+.eslintcache
+.node_repl_history
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Next.js
+.next
+
+# Nuxt.js
+.nuxt
+
+# Vuepress
+.vuepress/dist
+
+# Serverless
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# Webpack
+.webpack/
+
+# Vite
+.vite/
+
+# Electron-Forge
+out/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Excel files (if you don't want to track them)
+*.xls
+*.xlsx
+*.csv
+
+>>>>>>> origin/main
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -128,6 +253,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+<<<<<<< HEAD
 # IDE
 .vscode/
 .idea/
@@ -145,3 +271,49 @@ Thumbs.db
 *.db
 *.sqlite
 *.sqlite3 
+=======
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff
+instance/
+.webassets-cache
+
+# Scrapy stuff
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Configuration files (user-specific)
+config.py
+>>>>>>> origin/main

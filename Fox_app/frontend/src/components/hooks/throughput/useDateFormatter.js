@@ -27,4 +27,8 @@ export const useDateFormatter = () => {
   }, []);
 
   return { formatWeekDateRange };
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/main

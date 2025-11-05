@@ -10,7 +10,11 @@ import { paperStyle, buttonStyle } from '../../theme/themes.js';
 // Chart Comps
 import { PackingPageTable } from '../packingPage/PackingPageTable.jsx'
 // Hooks
+<<<<<<< HEAD
 import { usePackingTableData } from '../../hooks/packingPage/usePackingTableData.js';
+=======
+import { usePackingData } from '../../hooks/packingPage/usePackingData.js';
+>>>>>>> origin/main
 // Global Settings
 import { useGlobalSettings } from '../../../data/GlobalSettingsContext.js';
 
@@ -88,7 +92,11 @@ export function PackingOutputWidget({ widgetId }) {
 
   // Fetch packing data within date range (polling every 300s)
   const { packingData, sortData, lastUpdated, refetch } =
+<<<<<<< HEAD
     usePackingTableData(API_BASE, startDate, endDate, 300_000, { enabled, refreshKey });
+=======
+    usePackingData(API_BASE, startDate, endDate, 300_000, { enabled, refreshKey });
+>>>>>>> origin/main
 
   // ----------------------------------------------------------
   // Memo: build array of dates between start and end (M/D/YYYY)

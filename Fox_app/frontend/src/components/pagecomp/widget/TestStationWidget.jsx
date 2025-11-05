@@ -63,6 +63,10 @@ export function TestStationWidget({ widgetId }) {
   const [loading, setLoading] = useState(true);
 
   const latestReqId = useRef(0);
+<<<<<<< HEAD
+=======
+  const [lastGoodData, setLastGoodData] = useState([]);
+>>>>>>> origin/main
 
   // ----------------------------------------------------------
   // Derived values from widget settings (persisted selections)
@@ -102,10 +106,20 @@ export function TestStationWidget({ widgetId }) {
             // accept only the latest inflight request
             if (isMounted && latestReqId.current === reqId) {
               setTestStationData(data);
+<<<<<<< HEAD
             }
           },
           API_BASE,
           API_Route: '/api/functional-testing/station-performance?'
+=======
+              if (Array.isArray(data) && data.length > 0) {
+                setLastGoodData(data);
+              }
+            }
+          },
+          API_BASE,
+          API_Route: '/api/v1/functional-testing/station-performance?'
+>>>>>>> origin/main
         });
       } catch (err) {
         console.error('Error fetching data', err);

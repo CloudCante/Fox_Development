@@ -37,4 +37,8 @@ export const useApi = () => {
   }, []);
 
   return { secureApiCall, cleanup };
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/main

@@ -52,4 +52,8 @@ export const useDataProcessing = ({ showRepairStations = false, sortBy = 'volume
   }, [showRepairStations, sortBy]);
 
   return { processModelData };
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/main

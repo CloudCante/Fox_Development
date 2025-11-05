@@ -6,14 +6,20 @@ import psycopg2
 import pandas as pd
 import glob
 import os
+<<<<<<< HEAD
 import sys
+=======
+>>>>>>> origin/main
 from psycopg2.extras import execute_values
 import logging
 from datetime import datetime
 import argparse
+<<<<<<< HEAD
 
 # Import config
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+=======
+>>>>>>> origin/main
 from config import DATABASE
 
 # Setup logging
@@ -26,6 +32,7 @@ logging.info('Script started.')
 
 def connect_to_db():
     logging.info('Connecting to database...')
+<<<<<<< HEAD
     return psycopg2.connect(
         host=DATABASE['host'],
         database=DATABASE['database'],
@@ -33,6 +40,9 @@ def connect_to_db():
         password=DATABASE['password'],
         port=DATABASE['port']
     )
+=======
+    return psycopg2.connect(**DATABASE)
+>>>>>>> origin/main
 
 def create_workstation_table(conn):
     cursor = conn.cursor()

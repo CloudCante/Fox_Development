@@ -17,4 +17,8 @@ export const useDebounce = (callback, delay = 100) => {
   return useCallback((data) => {
     debouncedFn(data);
   }, [debouncedFn]);
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/main

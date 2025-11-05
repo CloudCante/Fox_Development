@@ -4,11 +4,16 @@ import pandas as pd
 import psycopg2
 import math
 
+<<<<<<< HEAD
 # Import config
+=======
+# Add the parent directory to the path to import config
+>>>>>>> origin/main
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import DATABASE
 
 def connect_to_db():
+<<<<<<< HEAD
     return psycopg2.connect(
         host=DATABASE['host'],
         database=DATABASE['database'],
@@ -16,6 +21,9 @@ def connect_to_db():
         password=DATABASE['password'],
         port=DATABASE['port']
     )
+=======
+    return psycopg2.connect(**DATABASE)
+>>>>>>> origin/main
 
 def clean_column_name(col_name):
     return col_name.lower().replace(' ', '_').replace('-', '_')

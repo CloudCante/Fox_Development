@@ -274,7 +274,12 @@ export const testFixtureData = [
   { date: '2025-08-06', health: 99, healthKPI: 95, usage: 50},
   { date: '2025-08-07', health: 70, healthKPI: 95, usage: 90},
   { date: '2025-08-08', health: 58, healthKPI: 95, usage: 85},
+<<<<<<< HEAD
   { date: '2025-08-09', health: 55, healthKPI: 95, usage: 90},]
+=======
+  { date: '2025-08-09', health: 55, healthKPI: 95, usage: 90}
+];
+>>>>>>> origin/main
 
 export const testFixtureStatusData = [
   { name: 'NV-NCT011-1', rack: 1, sn: '0001', status: 'Active', lastBeat: '12:00:00', type:'Refurbish'},
@@ -305,6 +310,10 @@ export const testFixtureAvailabilityData = [
   { date: '2025-08-07', id: 'NV-NCT01-7', eventType: 'Other', outTime: '35 min', comments: 'Any other event'},
   { date: '2025-08-08', id: 'NV-NCT01-8', eventType: 'Next_Maintenance', outTime: '30 min', comments: 'Next scheduled maintenance'},
 ];
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 export const testFixtureUsageData = [
   { date: '2025-08-01', id: 'NV-NCT01-1', testType: 'FLA', usage: '50%', alarm:'None' },
   { date: '2025-08-01', id: 'NV-NCT01-2', testType: 'BAT', usage: '60%', alarm:'None' },
@@ -315,6 +324,10 @@ export const testFixtureUsageData = [
   { date: '2025-08-02', id: 'NV-NCT01-3', testType: 'None', usage: '70%', alarm:'No Response 2' },
   { date: '2025-08-02', id: 'NV-NCT01-4', testType: 'FLA', usage: '90%', alarm:'None' },
 ];
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 export const testFixtureFailureData = [
   { date: '2025-08-01', id: 'NV-NCT01-1', testType: 'FLA', topError:'143', count:5, rate:1 },
   { date: '2025-08-01', id: 'NV-NCT01-2', testType: 'BAT', topError:'281', count:3, rate:10 },

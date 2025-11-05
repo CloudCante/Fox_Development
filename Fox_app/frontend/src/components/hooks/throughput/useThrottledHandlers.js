@@ -21,4 +21,8 @@ export const useThrottledHandlers = (defaultDelay = DEFAULT_THROTTLE_DELAY) => {
   }, [defaultDelay]);
 
   return { createThrottledHandler };
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin/main

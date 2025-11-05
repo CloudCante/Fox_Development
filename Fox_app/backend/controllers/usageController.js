@@ -1,4 +1,5 @@
 // controller for usage table
+<<<<<<< HEAD
 // Handles all CRUD operations for fixture usage data
 
 // Import required modules
@@ -36,10 +37,30 @@ class usageController {
             res.json(result.rows[0]); // return single row as JSON
         } catch (error) {
             console.error('Database error (getUsageById):', error);
+=======
+
+// Import required libraries and modules
+//const fixturesModel = require('../models/fixturesModel');
+const { pool } = require('../db.js');
+const { uuidRegex, dynamicQuery, dynamicPostQuery } = require('./controllerUtilities.js');
+// Class for handling usage
+class usageController {
+   
+    //READ all usage
+    static async getAllUsage(req, res) {
+        try {
+            const query = 'SELECT * FROM usage ORDER BY id ASC;';
+            const result = await pool.query(query);
+            res.json(result.rows);
+        }
+        catch (error) {
+            console.error('Database error (getAllUsage):', error);
+>>>>>>> origin/main
             res.status(500).json({ error: 'Database query failed' });
         }
     }
 
+<<<<<<< HEAD
     // CREATE new usage record
     static async postUsage(req, res) {
         try {
@@ -104,6 +125,77 @@ class usageController {
             values.push(id); // add ID as last parameter for WHERE clause
 
             // Construct SQL update query
+=======
+    //READ Usage by ID
+    static async getUsageById(req, res) {
+        try {
+                const id = req.params.id;
+                if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+             }
+                const query = 'SELECT * FROM usage WHERE id = $1';
+                const result = await pool.query(query, [id]);
+                if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
+                res.json(result.rows[0]);
+        } 
+        catch (error) {
+            console.error('Database error (getUsageById):', error);
+            res.status(500).json({ error: 'Database query failed' });
+        }
+        }
+
+    //CREATE Usage
+    static async postUsage(req, res) {
+         try {
+            //allowed fields
+            const allowed = ['fixture_id', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator'];
+
+            //required fields
+            const required = ['fixture_id'];
+            //check for missing required fields
+            const missing = required.filter(field => !Object.prototype.hasOwnProperty.call(req.body, field));
+                if (missing.length > 0) {
+                return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
+                }
+            const {columns,placeholders, values } = dynamicPostQuery(allowed, req);
+            if (placeholders.length === 0) {
+                return res.status(400).json({ error: 'No valid fields provided for create' });
+            }
+            
+            const query = `
+                INSERT INTO usage (${columns.join(', ')}, create_date)
+            VALUES(
+                ${placeholders.join(', ')},
+                NOW()
+            )
+                RETURNING *;
+            `;
+
+            const result = await pool.query(query, values);
+            
+            res.status(201).json(result.rows[0]);
+          
+        } catch (error) {
+            console.error('Database error:', error);
+            res.status(500).json({ error: 'Database create failed' });
+        }
+        }
+     
+    // UPDATE Usage allowing partial updates
+    static async updateUsage(req, res) {
+        try {
+            const id = req.params.id;
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            }
+            const allowed = ['fixture_id', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator'];
+            const { setClauses, values, paramIndex } = dynamicQuery(allowed, req);
+            if (setClauses.length === 0) {
+                return res.status(400).json({ error: 'No valid fields provided for update' });
+            }
+            //add id 
+            values.push(id);
+>>>>>>> origin/main
             const query = `
                 UPDATE usage
                 SET ${setClauses.join(', ')}
@@ -111,6 +203,7 @@ class usageController {
                 RETURNING *;
             `;
 
+<<<<<<< HEAD
             const result = await pool.query(query, values); // execute update
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: `No fixture usage found with id: ${id}` });
@@ -153,3 +246,40 @@ class usageController {
 
 // Export the usageController class
 module.exports = usageController;
+=======
+            const result = await pool.query(query, values);
+            if (result.rows.length === 0) {
+                return res.status(404).json({ error: `No fixture usage found with id: ${id}` });
+            }
+            res.json(`Successfully updated fixture usage with id: ${id}. Updated row: ` + result.rows[0]);
+          
+        } catch (error) {
+            console.error('Database error:', error);
+            res.status(500).json({ error: 'Database update failed' });
+        }
+    }
+    // DELETE Usage
+    static async deleteUsage(req, res) {
+        try {
+            const id = req.params.id;
+            if (!uuidRegex.test(id)) {
+                return res.status(400).json({ error: 'Invalid or missing id parameter' });
+            }
+            const query = 'DELETE FROM usage WHERE id = $1 RETURNING *;';
+            const values = [id];
+            const result = await pool.query(query, values);
+            if (result.rows.length === 0) {
+                return res.status(404).json({ error: `No fixture usage found with id: ${id}` });
+            }
+            else {
+                res.json({ message: `Fixture Usage with id: ${id} deleted successfully.`, deletedRow: result.rows[0] });
+            }
+        }
+         catch (error) {
+                console.error('Database error (deleteUsage):', error);
+                res.status(500).json({ error: 'Database delete failed' });
+            }
+    }
+}
+    module.exports = usageController;
+>>>>>>> origin/main

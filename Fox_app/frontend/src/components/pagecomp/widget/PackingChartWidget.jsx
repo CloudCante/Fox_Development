@@ -11,7 +11,11 @@ import { paperStyle, buttonStyle } from '../../theme/themes.js';
 // Chart Comps
 import PackingOutputBarChart from '../../charts/PackingOutputBarChart.js';
 // Hooks
+<<<<<<< HEAD
 import { usePackingChartData } from '../../hooks/packingCharts/usePackingChartData.js';
+=======
+import { usePackingData } from '../../hooks/packingCharts/usePackingData.js';
+>>>>>>> origin/main
 import { useWeekNavigation } from '../../hooks/packingCharts/useWeekNavigation';
 // Global Settings
 import { useGlobalSettings } from '../../../data/GlobalSettingsContext.js';
@@ -107,7 +111,11 @@ export function PackingChartWidget({ widgetId }) {
     weeklyData,
     loadingWeekly,
     errorWeekly
+<<<<<<< HEAD
   } = usePackingChartData(API_BASE, model || 'Tesla SXM4', currentISOWeekStart, barLimit);
+=======
+  } = usePackingData(API_BASE, model || 'Tesla SXM4', currentISOWeekStart, barLimit);
+>>>>>>> origin/main
 
   // Sync selected timeframe onto local display state
   useEffect(() => {
@@ -122,7 +130,10 @@ export function PackingChartWidget({ widgetId }) {
       setLoading(loadingWeekly);
       setError(errorWeekly);
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/main
   }, [loaded, timeFrame, dailyData, loadingDaily, errorDaily, weeklyData, loadingWeekly, errorWeekly]);
 
   // ----------------------------------------------------------

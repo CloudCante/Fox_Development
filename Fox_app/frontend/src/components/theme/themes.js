@@ -212,3 +212,24 @@ export const dataTotalStyle = {
     color: '#2e7d32',
 }
 
+<<<<<<< HEAD
+=======
+export const cardStyle = {
+    height: 300,
+    width: 300,
+    cursor: 'pointer',
+    transition: 'all 0.2s ease-in-out',
+    '&:hover': {
+    boxShadow: 4
+    }
+}
+export const cardActionStyle = {
+    height: '100%',
+    p: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center'
+}
+>>>>>>> origin/main

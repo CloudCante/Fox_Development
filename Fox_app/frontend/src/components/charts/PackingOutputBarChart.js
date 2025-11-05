@@ -64,7 +64,11 @@ const PackingOutputBarChart = ({
 
 
   const theme = useTheme();
+<<<<<<< HEAD
   
+=======
+  console.log(showTrendLine, data.length,title?.toLowerCase().includes('weekly'))
+>>>>>>> origin/main
   return (
     <div style={{ marginBottom: '40px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 4 }}>
@@ -106,7 +110,10 @@ const PackingOutputBarChart = ({
                 isAnimationActive={false}
                 name="Trend"
                 connectNulls
+<<<<<<< HEAD
                 label={"Trend"}
+=======
+>>>>>>> origin/main
               />
           )}
         </ComposedChart>
