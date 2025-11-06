@@ -4,8 +4,10 @@
 // NOTE: Role-based access is enforced at the route level using "roleCheck" middleware.
 //       The controller assumes that requests reaching here are already authorized.
 
-const { pool } = require('../db');  // Database connection pool
-const { uuidRegex, dynamicQuery, dynamicPostQuery } = require('./controllerUtilities'); // Helper utilities
+const { pool } = require('../db'); 
+const { uuidRegex, dynamicQuery, dynamicPostQuery } = require('./controllerUtilities');
+const bcrypt = require('bcrypt'); 
+
 
 // ============================================================
 // GET ALL USERS  (admin-only via route middleware)
@@ -38,7 +40,7 @@ exports.getUserById = async (req, res) => {
     // Query user by ID
     const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
 
-    if (result.rows.length === 0) {
+    if (result.rows.length  !== 1) {
       return res.status(404).json({ message: 'User not found' });
     }
 
@@ -52,48 +54,61 @@ exports.getUserById = async (req, res) => {
 // ============================================================
 // CREATE NEW USER  (admin-only via route middleware)
 // ============================================================
-const bcrypt = require('bcrypt'); // Add this at the top of your controller file
 
 exports.createUser = async (req, res) => {
-  // Allowed columns for insertion (include password now)
-  const allowed = ['username', 'email', 'role', 'password'];
-
-  // Build dynamic insert query using helper
-  const { columns, placeholders, values } = dynamicPostQuery(allowed, req);
-
-  if (columns.length === 0) {
-    return res.status(400).json({ error: 'No valid fields provided' });
-  }
-
-  // Hash password if it was provided
-  if (req.body.password) {
-    try {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10); // 10 salt rounds
-      // Replace plain password in values array with hashed password
-      const passwordIndex = columns.indexOf('password');
-      values[passwordIndex] = hashedPassword;
-    } catch (err) {
-      console.error('Error hashing password:', err);
-      return res.status(500).json({ error: 'Password hashing failed' });
-    }
-  }
-
-  // Construct safe SQL query
-  const query = `
-    INSERT INTO users (${columns.join(', ')})
-    VALUES (${placeholders.join(', ')})
-    RETURNING *;
-  `;
-
   try {
-    const result = await pool.query(query, values);
-    res.status(201).json(result.rows[0]);
+
+    // Allowed columns for insertion (include password now)
+    const allowed = ['username', 'email', 'role', 'password'];
+    const required = ['username', 'role'];
+
+    // Check for missing required fields
+    const missingFields = required.filter(field => !req.body[field]);
+    if (missingFields.length) {
+      return res.status(400).json({
+        error: `Missing required field(s): ${missingFields.join(', ')}`
+      });
+    }
+
+    // Build dynamic insert query using helper
+    const { columns, placeholders, values } = dynamicPostQuery(allowed, req);
+
+    if (!columns.length) {
+      return res.status(400).json({ error: 'No valid fields provided' });
+    }
+
+    // Hash password if it was provided
+    if (req.body.password) {
+      try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const passwordIndex = columns.indexOf('password');
+        values[passwordIndex] = hashedPassword;
+      } catch (err) {
+        console.error('Error hashing password:', err);
+        return res.status(500).json({ error: 'Password hashing failed' });
+      }
+    }
+
+    // Construct safe SQL query
+    const query = `
+      INSERT INTO users (${columns.join(', ')})
+      VALUES (${placeholders.join(', ')})
+      RETURNING *;
+    `;
+
+    try {
+      const result = await pool.query(query, values);
+      res.status(201).json(result.rows[0]);
+    } catch (err) {
+      console.error('Error creating user:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+
   } catch (err) {
-    console.error('Error creating user:', err);
+    console.error('Unexpected error:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 // ============================================================
 // UPDATE EXISTING USER  (admin-only via route middleware)
@@ -155,4 +170,4 @@ exports.deleteUser = async (req, res) => {
     console.error('Error deleting user:', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-};
+}

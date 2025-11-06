@@ -24,7 +24,7 @@
 function isSuperuser(req, res, next) {
   // Ensure user info exists
   if (!req.user) {
-    return res.status(401).json({ error: 'Unauthorized: User not authenticated' });
+    return res.status(401).json({ error: 'No value entered for user' });
   }
 
   // Check if role matches 'superuser'
