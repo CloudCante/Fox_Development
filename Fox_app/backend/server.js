@@ -85,6 +85,9 @@ app.use('/api/fixtures', fixturesRouter); // no versioning for now
 const usersRoutes = require('./routes/usersRoutes'); 
 app.use('/api/users', usersRoutes);
 
+const fixtureMaintenanceRoutes = require('./routes/fixtureMaintenanceRoutes');
+app.use('/api/fixture-maintenance', fixtureMaintenanceRoutes);
+
 
 /*#################################################
 #    Optional Route Registration                #
