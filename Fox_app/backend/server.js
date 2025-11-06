@@ -32,6 +32,12 @@ process.on('unhandledRejection', (reason, promise) => {
 app.use(cors()); 
 app.use(express.json()); 
 
+// Temporary role mock for testing
+app.use((req, res, next) => {
+  req.user = { username: 'superadmin', role: 'superuser' };
+  next();
+});
+
 /*#################################################
 #    API Route Registration (v1)               #
 #    All API endpoints are registered here     #
@@ -76,8 +82,9 @@ app.use('/api/v1/sql-portal', sqlPortalRouter);
 const fixturesRouter = require('./routes/fixturesRoutes');
 app.use('/api/fixtures', fixturesRouter); // no versioning for now
 
-const usersRoutes = require('./routes/usersRoutes');
+const usersRoutes = require('./routes/usersRoutes'); 
 app.use('/api/users', usersRoutes);
+
 
 /*#################################################
 #    Optional Route Registration                #
@@ -102,10 +109,11 @@ try {
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-
+// Test DB connection after server starts
 pool.query('SELECT NOW()', (err, res) => {
+  if (err) console.error('Database connection error:', err);
+  else console.log('Database connected at:', res.rows[0].now);
 });
-
-module.exports = {pool};
