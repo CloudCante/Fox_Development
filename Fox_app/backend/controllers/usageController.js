@@ -3,22 +3,14 @@
 // Import required libraries and modules
 //const fixturesModel = require('../models/fixturesModel');
 const { pool } = require('../db.js');
-<<<<<<< HEAD
-
-=======
 const { uuidRegex, dynamicQuery, dynamicPostQuery } = require('./controllerUtilities.js');
->>>>>>> origin/main
 // Class for handling usage
 class usageController {
    
     //READ all usage
     static async getAllUsage(req, res) {
         try {
-<<<<<<< HEAD
-            const query = 'SELECT * FROM usage ORDER BY fixture_id ASC;';
-=======
             const query = 'SELECT * FROM usage ORDER BY id ASC;';
->>>>>>> origin/main
             const result = await pool.query(query);
             res.json(result.rows);
         }
@@ -28,19 +20,6 @@ class usageController {
         }
     }
 
-<<<<<<< HEAD
-
-
-    //READ Usage by ID
-
-    static async getUsageById(req, res) {
-        try {
-            const id = parseInt(req.params.id, 10);
-            if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
-
-                const query = 'SELECT * FROM usage WHERE id = $1';
-
-=======
     //READ Usage by ID
     static async getUsageById(req, res) {
         try {
@@ -49,7 +28,6 @@ class usageController {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
              }
                 const query = 'SELECT * FROM usage WHERE id = $1';
->>>>>>> origin/main
                 const result = await pool.query(query, [id]);
                 if (result.rows.length === 0) return res.status(404).json({ error: `No result found for id: ${id}` });
                 res.json(result.rows[0]);
@@ -61,10 +39,6 @@ class usageController {
         }
 
     //CREATE Usage
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
     static async postUsage(req, res) {
          try {
             //allowed fields
@@ -77,27 +51,7 @@ class usageController {
                 if (missing.length > 0) {
                 return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
                 }
-<<<<<<< HEAD
-
-
-
-            const columns = [];
-            const placeholders = [];
-            const values = [];
-            let paramIndex = 1;
-
-            for (const col of allowed) {
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) {
-                    placeholders.push(`$${paramIndex}`);
-                    values.push(req.body[col]);
-                    columns.push(col);
-                    paramIndex++;
-                }
-            }
-
-=======
             const {columns,placeholders, values } = dynamicPostQuery(allowed, req);
->>>>>>> origin/main
             if (placeholders.length === 0) {
                 return res.status(400).json({ error: 'No valid fields provided for create' });
             }
@@ -124,32 +78,6 @@ class usageController {
     // UPDATE Usage allowing partial updates
     static async updateUsage(req, res) {
         try {
-<<<<<<< HEAD
-            const id = parseInt(req.params.id, 10);
-            if (Number.isNaN(id)) {
-                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
-            }
-            const allowed = ['fixture_id', 'test_slot', 'test_station', 'test_type', 'gpu_pn', 'gpu_sn', 'log_path', 'creator', 'create_date'];
-
-            const setClauses = [];
-            const values = [];
-            let paramIndex = 1;
-
-            for (const col of allowed) {
-                if (Object.prototype.hasOwnProperty.call(req.body, col)) {
-                    setClauses.push(`${col} = $${paramIndex}`);
-                    values.push(req.body[col]);
-                    paramIndex++;
-                }
-            }
-
-            if (setClauses.length === 0) {
-                return res.status(400).json({ error: 'No valid fields provided for update' });
-            }
-            
-            //add id 
-
-=======
             const id = req.params.id;
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
@@ -160,7 +88,6 @@ class usageController {
                 return res.status(400).json({ error: 'No valid fields provided for update' });
             }
             //add id 
->>>>>>> origin/main
             values.push(id);
             const query = `
                 UPDATE usage
@@ -173,11 +100,7 @@ class usageController {
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: `No fixture usage found with id: ${id}` });
             }
-<<<<<<< HEAD
-            res.json('Sussessfully updated fixture usage with id: ' + id + '. Updated row: ' + result.rows[0]);
-=======
             res.json(`Successfully updated fixture usage with id: ${id}. Updated row: ` + result.rows[0]);
->>>>>>> origin/main
           
         } catch (error) {
             console.error('Database error:', error);
@@ -187,15 +110,10 @@ class usageController {
     // DELETE Usage
     static async deleteUsage(req, res) {
         try {
-<<<<<<< HEAD
-            const id = parseInt(req.params.id, 10);
-            if (Number.isNaN(id)) return res.status(400).json({ error: 'Invalid or missing id parameter' });
-=======
             const id = req.params.id;
             if (!uuidRegex.test(id)) {
                 return res.status(400).json({ error: 'Invalid or missing id parameter' });
             }
->>>>>>> origin/main
             const query = 'DELETE FROM usage WHERE id = $1 RETURNING *;';
             const values = [id];
             const result = await pool.query(query, values);

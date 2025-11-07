@@ -22,6 +22,7 @@ import DidTheyFail from './components/pages/DidTheyFail';
 import FixtureDash from './components/pages/FixtureDash';
 import FixtureDetails from './components/pages/FixtureDetails';
 import FixtureInventory from './components/pages/FixtureInventory';
+import UsagePage from './components/pages/UsagePage';
 import { SimplePerformanceMonitor } from './components/debug/SimplePerformanceMonitor';
 import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
@@ -63,11 +64,12 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-dash" element={<FixtureDash/>}/>
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
+     <Route path="/usage" element={<UsagePage />} />
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
     </Routes>
-  </GlobalSettingsProvider>
+  </GlobalSettingsProvider> 
 ));
 
 function App() {
