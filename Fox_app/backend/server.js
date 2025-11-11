@@ -88,6 +88,13 @@ app.use('/api/users', usersRoutes);
 const fixtureMaintenanceRoutes = require('./routes/fixtureMaintenanceRoutes');
 app.use('/api/fixture-maintenance', fixtureMaintenanceRoutes);
 
+const healthRoutes   = require('./routes/healthRoutes');   
+app.use('/api/health', healthRoutes);    
+
+const usageRoutes    = require('./routes/usageRoutes');    
+app.use('/api/usage', usageRoutes);      
+
+
 
 /*#################################################
 #    Optional Route Registration                #
