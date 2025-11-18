@@ -34,6 +34,14 @@ import { isLowEndDevice, LightweightBackdrop } from './utils/muiOptimizations';
 import './components/theme/theme.css';
 import { GlobalSettingsProvider } from './data/GlobalSettingsContext';
 
+//Testing Dashboard Pages 
+import FixturesPage from './components/pages/testing_dashboard/FixturesPage';
+import UsersPage from './components/pages/testing_dashboard/UsersPage';
+import HealthPage from './components/pages/testing_dashboard/HealthPage';
+import UsagePage from './components/pages/testing_dashboard/UsagePage';
+import MaintenancePage from './components/pages/testing_dashboard/MaintenancePage';
+import SummaryPage from './components/pages/testing_dashboard/SummaryPage';
+
 const MainContent = React.memo(({ children }) => {
   const mainContentStyle = useMemo(() => ({ 
     flexGrow: 1, 
@@ -71,6 +79,17 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-details" element={<FixtureDetails/>}/>
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
       <Route path="/query-page" element={<QueryPage/>}/>
+
+      //Testing Dahsboard Route Pages:
+
+      <Route path="/fixtures" element={<FixturesPage />} />
+      <Route path="/users" element={<UsersPage />} />
+      <Route path="/health" element={<HealthPage />} />
+      <Route path="/usage" element={<UsagePage />} />
+      <Route path="/maintenance" element={<MaintenancePage />} />
+      <Route path="/summary" element={<SummaryPage />} />
+
+
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
       )}
