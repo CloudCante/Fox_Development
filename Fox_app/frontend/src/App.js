@@ -35,12 +35,12 @@ import './components/theme/theme.css';
 import { GlobalSettingsProvider } from './data/GlobalSettingsContext';
 
 //Testing Dashboard Pages 
-import FixturesPage from './components/pages/testing_dashboard/FixturesPage';
-import UsersPage from './components/pages/testing_dashboard/UsersPage';
-import HealthPage from './components/pages/testing_dashboard/HealthPage';
-import UsagePage from './components/pages/testing_dashboard/UsagePage';
-import MaintenancePage from './components/pages/testing_dashboard/MaintenancePage';
-import SummaryPage from './components/pages/testing_dashboard/SummaryPage';
+import FixturesPage from './components/pages/te/FixturesPage';
+import UsersPage from './components/pages/te/UsersPage';
+import HealthPage from './components/pages/te/HealthPage';
+import UsagePage from './components/pages/te/UsagePage';
+import MaintenancePage from './components/pages/te/MaintenancePage';
+import SummaryPage from './components/pages/te/SummaryPage';
 
 const MainContent = React.memo(({ children }) => {
   const mainContentStyle = useMemo(() => ({ 
@@ -80,7 +80,7 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
       <Route path="/query-page" element={<QueryPage/>}/>
 
-      //Testing Dahsboard Route Pages:
+      //Testing Dashboard Route Pages:
 
       <Route path="/fixtures" element={<FixturesPage />} />
       <Route path="/users" element={<UsersPage />} />
