@@ -22,6 +22,15 @@ import QueryPage from './components/pages/quality/QueryPage';
 import FixtureDash from './components/pages/te/FixtureDash';
 import FixtureDetails from './components/pages/te/FixtureDetails';
 import FixtureInventory from './components/pages/te/FixtureInventory';
+
+//TE new Pages:
+import FixturesPage from "./components/pages/te/FixturesPage";
+import UsersPage from "./components/pages/te/UsersPage";
+import HealthPage from "./components/pages/te/HealthPage";
+import UsagePage from "./components/pages/te/UsagePage";
+import MaintenancePage from "./components/pages/te/MaintenancePage";
+import SummaryPage from "./components/pages/te/SummaryPage";
+
 // Dev Pages
 import StationCycleTime from './components/pages/dev/CycleTime';
 import MostRecentFail from './components/pages/dev/MostRecentFail';
@@ -76,8 +85,12 @@ const AppRoutes = React.memo(() => (
       <Route path="/fixture-inventory" element={<FixtureInventory/>}/>
       <Route path="/query-page" element={<QueryPage/>}/>
 
-      
-
+      <Route path="/fixtures" element={<FixturesPage />} />
+      <Route path="/users" element={<UsersPage />} />
+      <Route path="/health" element={<HealthPage />} />
+      <Route path="/usage" element={<UsagePage />} />
+      <Route path="/maintenance" element={<MaintenancePage />} />
+      <Route path="/summary" element={<SummaryPage />} />
 
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev/upload" element={<UploadPage />} />
