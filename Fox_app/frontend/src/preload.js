@@ -6,38 +6,7 @@ contextBridge.exposeInMainWorld('electronApp', {
   getVersion: () => version
 });
 
-// Expose backend API functions
-contextBridge.exposeInMainWorld('api', {
-  // Fixtures
-  getFixtures: async () => {
-    const response = await fetch('http://localhost:5000/fixtures'); 
-    return response.json();
-  },
 
-  // Health
-  getHealth: async () => {
-    const response = await fetch('http://localhost:5000/health');
-    return response.json();
-  },
-
-  // Usage
-  getUsage: async () => {
-    const response = await fetch('http://localhost:5000/usage');
-    return response.json();
-  },
-
-  // Fixture Maintenance
-  getFixtureMaintenance: async () => {
-    const response = await fetch('http://localhost:5000/fixture-maintenance');
-    return response.json();
-  },
-
-  // Users
-  getUsers: async () => {
-    const response = await fetch('http://localhost:5000/users');
-    return response.json();
-  }
-});
 
 // Optional: keep commented Electron update API if needed
 // contextBridge.exposeInMainWorld('electronAPI', {
