@@ -1,35 +1,124 @@
 import React, { useEffect, useState } from "react";
-import { getHealth } from "../../../services/api";
+import { 
+    getHealth, 
+    createHealth, 
+    updateHealth, 
+    deleteHealth 
+} from "../../../services/api";
 
 
-export default function HealthPage() {
-  const [health, setHealth] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const HealthPage = () => {
+  const [healthItems, setHealthItems] = useState([]);
+  const [newItem, setNewItem] = useState({ name: "", status: "" });
+  const [editingItem, setEditingItem] = useState(null);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    getHealth()
-      .then((res) => {
-        setHealth(res.data || res);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Failed to load health data");
-        setLoading(false);
-      });
-  }, []);
+  // Load all Health (READ)
+  const fetchHealth = async () => {
+    try {
+      const response = await getHealth();
+      setHealthItems(response.data);
+    } catch {
+      setError("Failed to load health items");
+    }
+  };
 
-  if (loading) return <p>Loading health data...</p>;
-  if (error) return <p>{error}</p>;
+ useEffect(() => {
+  const loadData = async () => {
+    await fetchHealth();
+  };
+  loadData();
+}, []);
+
+
+  // CREATE
+  const handleCreate = async () => {
+    try {
+      await createHealth(newItem);
+      setNewItem({ name: "", status: "" });
+      fetchHealth();
+    } catch {
+      setError("Failed to create health item");
+    }
+  };
+
+  // UPDATE
+  const handleUpdate = async () => {
+    if (!editingItem) return;
+    try {
+      await updateHealth(editingItem.id, editingItem);
+      setEditingItem(null);
+      fetchHealth();
+    } catch {
+      setError("Failed to update health item");
+    }
+  };
+
+  // DELETE
+  const handleDelete = async (id) => {
+    try {
+      await deleteHealth(id);
+      fetchHealth();
+    } catch {
+      setError("Failed to delete health item");
+    }
+  };
 
   return (
     <div>
-      <h2>Health Status</h2>
+      <h1>Health</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+    {/* Create form */}
+      <input
+        type="text"
+        placeholder="Name"
+        value={newItem.name}
+        onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Status"
+        value={newItem.status}
+        onChange={(e) => setNewItem({ ...newItem, status: e.target.value })}
+      />
+      <button onClick={handleCreate}>Add Item</button>
+
+    {/* Health list */}
       <ul>
-        {health.map((h) => (
-          <li key={h.id}>{h.status}</li>
+        {healthItems.map((item) => (
+          <li key={item.id}>
+            {editingItem?.id === item.id ? (
+              <>
+                <input
+                  type="text"
+                  value={editingItem.name}
+                  onChange={(e) =>
+                    setEditingItem({ ...editingItem, name: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  value={editingItem.status}
+                  onChange={(e) =>
+                    setEditingItem({ ...editingItem, status: e.target.value })
+                  }
+                />
+                <button onClick={handleUpdate}>Save</button>
+                <button onClick={() => setEditingItem(null)}>Cancel</button>
+              </>
+            ) : (
+              <>
+                {item.name} ({item.status})
+                <button onClick={() => setEditingItem(item)}>Edit</button>
+                <button onClick={() => handleDelete(item.id)}>Delete</button>
+              </>
+            )}
+          </li>
         ))}
       </ul>
     </div>
   );
-}
+};
+
+export default HealthPage;
