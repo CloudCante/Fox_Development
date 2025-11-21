@@ -14,7 +14,9 @@ export const createFixture = (data) => API.post("/fixtures", data);
 export const updateFixture = (id, data) => API.put(`/fixtures/${id}`, data);
 export const deleteFixture = (id) => API.delete(`/fixtures/${id}`);
 export const getBTesters = () => API.get("/fixtures/btesters");
-export const getEligibleBTesters = (slotType) => API.get(`/fixtures/btesters/eligible?slot=${slotType}`);
+export const getEligibleBTesters = (slotType) =>
+  API.get(`/fixtures/available-parents?slot=${slotType}`);
+
 
 
 // ========================

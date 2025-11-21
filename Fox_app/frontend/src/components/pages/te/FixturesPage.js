@@ -1,302 +1,325 @@
 // ============================================================================
-// File: FixturesPage.js
+// File: FixturesPage.js (Material React Table Version)
 //
 // PURPOSE:
-//   Frontend page for displaying and managing 'fixtures'.
+//   Frontend page for displaying and managing 'fixtures' using Material React Table (MRT).
+//   - Fully rewritten while keeping structure and logic.
 //   - Supports full CRUD operations via API.
-//   - Automatically refreshes list after create/update/delete.
-//   - Dynamically filters parent B Testers for LA/RA Slots.
-// NOTES:
-//   - Uses React hooks (useState, useEffect)
-//   - Calls backend API via api.js
+//   - Create fixture dialog now supports dynamic Tester Type selection
+//     and parent B Tester selection for LA/RA Slots.
 // ============================================================================
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 import {
   getFixtures,
-  getBTesters,
   createFixture,
   updateFixture,
   deleteFixture,
-  getEligibleBTesters // new function in api.js
+  getEligibleBTesters,
 } from "../../../services/api";
 
+import {
+  MaterialReactTable,
+  useMaterialReactTable,
+} from "material-react-table";
+
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+} from "@mui/material";
+
+// ============================================================================
+// COMPONENT
+// ============================================================================
 const FixturesPage = () => {
-  // State
+  // =====================================================
+  // STATE
+  // =====================================================
   const [fixtures, setFixtures] = useState([]);
-  const [bTesters, setBTesters] = useState([]);
-  const [eligibleBTesters, setEligibleBTesters] = useState([]); // For LA/RA slots
+  const [error, setError] = useState("");
+  const [openCreate, setOpenCreate] = useState(false);
+
+  // Form state for new fixture
   const [newFixture, setNewFixture] = useState({
-    tester_type: "",
+    test_type: "", // Refurbish / Sort / Debug
     fixture_name: "",
-    rack: "",
     fixture_sn: "",
-    test_type: "",
+    rack: "",
     ip_address: "",
     mac_address: "",
-    parent: "",
-    creator: ""
+    creator: "",
+    parent: null, // For LA/RA Slots
   });
-  const [error, setError] = useState("");
+
+  const [selectedTesterType, setSelectedTesterType] = useState("B Tester");
+  const [parentOptions, setParentOptions] = useState([]);
 
   // =====================================================
-  // Fetch all fixtures on page load
+  // FETCH FUNCTIONS
   // =====================================================
   const fetchFixtures = async () => {
     try {
-      const response = await getFixtures();
-      setFixtures(response.data);
+      const res = await getFixtures();
+      setFixtures(res.data);
     } catch (err) {
-      console.error("Error fetching fixtures:", err);
+      console.error("Error fetching fixtures", err);
     }
   };
 
-  // =====================================================
-  // Fetch all B Testers (general dropdown for reference)
-  // =====================================================
-  const fetchBTesters = async () => {
-    try {
-      const response = await getBTesters();
-      setBTesters(response.data);
-    } catch (err) {
-      console.error("Error fetching B Testers:", err);
+  // Fetch parent B Testers dynamically based on selected Tester Type
+  useEffect(() => {
+  const fetchParents = async () => {
+    if (selectedTesterType === "LA Slot" || selectedTesterType === "RA Slot") {
+      try {
+        // Convert to backend-expected values
+        const slot = selectedTesterType === "LA Slot" ? "LA" : "RA";
+
+        const res = await getEligibleBTesters(slot);
+        console.log("Fetched parent B Testers for slot:", slot, res.data);
+        setParentOptions(res.data);
+      } catch (err) {
+        console.error("Error fetching parent B Testers:", err);
+        setParentOptions([]);
+      }
+    } else {
+      setParentOptions([]);
     }
   };
+  fetchParents();
+}, [selectedTesterType]);
 
-  // =====================================================
-  // Fetch eligible B Testers for LA/RA slot parent dropdown
-  // =====================================================
-  const fetchEligibleBTesters = async (slotType) => {
-    if (!slotType) return setEligibleBTesters([]);
-    try {
-      const response = await getEligibleBTesters(slotType);
-      setEligibleBTesters(response.data);
-    } catch (err) {
-      console.error("Error fetching eligible B Testers:", err);
-      setEligibleBTesters([]);
-    }
-  };
 
-  // =====================================================
-  // Effect to fetch fixtures and all B Testers on mount
-  // =====================================================
+
   useEffect(() => {
     fetchFixtures();
-    fetchBTesters();
   }, []);
 
   // =====================================================
-  // Watcher: whenever tester_type changes, update eligible B Testers
+  // HANDLE CREATE
   // =====================================================
-  useEffect(() => {
-    if (newFixture.tester_type === "LA Slot" || newFixture.tester_type === "RA Slot") {
-      fetchEligibleBTesters(newFixture.tester_type);
-      setNewFixture({ ...newFixture, parent: "" }); // Reset parent selection
-    } else {
-      setEligibleBTesters([]);
-      setNewFixture({ ...newFixture, parent: "" });
-    }
-  }, [newFixture.tester_type]);
-
-  // =====================================================
-  // CREATE a new fixture
-  // =====================================================
-  const handleCreateFixture = async () => {
+  const handleCreate = async () => {
     try {
       setError("");
 
-      // Auto-fill IP/MAC for LA/RA Slot
-      if ((newFixture.tester_type === "LA Slot" || newFixture.tester_type === "RA Slot") && newFixture.parent) {
-        const parent = bTesters.find(b => b.id === newFixture.parent);
-        if (parent) {
-          newFixture.ip_address = parent.ip_address || "";
-          newFixture.mac_address = parent.mac_address || "";
-        }
-      }
+      // Prepare fixture payload depending on selected Tester Type
+      const fixtureToCreate = {
+        fixture_name: newFixture.fixture_name,
+        fixture_sn: newFixture.fixture_sn,
+        tester_type: selectedTesterType,
+        test_type: newFixture.test_type,
+        rack: newFixture.rack,
+        ip_address: newFixture.ip_address,
+        mac_address: newFixture.mac_address,
+        creator: newFixture.creator,
+        parent: selectedTesterType === "B Tester" ? null : newFixture.parent,
+      };
 
-      const response = await createFixture(newFixture);
-      console.log("Fixture created:", response.data);
+      await createFixture(fixtureToCreate);
 
-      // Clear form
+      // Refresh fixtures list
+      fetchFixtures();
+
+      // Reset form
       setNewFixture({
-        tester_type: "",
-        fixture_name: "",
-        rack: "",
-        fixture_sn: "",
         test_type: "",
+        fixture_name: "",
+        fixture_sn: "",
+        rack: "",
         ip_address: "",
         mac_address: "",
-        parent: "",
-        creator: ""
+        creator: "",
+        parent: null,
       });
-
-      // Refresh lists
-      fetchFixtures();
-      fetchBTesters();
+      setSelectedTesterType("B Tester");
+      setOpenCreate(false);
     } catch (err) {
-      console.error("Error creating fixture:", err.response?.data || err.message);
+      console.error("Create fixture error", err);
       setError(err.response?.data?.error || "Failed to create fixture");
     }
   };
 
   // =====================================================
-  // DELETE a fixture
+  // HANDLE UPDATE
   // =====================================================
-  const handleDeleteFixture = async (id) => {
+  const handleUpdate = async (id, updates) => {
+    try {
+      await updateFixture(id, updates);
+      fetchFixtures();
+    } catch (err) {
+      console.error("Update fixture error", err);
+    }
+  };
+
+  // =====================================================
+  // HANDLE DELETE
+  // =====================================================
+  const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this fixture?")) return;
     try {
       await deleteFixture(id);
       fetchFixtures();
-      fetchBTesters();
     } catch (err) {
-      console.error("Error deleting fixture:", err.response?.data || err.message);
+      console.error("Delete error", err);
     }
   };
 
   // =====================================================
-  // UPDATE fixture (inline edit example)
+  // MRT COLUMNS
   // =====================================================
-  const handleUpdateFixture = async (id, updatedFields) => {
-    try {
-      await updateFixture(id, updatedFields);
-      fetchFixtures();
-      fetchBTesters();
-    } catch (err) {
-      console.error("Error updating fixture:", err.response?.data || err.message);
-    }
-  };
+  const columns = useMemo(
+    () => [
+      { accessorKey: "tester_type", header: "Tester Type" },
+      { accessorKey: "fixture_name", header: "Name" },
+      { accessorKey: "fixture_sn", header: "Serial" },
+      { accessorKey: "rack", header: "Rack" },
+      { accessorKey: "test_type", header: "Test Type" },
+      { accessorKey: "ip_address", header: "IP" },
+      { accessorKey: "mac_address", header: "MAC" },
+      { accessorKey: "creator", header: "Creator" },
+    ],
+    []
+  );
 
+  // =====================================================
+  // MRT INSTANCE
+  // =====================================================
+  const table = useMaterialReactTable({
+    columns,
+    data: fixtures,
+    enableEditing: true,
+    onEditingRowSave: async ({ values, row }) => {
+      await handleUpdate(row.original.id, values);
+    },
+    renderRowActions: ({ row }) => (
+      <div style={{ display: "flex", gap: "8px", justifyContent: "flex-end" }}>
+        <Button size="small" variant="outlined" onClick={() => table.setEditingRow(row)}>
+          <EditIcon fontSize="small" />
+        </Button>
+        <Button size="small" variant="outlined" onClick={() => handleDelete(row.original.id)}>
+          <DeleteIcon fontSize="small" />
+        </Button>
+      </div>
+    ),
+    positionActionsColumn: "last",
+    renderTopToolbarCustomActions: () => (
+      <Button variant="contained" onClick={() => setOpenCreate(true)}>
+        Create Fixture
+      </Button>
+    ),
+  });
+
+  // =====================================================
+  // RENDER
+  // =====================================================
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Fixtures</h1>
-
-      {/* =====================================================
-          Display errors
-      ===================================================== */}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
+      <MaterialReactTable table={table} />
+
       {/* =====================================================
-          New Fixture Form
+          CREATE FIXTURE DIALOG
       ===================================================== */}
-      <div>
-        <h2>Create New Fixture</h2>
+      <Dialog open={openCreate} onClose={() => setOpenCreate(false)} fullWidth>
+        <DialogTitle>Create New Fixture</DialogTitle>
+        <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 1 }}>
 
-        {/* Tester Type Dropdown */}
-        <label>Tester Type:</label>
-        <select
-          value={newFixture.tester_type}
-          onChange={(e) => setNewFixture({ ...newFixture, tester_type: e.target.value })}
-        >
-          <option value="">Select Tester Type</option>
-          <option value="B Tester">B Tester</option>
-          <option value="LA Slot">LA Slot</option>
-          <option value="RA Slot">RA Slot</option>
-        </select>
-
-        {/* Parent B Tester Dropdown only for LA/RA Slot */}
-        {(newFixture.tester_type === "LA Slot" || newFixture.tester_type === "RA Slot") && (
-          <>
-            <label>Parent B Tester:</label>
-            <select
-              value={newFixture.parent}
-              onChange={(e) => setNewFixture({ ...newFixture, parent: e.target.value })}
+          {/* TESTER TYPE SELECTION */}
+          <FormControl fullWidth>
+            <InputLabel>Tester Type</InputLabel>
+            <Select
+              value={selectedTesterType}
+              onChange={(e) => setSelectedTesterType(e.target.value)}
             >
-              <option value="">Select Parent B Tester</option>
-              {eligibleBTesters.map(b => (
-                <option key={b.id} value={b.id}>
-                  {b.fixture_name} ({b.fixture_sn})
-                </option>
-              ))}
-            </select>
-          </>
-        )}
+              <MenuItem value="B Tester">B Tester</MenuItem>
+              <MenuItem value="LA Slot">LA Slot</MenuItem>
+              <MenuItem value="RA Slot">RA Slot</MenuItem>
+            </Select>
+          </FormControl>
 
-        <input
-          placeholder="Fixture Name"
-          value={newFixture.fixture_name}
-          onChange={(e) => setNewFixture({ ...newFixture, fixture_name: e.target.value })}
-        />
-        <input
-          placeholder="Rack"
-          value={newFixture.rack}
-          onChange={(e) => setNewFixture({ ...newFixture, rack: e.target.value })}
-        />
-        <input
-          placeholder="Serial Number"
-          value={newFixture.fixture_sn}
-          onChange={(e) => setNewFixture({ ...newFixture, fixture_sn: e.target.value })}
-        />
-        <input
-          placeholder="Test Type"
-          value={newFixture.test_type}
-          onChange={(e) => setNewFixture({ ...newFixture, test_type: e.target.value })}
-        />
-        <input
-          placeholder="IP Address (for B Tester)"
-          value={newFixture.ip_address}
-          onChange={(e) => setNewFixture({ ...newFixture, ip_address: e.target.value })}
-          disabled={newFixture.tester_type === "LA Slot" || newFixture.tester_type === "RA Slot"}
-        />
-        <input
-          placeholder="MAC Address (for B Tester)"
-          value={newFixture.mac_address}
-          onChange={(e) => setNewFixture({ ...newFixture, mac_address: e.target.value })}
-          disabled={newFixture.tester_type === "LA Slot" || newFixture.tester_type === "RA Slot"}
-        />
-        <input
-          placeholder="Creator"
-          value={newFixture.creator}
-          onChange={(e) => setNewFixture({ ...newFixture, creator: e.target.value })}
-        />
-        <button onClick={handleCreateFixture}>Create Fixture</button>
-      </div>
+          {/* PARENT DROPDOWN FOR LA/RA SLOT */}
+          {(selectedTesterType === "LA Slot" || selectedTesterType === "RA Slot") && (
+            <FormControl fullWidth>
+              <InputLabel>Select Parent B Tester</InputLabel>
+              <Select
+                value={newFixture.parent || ""}
+                onChange={(e) => setNewFixture({ ...newFixture, parent: e.target.value })}
+              >
+                {parentOptions.map((p) => (
+                  <MenuItem key={p.id} value={p.id}>
+                    {p.fixture_name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
 
-      {/* =====================================================
-          Fixtures Table
-      ===================================================== */}
-      <h2>All Fixtures</h2>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Tester Type</th>
-            <th>Name</th>
-            <th>Rack</th>
-            <th>Serial</th>
-            <th>Test Type</th>
-            <th>IP</th>
-            <th>MAC</th>
-            <th>Parent</th>
-            <th>Creator</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {fixtures.map((f) => (
-            <tr key={f.id}>
-              <td>{f.tester_type}</td>
-              <td>{f.fixture_name}</td>
-              <td>{f.rack}</td>
-              <td>{f.fixture_sn}</td>
-              <td>{f.test_type}</td>
-              <td>{f.ip_address}</td>
-              <td>{f.mac_address}</td>
-              <td>{f.parent}</td>
-              <td>{f.creator}</td>
-              <td>
-                <button onClick={() => handleDeleteFixture(f.id)}>Delete</button>
-                {/* Inline edit example */}
-                <button
-                  onClick={() =>
-                    handleUpdateFixture(f.id, { fixture_name: prompt("New name:", f.fixture_name) || f.fixture_name })
-                  }
-                >
-                  Edit Name
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          {/* COMMON FIELDS */}
+          <TextField
+            label="Fixture Name"
+            value={newFixture.fixture_name}
+            onChange={(e) => setNewFixture({ ...newFixture, fixture_name: e.target.value })}
+          />
+          <TextField
+            label="Serial Number"
+            value={newFixture.fixture_sn}
+            onChange={(e) => setNewFixture({ ...newFixture, fixture_sn: e.target.value })}
+          />
+          <TextField
+            label="Rack"
+            value={newFixture.rack}
+            onChange={(e) => setNewFixture({ ...newFixture, rack: e.target.value })}
+          />
+          <TextField
+            label="IP Address"
+            value={newFixture.ip_address}
+            onChange={(e) => setNewFixture({ ...newFixture, ip_address: e.target.value })}
+          />
+          <TextField
+            label="MAC Address"
+            value={newFixture.mac_address}
+            onChange={(e) => setNewFixture({ ...newFixture, mac_address: e.target.value })}
+          />
+          <TextField
+            label="Creator"
+            value={newFixture.creator}
+            onChange={(e) => setNewFixture({ ...newFixture, creator: e.target.value })}
+          />
+
+          {/* TEST TYPE (Refurbish/Sort/Debug) */}
+          <FormControl fullWidth>
+            <InputLabel>Test Type</InputLabel>
+            <Select
+              value={newFixture.test_type}
+              onChange={(e) => setNewFixture({ ...newFixture, test_type: e.target.value })}
+            >
+              <MenuItem value="Refurbish">Refurbish</MenuItem>
+              <MenuItem value="Sort">Sort</MenuItem>
+              <MenuItem value="Debug">Debug</MenuItem>
+            </Select>
+          </FormControl>
+
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={() => setOpenCreate(false)}>Cancel</Button>
+          <Button variant="contained" onClick={handleCreate}>
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
