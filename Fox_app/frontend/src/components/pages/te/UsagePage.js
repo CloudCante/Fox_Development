@@ -1,35 +1,124 @@
 import React, { useEffect, useState } from "react";
-import { getUsage } from "../../../services/api";
+import { 
+    getUsage, 
+    createUsage, 
+    updateUsage, 
+    deleteUsage 
+} from "../../../services/api";
 
 
-export default function UsagePage() {
-  const [usage, setUsage] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const UsagePage = () => {
+  const [records, setRecords] = useState([]);
+  const [newRecord, setNewRecord] = useState({ fixture_id: "", usage_hours: "" });
+  const [editingRecord, setEditingRecord] = useState(null);
+  const [error, setError] = useState("");
+
+  // Load all usage (READ)
+  const fetchRecords = async () => {
+    try {
+      const response = await getUsage();
+      setRecords(response.data);
+    } catch {
+      setError("Failed to load usage records");
+    }
+  };
 
   useEffect(() => {
-    getUsage()
-      .then((res) => {
-        setUsage(res.data || res);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Failed to load usage data");
-        setLoading(false);
-      });
-  }, []);
+  const loadRecords = async () => {
+    await fetchRecords();
+  };
+  loadRecords();
+}, []);
 
-  if (loading) return <p>Loading usage data...</p>;
-  if (error) return <p>{error}</p>;
+
+  // CREATE
+  const handleCreate = async () => {
+    try {
+      await createUsage(newRecord);
+      setNewRecord({ fixture_id: "", usage_hours: "" });
+      fetchRecords();
+    } catch {
+      setError("Failed to create usage record");
+    }
+  };
+
+  // UPDATE
+  const handleUpdate = async () => {
+    if (!editingRecord) return;
+    try {
+      await updateUsage(editingRecord.id, editingRecord);
+      setEditingRecord(null);
+      fetchRecords();
+    } catch {
+      setError("Failed to update usage record");
+    }
+  };
+
+  // DELETE
+  const handleDelete = async (id) => {
+    try {
+      await deleteUsage(id);
+      fetchRecords();
+    } catch {
+      setError("Failed to delete usage record");
+    }
+  };
 
   return (
     <div>
-      <h2>Usage</h2>
+      <h1>Usage Records</h1>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+    {/* Create form */}
+      <input
+        type="text"
+        placeholder="Fixture ID"
+        value={newRecord.fixture_id}
+        onChange={(e) => setNewRecord({ ...newRecord, fixture_id: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Usage Hours"
+        value={newRecord.usage_hours}
+        onChange={(e) => setNewRecord({ ...newRecord, usage_hours: e.target.value })}
+      />
+      <button onClick={handleCreate}>Add Record</button>
+
+    {/* Usage list */}
       <ul>
-        {usage.map((u) => (
-          <li key={u.id}>{u.usage_type}</li>
+        {records.map((r) => (
+          <li key={r.id}>
+            {editingRecord?.id === r.id ? (
+              <>
+                <input
+                  type="text"
+                  value={editingRecord.fixture_id}
+                  onChange={(e) =>
+                    setEditingRecord({ ...editingRecord, fixture_id: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  value={editingRecord.usage_hours}
+                  onChange={(e) =>
+                    setEditingRecord({ ...editingRecord, usage_hours: e.target.value })
+                  }
+                />
+                <button onClick={handleUpdate}>Save</button>
+                <button onClick={() => setEditingRecord(null)}>Cancel</button>
+              </>
+            ) : (
+              <>
+                {r.fixture_id}: {r.usage_hours} hrs
+                <button onClick={() => setEditingRecord(r)}>Edit</button>
+                <button onClick={() => handleDelete(r.id)}>Delete</button>
+              </>
+            )}
+          </li>
         ))}
       </ul>
     </div>
   );
-}
+};
+
+export default UsagePage;
